@@ -24,14 +24,14 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Vector2 position = transform.position;
-        Vector2 direction = Vector2.down;
-        float distance = 1.0f;
-
-        RaycastHit2D hit = Physics2D.Raycast(position, direction, distance, groundLayer);
-        if (hit.collider != null)
+        RaycastHit hit;
+        if (Physics.Raycast(transform.position, Vector3.down, out hit, 1.1f, groundLayer))
         {
             isGrounded = true;
+        }
+        else
+        {
+            isGrounded = false;
         }
 
         if (Input.GetKey(KeyCode.LeftShift))
@@ -58,10 +58,10 @@ public class PlayerMovement : MonoBehaviour
             default:
                 rb.velocity = new Vector3(Input.GetAxis("Horizontal") * Time.deltaTime * walkSpeed, rb.velocity.y, Input.GetAxis("Vertical") * Time.deltaTime * walkSpeed);
                 break;
-                
+
         }
 
-        if (Input.GetButton("Jump"))
+        if (Input.GetButton("Jump") && isGrounded)
         {
             rb.velocity = new Vector3(rb.velocity.x, jumpHeight, rb.velocity.z);
         }

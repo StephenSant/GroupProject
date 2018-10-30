@@ -373,7 +373,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: 0}
-  jumpHeight: 0
+  jumpHeight: 10
   isGrounded: 0
   groundLayer:
     serializedVersion: 2
