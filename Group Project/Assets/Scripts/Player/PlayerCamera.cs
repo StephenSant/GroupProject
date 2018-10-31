@@ -63,12 +63,12 @@ public class PlayerCamera : MonoBehaviour
         }
         if (Input.GetMouseButton(1))
         {
-            
-            offset.z = Mathf.Lerp(offset.z,aimPos, zoomSpeed);
+
+            offset.z = Mathf.Lerp(offset.z, aimPos, zoomSpeed);
         }
         else
         {
-            offset.z = Mathf.Lerp(offset.z,originalOffest.z, zoomSpeed);
+            offset.z = Mathf.Lerp(offset.z, originalOffest.z, zoomSpeed);
         }
     }
     private void FixedUpdate()
