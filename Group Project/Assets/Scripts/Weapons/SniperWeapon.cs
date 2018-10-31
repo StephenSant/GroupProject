@@ -6,8 +6,8 @@ using UnityEngine.UI;
 public class SniperWeapon : MonoBehaviour
 {
     public float damage = 80f;
-    public int currentAmmo, firedShots, startAmount, remainingAmmo;  
-    public float reloadTime = 4.2f;
+    public int currentAmmo, firedShots, remainingAmmo;  
+    public float reloadTime = 3.1f;
     public float delayBetweenShots = 0.2f;
     public float fireRate = 1f;
     public int magCap = 10;
@@ -27,7 +27,7 @@ public class SniperWeapon : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        currentAmmo = startAmount;
+        currentAmmo = magCap;
         bulletTrail = GetComponent<LineRenderer>();
         playerCam = Camera.main;
     }
@@ -74,7 +74,7 @@ public class SniperWeapon : MonoBehaviour
         {
             StopCoroutine(ReloadingSequence());
         }
-        if (Input.GetKeyDown(KeyCode.R) && remainingAmmo > magCap)
+        if (Input.GetKeyDown(KeyCode.R) && remainingAmmo < magCap)
         {
             StartCoroutine(ReloadingSequence());
         }
@@ -107,10 +107,7 @@ public class SniperWeapon : MonoBehaviour
             bulletTrail.SetPosition(1, playerCam.transform.forward * weaponRange);
         }
     }
-    void Reload()
-    {
 
-    }
     private IEnumerator ShotEffect()
     {
         bulletTrail.enabled = true;
@@ -133,7 +130,7 @@ public class SniperWeapon : MonoBehaviour
             remainingAmmo -= magCap;
             currentAmmo = magCap;
         }
-        if (currentAmmo > 0 && remainingAmmo < 0)
+        if (currentAmmo > 0 && remainingAmmo >= 0)
         {
             currentAmmo += remainingAmmo;
             remainingAmmo -= firedShots;

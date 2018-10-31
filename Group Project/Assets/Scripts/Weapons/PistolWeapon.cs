@@ -1,11 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
 public class PistolWeapon : MonoBehaviour
 {
     public float damage = 15f;
-    public int currentAmmo;
     public float reloadTime = 3.1f;
     public float delayBetweenShots = 0.1f;
     public float fireRate = 1f;
@@ -14,9 +13,10 @@ public class PistolWeapon : MonoBehaviour
     public float weaponRange = 20f;
     public Camera playerCam;
     public float nextFire;
-
+    public int currentAmmo, firedShots, remainingAmmo;
     public Transform hitPoint;
-
+    public Text left, loaded;
+    private bool reloading;
     private float rayDistance = 25f;
     private bool canFire;
     private LineRenderer bulletTrail;
@@ -24,6 +24,7 @@ public class PistolWeapon : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        currentAmmo = magCap;
         bulletTrail = GetComponent<LineRenderer>();
         playerCam = Camera.main;
     }
@@ -57,10 +58,31 @@ public class PistolWeapon : MonoBehaviour
         // If mouse button down
         // Shoot bullet
 
-        if (Input.GetKey(KeyCode.Mouse0) && Time.time > nextFire)
+        if (Input.GetKey(KeyCode.Mouse0) && Time.time > nextFire && currentAmmo > 0)
         {
             Shoot();
+            currentAmmo -= 1;
+            firedShots += 1;
+
         }
+        if (reloading == false)
+        {
+            StopCoroutine(ReloadingSequence());
+        }
+        if (Input.GetKeyDown(KeyCode.R) && remainingAmmo < magCap)
+        {
+            StartCoroutine(ReloadingSequence());
+        }
+        if (Input.GetKey(KeyCode.Mouse0) && currentAmmo <= 0 && remainingAmmo > 0)
+        {
+            StartCoroutine(ReloadingSequence());
+        }
+        if (remainingAmmo <= 0)
+        {
+            remainingAmmo = 0;
+        }
+        AmmoLoadedText();
+        AmmoInText();
     }
     void Shoot()
     {
@@ -92,5 +114,34 @@ public class PistolWeapon : MonoBehaviour
 
         bulletTrail.enabled = false;
     }
-
+    private IEnumerator ReloadingSequence()
+    {
+        reloading = true;
+        yield return new WaitForSeconds(3.5f);
+        if (currentAmmo > 0)
+        {
+            remainingAmmo -= firedShots;
+            currentAmmo = magCap;
+        }
+        if (currentAmmo <= 0)
+        {
+            remainingAmmo -= magCap;
+            currentAmmo = magCap;
+        }
+        if (currentAmmo > 0 && remainingAmmo >= 0)
+        {
+            currentAmmo += remainingAmmo;
+            remainingAmmo -= firedShots;
+        }
+        firedShots = 0;
+        reloading = false;
+    }
+    public void AmmoLoadedText()
+    {
+        left.text = "" + currentAmmo.ToString();
+    }
+    public void AmmoInText()
+    {
+        loaded.text = "" + remainingAmmo.ToString();
+    }
 }
