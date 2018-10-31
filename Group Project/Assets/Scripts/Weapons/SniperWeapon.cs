@@ -15,8 +15,9 @@ public class SniperWeapon : MonoBehaviour
     public float weaponRange = 100;
     public Camera playerCam;
     public float nextFire;
-    public Text loaded, left;
-    public Transform hitPoint;
+    //public Text loaded, left;
+    //public Transform hitPoint;
+    public Transform laserSight;
 
     private bool reloading;
     private float rayDistance = 100f;
@@ -49,11 +50,13 @@ public class SniperWeapon : MonoBehaviour
         {// Rotate gun to hit point - Quaternion.LookRotation(direction)
             Vector3 relativePos = hit.point - transform.position;
             transform.rotation = Quaternion.LookRotation(relativePos, Vector3.up);
+            laserSight.position = hit.point;
         }
         else
         {
-             Vector3 relativePos = new Vector3(playerCam.transform.position.x,playerCam.transform.position.y,playerCam.transform.position.z+weaponRange) - transform.position;
+            Vector3 relativePos = playerCam.transform.forward * weaponRange - transform.position;
             transform.rotation = Quaternion.LookRotation(relativePos, Vector3.up);
+            laserSight.position = relativePos;
         }
 
 
@@ -83,8 +86,8 @@ public class SniperWeapon : MonoBehaviour
         {
             remainingAmmo = 0;
         }
-        AmmoLoadedText();
-        AmmoInText();
+        //AmmoLoadedText();
+        //AmmoInText();
     }
     void Shoot()
     {
@@ -138,12 +141,12 @@ public class SniperWeapon : MonoBehaviour
         firedShots = 0;
         reloading = false;
     }
-    public void AmmoLoadedText()
+    /*public void AmmoLoadedText()
     {
         left.text = "" + currentAmmo.ToString();
     }
     public void AmmoInText()
     {
         loaded.text = "" + remainingAmmo.ToString();
-    }
+    }*/
 }
