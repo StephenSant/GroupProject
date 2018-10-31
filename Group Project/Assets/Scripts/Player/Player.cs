@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    //public PistolWeapon pistol;
+    //public SniperWeapon sniper;
+
+
 
 	// Use this for initialization
 	void Start ()
@@ -14,14 +18,7 @@ public class Player : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
     {
-		if (Input.GetKey(KeyCode.Mouse0))
-        {
-            Shoot();
-        }
-        if (Input.GetKey(KeyCode.Mouse1))
-        {
-            Aim();
-        }
+
 	}
     void Shoot()
     {
