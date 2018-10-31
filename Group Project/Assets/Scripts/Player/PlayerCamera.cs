@@ -6,6 +6,8 @@ public class PlayerCamera : MonoBehaviour
 {
     #region Variable
     #region Publics
+    public float aimPos;
+    public float zoomSpeed = .25f;
     public Transform target;//watchu lookin at?
     public bool hideCursor = true;//is the cursor hidden?
     [Header("Orbit")]
@@ -58,6 +60,15 @@ public class PlayerCamera : MonoBehaviour
             y = ClampAngle(y, yMinLimit, yMaxLimit);//clamp the angle using the "ClampAngle" function
 
             transform.rotation = Quaternion.Euler(y, x, 0);//rotate the transform using euler angle (y for x / x for y)
+        }
+        if (Input.GetMouseButton(1))
+        {
+            
+            offset.z = Mathf.Lerp(offset.z,aimPos, zoomSpeed);
+        }
+        else
+        {
+            offset.z = Mathf.Lerp(offset.z,originalOffest.z, zoomSpeed);
         }
     }
     private void FixedUpdate()
