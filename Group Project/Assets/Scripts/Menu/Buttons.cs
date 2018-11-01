@@ -9,14 +9,29 @@ public class Buttons : MonoBehaviour
     public GameObject mainMenu, optionMenu;
     public bool optionOn;
 
+    public GameObject pauseMenu, pauseOptions, gamePanel;
+    public bool paused;
+
     private void Start()
     {
-        mainMenu = GameObject.Find("Main Menu");
-        optionMenu = GameObject.Find("Option Menu");
-
-        mainMenu.SetActive(true);
-        optionMenu.SetActive(false);
-        optionOn = false;
+        if (GameObject.Find("Main Menu") != null)
+        {
+            mainMenu = GameObject.Find("Main Menu");
+            optionMenu = GameObject.Find("Option Menu");
+            mainMenu.SetActive(true);
+            optionMenu.SetActive(false);
+            optionOn = false;
+        }
+        else if (GameObject.Find("Pause Menu") != null)
+        {
+            pauseMenu = GameObject.Find("Pause Menu");
+            pauseOptions = GameObject.Find("Pause Options");
+            gamePanel = GameObject.Find("Game Panel");
+            gamePanel.SetActive(true);
+            pauseMenu.SetActive(false);
+            pauseOptions.SetActive(false);
+            paused = false;
+        }
     }
 
     public void GoToScene(int scene)
@@ -37,6 +52,22 @@ public class Buttons : MonoBehaviour
             mainMenu.SetActive(true);
             optionMenu.SetActive(false);
             optionOn = false;
+        }
+    }
+
+    public void TogglePause()
+    {
+        if (!paused)
+        {
+            gamePanel.SetActive(false);
+            pauseMenu.SetActive(true);
+            paused = true;
+        }
+        else if (paused)
+        {
+            gamePanel.SetActive(true);
+            pauseMenu.SetActive(false);
+            paused = false;
         }
     }
 

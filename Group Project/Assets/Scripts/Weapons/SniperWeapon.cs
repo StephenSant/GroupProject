@@ -16,7 +16,10 @@ public class SniperWeapon : MonoBehaviour
     public Camera playerCam;
     public float nextFire;
     public Text left;
+<<<<<<< HEAD
     public Transform hitPoint;
+=======
+>>>>>>> a1d8dfb0541c7ed6408c041924cef357516b813f
     public Transform laserSight;
 
     private bool reloading;
@@ -38,8 +41,7 @@ public class SniperWeapon : MonoBehaviour
         Gizmos.DrawLine(aimray.origin, aimray.origin + aimray.direction * rayDistance);
     }
 
-    // Update is called once per frame
-    void Update()
+    private void LateUpdate()
     {
         // Detect collision with wall (Raycast to wall)
         Vector3 rayOrigin = playerCam.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, 0.0f));
@@ -58,8 +60,11 @@ public class SniperWeapon : MonoBehaviour
             transform.rotation = Quaternion.LookRotation(relativePos, Vector3.up);
             laserSight.position = relativePos;
         }
+    }
 
-
+    // Update is called once per frame
+    void Update()
+    {
         // If mouse button down
         // Shoot bullet
 
@@ -87,7 +92,10 @@ public class SniperWeapon : MonoBehaviour
             remainingAmmo = 0;
         }
         AmmoLoadedText();
+<<<<<<< HEAD
 
+=======
+>>>>>>> a1d8dfb0541c7ed6408c041924cef357516b813f
     }
     void Shoot()
     {
@@ -142,5 +150,8 @@ public class SniperWeapon : MonoBehaviour
     {
         left.text = "" + currentAmmo.ToString();
     }
+<<<<<<< HEAD
 
+=======
+>>>>>>> a1d8dfb0541c7ed6408c041924cef357516b813f
 }
