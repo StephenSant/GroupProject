@@ -2,14 +2,14 @@
 using System.Collections.Generic; // Used to get public List<Transform> visibleTargets.
 using UnityEngine;
 
-public class SearchLight : MonoBehaviour
+public class BossFoV_SearchLight : MonoBehaviour
 {
     #region Variables
     // How far (viewRadius) can the AI see, and how much (viewAngle) can they see (clamped to 0°-360°).
     [Header("View Attributes")]
-    public float viewRadius;
+    public float viewRadius = 50;
     [Range(0, 360)]
-    public float viewAngle;
+    public float viewAngle = 70;
 
     // Two Masks used to set what counts as a target, or an obstruction to the FieldOfView.
     public LayerMask targetMask;
@@ -22,10 +22,10 @@ public class SearchLight : MonoBehaviour
     // (advanced)
     // Used in constructing mesh from contact points of Raycast.
     // NOTE: This is where things get complicated, but it's all for the sake of efficiency.
-    public float meshResolution; // Determines how many rays are cast out in 'DrawFieldOfView()' per ° (degree).
+    public float meshResolution = 3; // Determines how many rays are cast out in 'DrawFieldOfView()' per ° (degree).
     // Used in 'FindEdge' Method.
-    public int edgeResolveIterations;
-    public float edgeDstThreshold;
+    public int edgeResolveIterations = 4;
+    public float edgeDstThreshold = 0.5f;
 
     // (advanced)
     // Used to visualize the Field of View arc.
@@ -106,6 +106,7 @@ public class SearchLight : MonoBehaviour
     {
         // stepCount = number of rays cast from meshResolution per ° (degree).
         // stepAngleSize = How many ° are in each stepCount.
+        // MATH → 
         int stepCount = Mathf.RoundToInt(viewAngle * meshResolution);
         float stepAngleSize = viewAngle / stepCount;
 
@@ -252,6 +253,20 @@ public class SearchLight : MonoBehaviour
 
         // Takes angle in Unity (converted from degrees (°) to radians (rad)), and switches Sine and Cosine
         return new Vector3(Mathf.Sin(angleInDegrees * Mathf.Deg2Rad), 0, Mathf.Cos(angleInDegrees * Mathf.Deg2Rad));
+    }
+    #endregion
+
+    #region void METHOD - Draw Line to Target
+    private void OnDrawGizmos()
+    {
+        // 3D GUI Drawing Colour.
+        Gizmos.color = Color.red;
+        // foreach (for each instance of) 'visibleTarget' added to the list in the 'BossFoV_SearchLight' script...
+        foreach (Transform visibleTarget in visibleTargets)
+        {
+            // Draw a line from the script's transform position in 3D space to the target's position.
+            Gizmos.DrawLine(transform.position, visibleTarget.position);
+        }
     }
     #endregion
 
