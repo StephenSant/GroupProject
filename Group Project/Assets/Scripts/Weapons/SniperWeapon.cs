@@ -15,8 +15,8 @@ public class SniperWeapon : MonoBehaviour
     public float weaponRange = 100;
     public Camera playerCam;
     public float nextFire;
-    //public Text loaded, left;
-    //public Transform hitPoint;
+    public Text left;
+    public Transform hitPoint;
     public Transform laserSight;
 
     private bool reloading;
@@ -86,8 +86,8 @@ public class SniperWeapon : MonoBehaviour
         {
             remainingAmmo = 0;
         }
-        //AmmoLoadedText();
-        //AmmoInText();
+        AmmoLoadedText();
+
     }
     void Shoot()
     {
@@ -138,12 +138,9 @@ public class SniperWeapon : MonoBehaviour
         firedShots = 0;
         reloading = false;
     }
-    /*public void AmmoLoadedText()
+    public void AmmoLoadedText()
     {
         left.text = "" + currentAmmo.ToString();
     }
-    public void AmmoInText()
-    {
-        loaded.text = "" + remainingAmmo.ToString();
-    }*/
+
 }
