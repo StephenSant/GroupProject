@@ -31,6 +31,16 @@ public class Buttons : MonoBehaviour
             pauseMenu.SetActive(false);
             pauseOptions.SetActive(false);
             paused = false;
+            Cursor.visible = false;
+            Cursor.lockState = CursorLockMode.Locked;
+        }
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            TogglePause();
         }
     }
 
@@ -43,31 +53,56 @@ public class Buttons : MonoBehaviour
     {
         if (!optionOn)
         {
-            mainMenu.SetActive(false);
-            optionMenu.SetActive(true);
+            if (mainMenu != null)
+            {
+                mainMenu.SetActive(false);
+                optionMenu.SetActive(true);
+            }
+
+            else if (pauseMenu != null)
+            {
+                pauseMenu.SetActive(false);
+                pauseOptions.SetActive(true);
+            }
+
             optionOn = true;
         }
         else if (optionOn)
         {
-            mainMenu.SetActive(true);
-            optionMenu.SetActive(false);
-            optionOn = false;
-        }
+            if (optionMenu != null)
+            {
+                mainMenu.SetActive(true);
+                optionMenu.SetActive(false);
+            }
+            else if (pauseOptions != null)
+            {
+                pauseMenu.SetActive(true);
+                pauseOptions.SetActive(false);
+            }
+                optionOn = false;
+            }
     }
 
     public void TogglePause()
     {
         if (!paused)
         {
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
             gamePanel.SetActive(false);
             pauseMenu.SetActive(true);
+            Time.timeScale = 0;
             paused = true;
         }
         else if (paused)
         {
+            Cursor.visible = false;
+            Cursor.lockState = CursorLockMode.Locked;
             gamePanel.SetActive(true);
             pauseMenu.SetActive(false);
+            Time.timeScale = 1;
             paused = false;
+            
         }
     }
 

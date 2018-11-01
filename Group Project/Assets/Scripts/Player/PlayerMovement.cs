@@ -16,16 +16,24 @@ public class PlayerMovement : MonoBehaviour
     public MoveSpeed moveSpeed;
 
     Vector3 moveDir;
+    Vector3 spawnPoint;
 
     // Use this for initialization
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        spawnPoint = transform.position;
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (transform.position.y < -10)
+        {
+            Debug.Log("Went out of bounds.");
+            transform.position = spawnPoint;
+        }
+
         Vector3 camEuler = Camera.main.transform.eulerAngles;
         moveDir = Quaternion.AngleAxis(camEuler.y, Vector3.up) * moveDir;
         Vector3 force = new Vector3(moveDir.x, rb.velocity.y, moveDir.z);

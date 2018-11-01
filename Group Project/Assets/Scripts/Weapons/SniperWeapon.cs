@@ -52,7 +52,7 @@ public class SniperWeapon : MonoBehaviour
         }
         else
         {
-            Vector3 relativePos = playerCam.transform.forward * weaponRange - transform.position;
+            Vector3 relativePos = playerCam.transform.forward * weaponRange;
             transform.rotation = Quaternion.LookRotation(relativePos, Vector3.up);
             laserSight.position = relativePos;
         }
@@ -71,8 +71,13 @@ public class SniperWeapon : MonoBehaviour
             firedShots += 1;
 
         }
-        if (reloading == false)
+        if (reloading)
         {
+            left.color = Color.red;
+        }
+        else if (reloading == false)
+        {
+            left.color = Color.black;
             StopCoroutine(ReloadingSequence());
         }
         if (Input.GetKeyDown(KeyCode.R) && remainingAmmo < magCap)
@@ -88,6 +93,7 @@ public class SniperWeapon : MonoBehaviour
             remainingAmmo = 0;
         }
         AmmoLoadedText();
+        
     }
     void Shoot()
     {

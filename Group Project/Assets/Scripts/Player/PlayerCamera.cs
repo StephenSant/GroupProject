@@ -25,7 +25,7 @@ public class PlayerCamera : MonoBehaviour
     public LayerMask ignoreLayers;//what layers does the camera not see?
     #endregion
     #region Privates
-    private Vector3 originalOffest;//what is the offset at the start of the game?
+    private Vector3 originalOffset;//what is the offset at the start of the game?
     private float distance;//whats the current distance?
     private float rayDistance = 1000;//how far can the ray check for collisions? 
     private float x = 0;//whats the x degrees rotation?
@@ -42,8 +42,8 @@ public class PlayerCamera : MonoBehaviour
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
         }
-        originalOffest = transform.position - target.position;//finds original offset from target
-        rayDistance = originalOffest.magnitude;//set raydist to current distance magnitude of the camera
+        originalOffset = transform.position - target.position;//finds original offset from target
+        rayDistance = originalOffset.magnitude;//set raydist to current distance magnitude of the camera
         Vector3 angles = transform.eulerAngles;//camera rotation
                                                //sets x and y degrees to current rotation
         x = angles.y;
@@ -68,7 +68,7 @@ public class PlayerCamera : MonoBehaviour
         }
         else
         {
-            offset.z = Mathf.Lerp(offset.z, originalOffest.z, zoomSpeed);
+            offset.z = Mathf.Lerp(offset.z, originalOffset.z, zoomSpeed);
         }
     }
     private void FixedUpdate()
@@ -87,7 +87,7 @@ public class PlayerCamera : MonoBehaviour
                     return;
                 }
             }
-            distance = originalOffest.magnitude;//sets distance to original distance
+            distance = originalOffset.magnitude;//sets distance to original distance
         }
 
     }
