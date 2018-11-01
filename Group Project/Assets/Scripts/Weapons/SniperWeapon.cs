@@ -16,6 +16,9 @@ public class SniperWeapon : MonoBehaviour
     public Camera playerCam;
     public float nextFire;
     public Text left;
+
+    public Transform hitPoint;
+
     public Transform laserSight;
 
     private bool reloading;
@@ -93,7 +96,12 @@ public class SniperWeapon : MonoBehaviour
             remainingAmmo = 0;
         }
         AmmoLoadedText();
+<<<<<<< HEAD
         
+=======
+
+
+>>>>>>> c38d058f00f243da11d2c0647d758a9c3acb4b70
     }
     void Shoot()
     {
