@@ -61,7 +61,7 @@ public class PlayerCamera : MonoBehaviour
 
             transform.rotation = Quaternion.Euler(y, x, 0);//rotate the transform using euler angle (y for x / x for y)
         }
-        if (Input.GetMouseButton(1))
+        if (Input.GetMouseButton(1) && Time.timeScale == 1)
         {
 
             offset.z = Mathf.Lerp(offset.z, aimPos, zoomSpeed);

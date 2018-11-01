@@ -33,6 +33,7 @@ public class Buttons : MonoBehaviour
             paused = false;
             Cursor.visible = false;
             Cursor.lockState = CursorLockMode.Locked;
+            Time.timeScale = 1;
         }
     }
 

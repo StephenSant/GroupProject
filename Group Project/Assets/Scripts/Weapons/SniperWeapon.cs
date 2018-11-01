@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class SniperWeapon : MonoBehaviour
 {
     public float damage = 80f;
-    public int currentAmmo, firedShots, remainingAmmo;  
+    public int currentAmmo, firedShots, remainingAmmo;
     public float reloadTime = 3.1f;
     public float delayBetweenShots = 0.2f;
     public float fireRate = 1f;
@@ -15,22 +15,17 @@ public class SniperWeapon : MonoBehaviour
     public float weaponRange = 100;
     public Camera playerCam;
     public float nextFire;
-    public Text left;
-
-    public Transform hitPoint;
-
+    public Text ammoText;
     public Transform laserSight;
 
     private bool reloading;
     private float rayDistance = 100f;
     private bool canFire;
-    private LineRenderer bulletTrail;
     private WaitForSeconds shotDuration = new WaitForSeconds(0.3f);
     // Use this for initialization
     void Start()
     {
         currentAmmo = magCap;
-        bulletTrail = GetComponent<LineRenderer>();
         playerCam = Camera.main;
     }
     private void OnDrawGizmos()
@@ -57,7 +52,7 @@ public class SniperWeapon : MonoBehaviour
         {
             Vector3 relativePos = playerCam.transform.forward * weaponRange;
             transform.rotation = Quaternion.LookRotation(relativePos, Vector3.up);
-            laserSight.position = relativePos;
+            laserSight.position = playerCam.transform.forward * weaponRange;
         }
     }
 
@@ -67,7 +62,7 @@ public class SniperWeapon : MonoBehaviour
         // If mouse button down
         // Shoot bullet
 
-        if (Input.GetKey(KeyCode.Mouse0) && Time.time > nextFire && currentAmmo > 0)
+        if (Input.GetKey(KeyCode.Mouse0) && Time.time > nextFire && currentAmmo > 0 && Time.timeScale == 1)
         {
             Shoot();
             currentAmmo -= 1;
@@ -76,18 +71,19 @@ public class SniperWeapon : MonoBehaviour
         }
         if (reloading)
         {
-            left.color = Color.red;
+            ammoText.color = Color.red;
         }
         else if (reloading == false)
         {
-            left.color = Color.black;
+            ammoText.color = Color.black;
             StopCoroutine(ReloadingSequence());
         }
         if (Input.GetKeyDown(KeyCode.R) && remainingAmmo < magCap)
         {
             StartCoroutine(ReloadingSequence());
         }
-        if (Input.GetKey(KeyCode.Mouse0) && currentAmmo <= 0 && remainingAmmo > 0)
+        if (Input.GetKey(KeyCode.Mouse0) && currentAmmo <= 0 && remainingAmmo > 0
+             && Time.timeScale == 1)
         {
             StartCoroutine(ReloadingSequence());
         }
@@ -96,12 +92,6 @@ public class SniperWeapon : MonoBehaviour
             remainingAmmo = 0;
         }
         AmmoLoadedText();
-<<<<<<< HEAD
-        
-=======
-
-
->>>>>>> c38d058f00f243da11d2c0647d758a9c3acb4b70
     }
     void Shoot()
     {
@@ -110,25 +100,20 @@ public class SniperWeapon : MonoBehaviour
         StartCoroutine(ShotEffect());
         Vector3 rayOrigin = playerCam.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, 0.0f));
         RaycastHit hit;
-        bulletTrail.SetPosition(0, muzzle.position);
         if (Physics.Raycast(rayOrigin, playerCam.transform.forward, out hit, weaponRange))
         {
             Vector3 direction = (hit.point - muzzle.position).normalized;
-            bulletTrail.SetPosition(1, hit.point);
         }
         else
         {
-            bulletTrail.SetPosition(1, playerCam.transform.forward * weaponRange);
         }
     }
 
     private IEnumerator ShotEffect()
     {
-        bulletTrail.enabled = true;
 
         yield return shotDuration;
-
-        bulletTrail.enabled = false;
+        
     }
     private IEnumerator ReloadingSequence()
     {
@@ -154,6 +139,6 @@ public class SniperWeapon : MonoBehaviour
     }
     public void AmmoLoadedText()
     {
-        left.text = "" + currentAmmo.ToString();
+        ammoText.text = "" + currentAmmo.ToString();
     }
 }
