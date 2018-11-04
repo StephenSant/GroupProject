@@ -17,16 +17,23 @@ public class SniperWeapon : MonoBehaviour
     public float nextFire;
     public Text ammoText;
     public Transform laserSight;
-
+    public AudioSource soundSource;
+    public AudioClip[] soundclips;
     private bool reloading;
     private float rayDistance = 100f;
     private bool canFire;
     private WaitForSeconds shotDuration = new WaitForSeconds(0.3f);
+    public SphereCollider soundCollider;
+
+
     // Use this for initialization
     void Start()
     {
         currentAmmo = magCap;
         playerCam = Camera.main;
+        soundSource = GameObject.Find("SniperSounds").GetComponent<AudioSource>();
+        soundCollider = GetComponent<SphereCollider>();
+        soundCollider.enabled = false;
     }
     private void OnDrawGizmos()
     {
@@ -98,6 +105,7 @@ public class SniperWeapon : MonoBehaviour
         nextFire = Time.time + fireRate;
 
         StartCoroutine(ShotEffect());
+
         Vector3 rayOrigin = playerCam.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, 0.0f));
         RaycastHit hit;
         if (Physics.Raycast(rayOrigin, playerCam.transform.forward, out hit, weaponRange))
@@ -112,11 +120,17 @@ public class SniperWeapon : MonoBehaviour
     private IEnumerator ShotEffect()
     {
 
+        soundSource.clip = soundclips[0];
+        soundSource.Play();
         yield return shotDuration;
-        
+
+
     }
     private IEnumerator ReloadingSequence()
     {
+        soundSource.clip = soundclips[1];
+        soundSource.Play();
+
         reloading = true;
         yield return new WaitForSeconds(3.5f);
         if (currentAmmo > 0)
@@ -136,9 +150,11 @@ public class SniperWeapon : MonoBehaviour
         }
         firedShots = 0;
         reloading = false;
+
     }
     public void AmmoLoadedText()
     {
         ammoText.text = "" + currentAmmo.ToString();
     }
+
 }
