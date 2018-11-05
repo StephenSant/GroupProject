@@ -5,15 +5,26 @@ using UnityEngine.UI;
 
 public class SniperWeapon : MonoBehaviour
 {
+    #region Weapon Stats
+    [Header("Weapon Stats")]
     public float damage = 80f;
     public int currentAmmo, firedShots, remainingAmmo;
     public float reloadTime = 3.1f;
     public float delayBetweenShots = 0.2f;
     public float fireRate = 1f;
     public int magCap = 10;
-    public Transform muzzle;
     public float weaponRange = 100;
+    #endregion
+    #region Weapon Components
+    [Header("Weapon Components")]
+    public Transform muzzle;
+    //public SphereCollider soundCollider;
+    public GameObject soundCollision;
+    #endregion
+    #region Player Cam
     public Camera playerCam;
+    #endregion
+    #region Weapon Functions
     public float nextFire;
     public Text ammoText;
     public Transform laserSight;
@@ -23,17 +34,19 @@ public class SniperWeapon : MonoBehaviour
     private float rayDistance = 100f;
     private bool canFire;
     private WaitForSeconds shotDuration = new WaitForSeconds(0.3f);
-    public SphereCollider soundCollider;
+    #endregion
+
+
 
 
     // Use this for initialization
     void Start()
     {
+
         currentAmmo = magCap;
         playerCam = Camera.main;
         soundSource = GameObject.Find("SniperSounds").GetComponent<AudioSource>();
-        soundCollider = GetComponent<SphereCollider>();
-        soundCollider.enabled = false;
+        //soundCollider.enabled = false;
     }
     private void OnDrawGizmos()
     {
@@ -69,7 +82,7 @@ public class SniperWeapon : MonoBehaviour
         // If mouse button down
         // Shoot bullet
 
-        if (Input.GetKey(KeyCode.Mouse0) && Time.time > nextFire && currentAmmo > 0 && Time.timeScale == 1)
+        if (Input.GetKey(KeyCode.Mouse0) && Time.time > nextFire && currentAmmo > 0 && Time.timeScale == 1 && !reloading)
         {
             Shoot();
             currentAmmo -= 1;
@@ -85,7 +98,7 @@ public class SniperWeapon : MonoBehaviour
             ammoText.color = Color.black;
             StopCoroutine(ReloadingSequence());
         }
-        if (Input.GetKeyDown(KeyCode.R) && remainingAmmo < magCap)
+        if (Input.GetKeyDown(KeyCode.R) && currentAmmo < magCap)
         {
             StartCoroutine(ReloadingSequence());
         }
@@ -105,7 +118,7 @@ public class SniperWeapon : MonoBehaviour
         nextFire = Time.time + fireRate;
 
         StartCoroutine(ShotEffect());
-
+        SpawnCollider();
         Vector3 rayOrigin = playerCam.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, 0.0f));
         RaycastHit hit;
         if (Physics.Raycast(rayOrigin, playerCam.transform.forward, out hit, weaponRange))
@@ -119,17 +132,24 @@ public class SniperWeapon : MonoBehaviour
 
     private IEnumerator ShotEffect()
     {
+        if (reloading == false)
+        {
+            soundSource.clip = soundclips[0];
+            soundSource.Play();
+        }
 
-        soundSource.clip = soundclips[0];
-        soundSource.Play();
         yield return shotDuration;
 
 
     }
     private IEnumerator ReloadingSequence()
     {
-        soundSource.clip = soundclips[1];
-        soundSource.Play();
+        if (!reloading)
+        {
+            soundSource.clip = soundclips[1];
+            soundSource.Play();
+        }
+
 
         reloading = true;
         yield return new WaitForSeconds(3.5f);
@@ -156,5 +176,24 @@ public class SniperWeapon : MonoBehaviour
     {
         ammoText.text = "" + currentAmmo.ToString();
     }
+    //public void SpawnCollider()
+    //{
+    //    GameObject soundCollision = new GameObject("SphereBubble");
+    //    soundCollision.transform.position = gameObject.transform.position;
+    //    soundCollision.AddComponent<SoundBubble>().SpawnCollider();
+    //}
+    public void SpawnCollider()
+    {
 
+        Collider[] hitColliders = Physics.OverlapSphere(transform.position, 50f);
+        int i = 0;
+        while (i < hitColliders.Length)
+        {
+            if (hitColliders[i].tag == "Enemy")
+            {
+                hitColliders[i].SendMessage("Seek");
+            }
+            i++;
+        }
+    }
 }

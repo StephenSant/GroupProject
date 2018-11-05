@@ -213,23 +213,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!1 &426095829 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1282344008078202, guid: ba09b0c40cefd75439db3b8cbfc70554,
-    type: 2}
-  m_PrefabInternal: {fileID: 1823314838}
---- !u!135 &426095833
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 426095829}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 20
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!4 &499082044 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4108482343591110, guid: ba09b0c40cefd75439db3b8cbfc70554,
@@ -848,7 +831,7 @@ Prefab:
         type: 2}
       propertyPath: soundCollider
       value: 
-      objectReference: {fileID: 426095833}
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ba09b0c40cefd75439db3b8cbfc70554, type: 2}
   m_IsPrefabAsset: 0
