@@ -244,7 +244,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 114289168102777638, guid: ba09b0c40cefd75439db3b8cbfc70554,
         type: 2}
-      propertyPath: left
+      propertyPath: ammoText
       value: 
       objectReference: {fileID: 474468403}
     - target: {fileID: 114289168102777638, guid: ba09b0c40cefd75439db3b8cbfc70554,
@@ -252,15 +252,6 @@ Prefab:
       propertyPath: laserSight
       value: 
       objectReference: {fileID: 1133165186}
-    - target: {fileID: 114289168102777638, guid: ba09b0c40cefd75439db3b8cbfc70554,
-        type: 2}
-      propertyPath: ammoText
-      value: 
-      objectReference: {fileID: 474468403}
-    - target: {fileID: 4162756121848864, guid: ba09b0c40cefd75439db3b8cbfc70554, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: 0.308
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ba09b0c40cefd75439db3b8cbfc70554, type: 2}
   m_IsPrefabAsset: 0
