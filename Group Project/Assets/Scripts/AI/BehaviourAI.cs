@@ -10,7 +10,8 @@ public class BehaviourAI : MonoBehaviour
     public enum State // The behaviour states of the enemy AI.
     {
         Patrol = 0,
-        Seek = 1
+        Seek = 1,
+        Investigate = 2
     }
 
     public State currentState = State.Patrol; // The default/start state set to Patrol.
@@ -110,6 +111,10 @@ public class BehaviourAI : MonoBehaviour
         }
         //fov.viewRadius = 10f; // FieldOfView arc radius during 'Seek'.
     }
+    void Investigate()
+    {
+        
+    }
     #endregion STATE - Seek
 
     #region Start
@@ -135,6 +140,9 @@ public class BehaviourAI : MonoBehaviour
             case State.Seek:
                 // Seek state
                 Seek();
+                break;
+            case State.Investigate:
+                Investigate();
                 break;
             default:
                 break;
