@@ -14,8 +14,8 @@ public class PistolWeapon : MonoBehaviour
     public Camera playerCam;
     public float nextFire;
     public int currentAmmo, firedShots, remainingAmmo;
-    public Transform hitPoint;
     public Text left, loaded;
+    public Text ammoText;
     private bool reloading;
     private float rayDistance = 25f;
     private bool canFire;
@@ -58,22 +58,27 @@ public class PistolWeapon : MonoBehaviour
         // If mouse button down
         // Shoot bullet
 
-        if (Input.GetKey(KeyCode.Mouse0) && Time.time > nextFire && currentAmmo > 0)
+        if (Input.GetKey(KeyCode.Mouse0) && Time.time > nextFire && currentAmmo > 0 && Time.timeScale == 1 && !reloading)
         {
             Shoot();
             currentAmmo -= 1;
             firedShots += 1;
 
         }
-        if (reloading == false)
+        if (reloading)
         {
+            ammoText.color = Color.red;
+        }
+        else if (reloading == false)
+        {
+            ammoText.color = Color.black;
             StopCoroutine(ReloadingSequence());
         }
-        if (Input.GetKeyDown(KeyCode.R) && remainingAmmo < magCap)
+        if (Input.GetKeyDown(KeyCode.R) && currentAmmo < magCap)
         {
             StartCoroutine(ReloadingSequence());
         }
-        if (Input.GetKey(KeyCode.Mouse0) && currentAmmo <= 0 && remainingAmmo > 0)
+        if (Input.GetKey(KeyCode.Mouse0) && currentAmmo <= 0 && remainingAmmo > 0 && Time.timeScale == 1)
         {
             StartCoroutine(ReloadingSequence());
         }
@@ -82,7 +87,7 @@ public class PistolWeapon : MonoBehaviour
             remainingAmmo = 0;
         }
         AmmoLoadedText();
-        AmmoInText();
+
     }
     void Shoot()
     {
@@ -91,31 +96,39 @@ public class PistolWeapon : MonoBehaviour
         StartCoroutine(ShotEffect());
         Vector3 rayOrigin = playerCam.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, 0.0f));
         RaycastHit hit;
-        bulletTrail.SetPosition(0, muzzle.position);
+        //bulletTrail.SetPosition(0, muzzle.position);
         if (Physics.Raycast(rayOrigin, playerCam.transform.forward, out hit, weaponRange))
         {
             Vector3 direction = (hit.point - muzzle.position).normalized;
-            bulletTrail.SetPosition(1, hit.point);
+            //bulletTrail.SetPosition(1, hit.point);
+            MinionHealth enemyHealth = hit.collider.GetComponent<MinionHealth>();
+            if (enemyHealth != null)
+            {
+                enemyHealth.TakeDamage(damage);
+            }
         }
         else
         {
-            bulletTrail.SetPosition(1, playerCam.transform.forward * weaponRange);
+            //bulletTrail.SetPosition(1, playerCam.transform.forward * weaponRange);
         }
     }
-    void Reload()
-    {
 
-    }
     private IEnumerator ShotEffect()
     {
-        bulletTrail.enabled = true;
+        if (reloading == false)
+        {
+            //soundsource plays
+        }
+
 
         yield return shotDuration;
-
-        bulletTrail.enabled = false;
     }
     private IEnumerator ReloadingSequence()
     {
+        if (!reloading)
+        {
+            //soundsource plays
+        }
         reloading = true;
         yield return new WaitForSeconds(3.5f);
         if (currentAmmo > 0)
@@ -140,8 +153,18 @@ public class PistolWeapon : MonoBehaviour
     {
         left.text = "" + currentAmmo.ToString();
     }
-    public void AmmoInText()
+
+    public void SpawnCollider()
     {
-        loaded.text = "" + remainingAmmo.ToString();
+        Collider[] hitColliders = Physics.OverlapSphere(transform.position, 5f);
+        int i = 0;
+        while (i < hitColliders.Length)
+        {
+            if (hitColliders[i].tag == "Enemy")
+            {
+                hitColliders[i].SendMessage("Seek");
+            }
+            i++;
+        }
     }
 }

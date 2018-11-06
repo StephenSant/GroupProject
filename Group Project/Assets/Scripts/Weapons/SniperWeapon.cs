@@ -13,7 +13,7 @@ public class SniperWeapon : MonoBehaviour
     public float delayBetweenShots = 0.2f;
     public float fireRate = 1f;
     public int magCap = 10;
-    public float weaponRange = 100;
+    public float weaponRange = 100f;
     #endregion
     #region Weapon Components
     [Header("Weapon Components")]
@@ -55,7 +55,7 @@ public class SniperWeapon : MonoBehaviour
         Gizmos.DrawLine(aimray.origin, aimray.origin + aimray.direction * rayDistance);
     }
 
-    private void LateUpdate()
+    public void LateUpdate()
     {
         // Detect collision with wall (Raycast to wall)
         Vector3 rayOrigin = playerCam.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, 0.0f));
@@ -67,6 +67,7 @@ public class SniperWeapon : MonoBehaviour
             Vector3 relativePos = hit.point - transform.position;
             transform.rotation = Quaternion.LookRotation(relativePos, Vector3.up);
             laserSight.position = hit.point;
+
         }
         else
         {
@@ -74,6 +75,7 @@ public class SniperWeapon : MonoBehaviour
             transform.rotation = Quaternion.LookRotation(relativePos, Vector3.up);
             laserSight.position = playerCam.transform.forward * weaponRange;
         }
+
     }
 
     // Update is called once per frame
@@ -121,13 +123,21 @@ public class SniperWeapon : MonoBehaviour
         SpawnCollider();
         Vector3 rayOrigin = playerCam.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, 0.0f));
         RaycastHit hit;
+
         if (Physics.Raycast(rayOrigin, playerCam.transform.forward, out hit, weaponRange))
         {
             Vector3 direction = (hit.point - muzzle.position).normalized;
+            MinionHealth enemyHealth = hit.collider.GetComponent<MinionHealth>();
+            if (enemyHealth != null)
+            {
+                enemyHealth.TakeDamage(damage);
+            }
         }
         else
         {
+
         }
+
     }
 
     private IEnumerator ShotEffect()
@@ -176,16 +186,18 @@ public class SniperWeapon : MonoBehaviour
     {
         ammoText.text = "" + currentAmmo.ToString();
     }
+
     //public void SpawnCollider()
     //{
     //    GameObject soundCollision = new GameObject("SphereBubble");
     //    soundCollision.transform.position = gameObject.transform.position;
     //    soundCollision.AddComponent<SoundBubble>().SpawnCollider();
     //}
+
     public void SpawnCollider()
     {
 
-        Collider[] hitColliders = Physics.OverlapSphere(transform.position, 50f);
+        Collider[] hitColliders = Physics.OverlapSphere(transform.position, 30f);
         int i = 0;
         while (i < hitColliders.Length)
         {
