@@ -36,7 +36,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1101699636036514}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -2}
+  m_LocalPosition: {x: 437.15735, y: 65.11, z: 202.4}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -107,7 +107,7 @@ MonoBehaviour:
   offset: {x: 1, y: 1, z: 0}
   xSpeed: 120
   ySpeed: 120
-  yMinLimit: -20
+  yMinLimit: -30
   yMaxLimit: 80
   distanceMin: 0.5
   distanceMax: 5

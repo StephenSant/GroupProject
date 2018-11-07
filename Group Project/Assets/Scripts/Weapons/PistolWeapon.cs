@@ -48,7 +48,11 @@ public class PistolWeapon : MonoBehaviour
     }
 
     // Update is called once per frame
+<<<<<<< HEAD
     void LateUpdate()
+=======
+    public void LateUpdate()
+>>>>>>> 874bcef17e6de7c262d8196af7b0b95bf14a7fdf
     {
         // Detect collision with wall (Raycast to wall)
         Vector3 rayOrigin = playerCam.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, 0.0f));
@@ -63,12 +67,14 @@ public class PistolWeapon : MonoBehaviour
         }
         else
         {
-            Vector3 relativePos = new Vector3(playerCam.transform.position.x, playerCam.transform.position.y, playerCam.transform.position.z + weaponRange) - transform.position;
+            Vector3 relativePos = playerCam.transform.forward * weaponRange;
             transform.rotation = Quaternion.LookRotation(relativePos, Vector3.up);
             laserSight.position = playerCam.transform.forward * weaponRange;
         }
 
-
+    }
+    private void Update()
+    {
         // If mouse button down
         // Shoot bullet
 
@@ -116,8 +122,12 @@ public class PistolWeapon : MonoBehaviour
             Instantiate(bulletParticle, hit.point, Quaternion.identity);
             Vector3 direction = (hit.point - muzzle.position).normalized;
             //bulletTrail.SetPosition(1, hit.point);
+<<<<<<< HEAD
             MinionHealth enemyHealth = hit.collider.GetComponent<MinionHealth>();
             Barrel barrelHealth = hit.collider.GetComponent<Barrel>();
+=======
+            Health enemyHealth = hit.collider.GetComponent<Health>();
+>>>>>>> 874bcef17e6de7c262d8196af7b0b95bf14a7fdf
             if (enemyHealth != null)
             {
                 enemyHealth.TakeDamage(damage);
