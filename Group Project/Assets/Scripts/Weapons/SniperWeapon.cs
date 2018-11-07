@@ -37,6 +37,7 @@ public class SniperWeapon : MonoBehaviour
     #endregion
     #region Particles
     public GameObject bulletParticle;
+
     #endregion
 
 
@@ -49,6 +50,7 @@ public class SniperWeapon : MonoBehaviour
         currentAmmo = magCap;
         playerCam = Camera.main;
         soundSource = GameObject.Find("SniperSounds").GetComponent<AudioSource>();
+
         //soundCollider.enabled = false;
     }
     private void OnDrawGizmos()
@@ -71,12 +73,14 @@ public class SniperWeapon : MonoBehaviour
             transform.rotation = Quaternion.LookRotation(relativePos, Vector3.up);
             laserSight.position = hit.point;
 
+
         }
         else
         {
             Vector3 relativePos = playerCam.transform.forward * weaponRange;
             transform.rotation = Quaternion.LookRotation(relativePos, Vector3.up);
             laserSight.position = playerCam.transform.forward * weaponRange;
+
         }
 
     }
@@ -131,15 +135,10 @@ public class SniperWeapon : MonoBehaviour
         {
             Instantiate(bulletParticle, hit.point, Quaternion.identity);
             Vector3 direction = (hit.point - muzzle.position).normalized;
-            MinionHealth enemyHealth = hit.collider.GetComponent<MinionHealth>();
-            Barrel barrelHealth = hit.collider.GetComponent<Barrel>();
-            if (enemyHealth != null)
+            Health hHandler = hit.collider.GetComponent<Health>();
+            if (hHandler != null)
             {
-                enemyHealth.TakeDamage(damage);
-            }
-            if (barrelHealth != null)
-            {
-                barrelHealth.health -= damage;
+                hHandler.TakeDamage(damage);
             }
         }
         else
@@ -172,20 +171,23 @@ public class SniperWeapon : MonoBehaviour
 
         reloading = true;
         yield return new WaitForSeconds(3.5f);
-        if (currentAmmo > 0)
+        if (reloading)
         {
-            remainingAmmo -= firedShots;
-            currentAmmo = magCap;
-        }
-        if (currentAmmo <= 0)
-        {
-            remainingAmmo -= magCap;
-            currentAmmo = magCap;
-        }
-        if (currentAmmo > 0 && remainingAmmo >= 0)
-        {
-            currentAmmo += remainingAmmo;
-            remainingAmmo -= firedShots;
+            if (currentAmmo > 0)
+            {
+                remainingAmmo -= firedShots;
+                currentAmmo = magCap;
+            }
+            if (currentAmmo <= 0)
+            {
+                remainingAmmo -= magCap;
+                currentAmmo = magCap;
+            }
+            if (currentAmmo > 0 && remainingAmmo >= 0)
+            {
+                currentAmmo += remainingAmmo;
+                remainingAmmo -= firedShots;
+            } 
         }
         firedShots = 0;
         reloading = false;
@@ -196,6 +198,7 @@ public class SniperWeapon : MonoBehaviour
         ammoText.text = "" + currentAmmo.ToString();
     }
 
+<<<<<<< HEAD
     //public void SpawnCollider()
     //{
     //    GameObject soundPoint = new GameObject("SphereBubble");
@@ -203,6 +206,8 @@ public class SniperWeapon : MonoBehaviour
     //    soundPoint.AddComponent<SoundBubble>().SpawnCollider();
     //}
 
+=======
+>>>>>>> 21ade4e12bc56923f2565fd47cfffb4f18b084dd
     public void SpawnCollider()
     {
 //        Transform soundPosition = gameObject.transform;
