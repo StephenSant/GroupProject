@@ -1011,7 +1011,6 @@ Prefab:
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
-<<<<<<< HEAD
     - target: {fileID: 114289168102777638, guid: ba09b0c40cefd75439db3b8cbfc70554,
         type: 2}
 <<<<<<< HEAD
@@ -1038,8 +1037,6 @@ Prefab:
 >>>>>>> parent of 7aa2651... weapon additions (laser sight)
 =======
 >>>>>>> parent of bc4673c... Functional AI
-=======
->>>>>>> parent of 7aa2651... weapon additions (laser sight)
 =======
 >>>>>>> parent of 7aa2651... weapon additions (laser sight)
     m_RemovedComponents: []
