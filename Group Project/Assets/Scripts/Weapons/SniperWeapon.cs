@@ -199,6 +199,9 @@ public class SniperWeapon : MonoBehaviour
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> parent of 7aa2651... weapon additions (laser sight)
 =======
 >>>>>>> parent of 7aa2651... weapon additions (laser sight)
     //public void SpawnCollider()
@@ -208,6 +211,7 @@ public class SniperWeapon : MonoBehaviour
     //    soundCollision.AddComponent<SoundBubble>().SpawnCollider();
     //}
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 >>>>>>> 21ade4e12bc56923f2565fd47cfffb4f18b084dd
@@ -219,6 +223,8 @@ public class SniperWeapon : MonoBehaviour
     //    soundCollision.AddComponent<SoundBubble>().SpawnCollider();
     //}
 
+>>>>>>> parent of 7aa2651... weapon additions (laser sight)
+=======
 >>>>>>> parent of 7aa2651... weapon additions (laser sight)
 =======
 >>>>>>> parent of 7aa2651... weapon additions (laser sight)
