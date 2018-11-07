@@ -124,7 +124,7 @@ GameObject:
   m_Layer: 0
   m_Name: Waypoint1
   m_TagString: Untagged
-  m_Icon: {fileID: 7174288486110832750, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -308,6 +308,48 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &747163791
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 1944359271}
+    m_Modifications:
+    - target: {fileID: 4578044679600282, guid: 627b2d638e95e0a47b70b75b99ab9b7d, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4578044679600282, guid: 627b2d638e95e0a47b70b75b99ab9b7d, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0.00000037252903
+      objectReference: {fileID: 0}
+    - target: {fileID: 4578044679600282, guid: 627b2d638e95e0a47b70b75b99ab9b7d, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4578044679600282, guid: 627b2d638e95e0a47b70b75b99ab9b7d, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4578044679600282, guid: 627b2d638e95e0a47b70b75b99ab9b7d, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4578044679600282, guid: 627b2d638e95e0a47b70b75b99ab9b7d, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4578044679600282, guid: 627b2d638e95e0a47b70b75b99ab9b7d, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4578044679600282, guid: 627b2d638e95e0a47b70b75b99ab9b7d, type: 2}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 627b2d638e95e0a47b70b75b99ab9b7d, type: 2}
+  m_IsPrefabAsset: 0
 --- !u!1 &929222799
 GameObject:
   m_ObjectHideFlags: 0
@@ -370,6 +412,11 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &1062464694 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4590790041612804, guid: ba09b0c40cefd75439db3b8cbfc70554,
+    type: 2}
+  m_PrefabInternal: {fileID: 1823314838}
 --- !u!1001 &1192312608
 Prefab:
   m_ObjectHideFlags: 0
@@ -696,14 +743,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6af6b2b3608715478be2a5b1143c3e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentState: 0
   agent: {fileID: 1690118454}
   target: {fileID: 499082044}
-  noisePos: {fileID: 0}
+  waypointParent: {fileID: 1734364570}
   fov: {fileID: 1690118460}
+  currentState: 0
   speedPatrol: 4
   speedSeek: 4
-  waypointParent: {fileID: 1734364570}
   stoppingDistance: 4
   pauseDuration: 1
 --- !u!136 &1690118456
@@ -842,36 +888,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1735224037 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1562429032429354, guid: ba09b0c40cefd75439db3b8cbfc70554,
-    type: 2}
-  m_PrefabInternal: {fileID: 1823314838}
---- !u!114 &1735224041
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1735224037}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a970f678078edff438a52aad45ff4c70, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  damage: 15
-  reloadTime: 3.1
-  delayBetweenShots: 0.1
-  fireRate: 1
-  magCap: 12
-  currentAmmo: 0
-  firedShots: 0
-  remainingAmmo: 0
-  weaponRange: 20
-  muzzle: {fileID: 1944359271}
-  playerCam: {fileID: 0}
-  nextFire: 0
-  ammoText: {fileID: 1812278796}
-  bulletParticle: {fileID: 0}
 --- !u!1 &1812278794
 GameObject:
   m_ObjectHideFlags: 0
@@ -991,39 +1007,71 @@ Prefab:
       propertyPath: ammoText
       value: 
       objectReference: {fileID: 1812278796}
-    - target: {fileID: 1282344008078202, guid: ba09b0c40cefd75439db3b8cbfc70554, type: 2}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1562429032429354, guid: ba09b0c40cefd75439db3b8cbfc70554, type: 2}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 114289168102777638, guid: ba09b0c40cefd75439db3b8cbfc70554,
         type: 2}
       propertyPath: laserSight
       value: 
       objectReference: {fileID: 431491871}
-    - target: {fileID: 114289168102777638, guid: ba09b0c40cefd75439db3b8cbfc70554,
+    - target: {fileID: 114303351226793708, guid: ba09b0c40cefd75439db3b8cbfc70554,
         type: 2}
-      propertyPath: bulletParticle
+      propertyPath: ammoText
       value: 
-      objectReference: {fileID: 1257130005484098, guid: 8552e3a19826b6a4c90ca73a10dac407,
+      objectReference: {fileID: 1812278796}
+    - target: {fileID: 114621766957578218, guid: ba09b0c40cefd75439db3b8cbfc70554,
         type: 2}
-    - target: {fileID: 114289168102777638, guid: ba09b0c40cefd75439db3b8cbfc70554,
-        type: 2}
-      propertyPath: soundCollision
+      propertyPath: laserSight
       value: 
-      objectReference: {fileID: 1904620244699828, guid: fe4edcd04a815be4e8c25c1243907c7b,
+      objectReference: {fileID: 4697046566232550, guid: 16a28fe7c9f7dab41b05f3687f8cc702,
         type: 2}
-    - target: {fileID: 114289168102777638, guid: ba09b0c40cefd75439db3b8cbfc70554,
+    - target: {fileID: 114621766957578218, guid: ba09b0c40cefd75439db3b8cbfc70554,
         type: 2}
-      propertyPath: soundPoint
+      propertyPath: ammoText
       value: 
-      objectReference: {fileID: 1904620244699828, guid: fe4edcd04a815be4e8c25c1243907c7b,
-        type: 2}
+      objectReference: {fileID: 1812278796}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ba09b0c40cefd75439db3b8cbfc70554, type: 2}
+  m_IsPrefabAsset: 0
+--- !u!1001 &1864019950
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 1062464694}
+    m_Modifications:
+    - target: {fileID: 4578044679600282, guid: 627b2d638e95e0a47b70b75b99ab9b7d, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4578044679600282, guid: 627b2d638e95e0a47b70b75b99ab9b7d, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0.00000037252903
+      objectReference: {fileID: 0}
+    - target: {fileID: 4578044679600282, guid: 627b2d638e95e0a47b70b75b99ab9b7d, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4578044679600282, guid: 627b2d638e95e0a47b70b75b99ab9b7d, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4578044679600282, guid: 627b2d638e95e0a47b70b75b99ab9b7d, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4578044679600282, guid: 627b2d638e95e0a47b70b75b99ab9b7d, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4578044679600282, guid: 627b2d638e95e0a47b70b75b99ab9b7d, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4578044679600282, guid: 627b2d638e95e0a47b70b75b99ab9b7d, type: 2}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 627b2d638e95e0a47b70b75b99ab9b7d, type: 2}
   m_IsPrefabAsset: 0
 --- !u!1 &1878893928
 GameObject:
@@ -1231,7 +1279,7 @@ GameObject:
   m_Layer: 0
   m_Name: Waypoint2
   m_TagString: Untagged
-  m_Icon: {fileID: 7174288486110832750, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
