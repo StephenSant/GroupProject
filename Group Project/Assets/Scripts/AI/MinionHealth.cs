@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class MinionHealth : MonoBehaviour
 {
-    public float minHealth;
     public float curHealth;
     public float maxHealth = 100f;
 
