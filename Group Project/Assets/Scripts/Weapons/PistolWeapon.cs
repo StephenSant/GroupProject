@@ -4,23 +4,35 @@ using UnityEngine;
 using UnityEngine.UI;
 public class PistolWeapon : MonoBehaviour
 {
+    #region Weapon Stats
+    [Header("Weapon Stats")]
     public float damage = 15f;
     public float reloadTime = 3.1f;
     public float delayBetweenShots = 0.1f;
     public float fireRate = 1f;
     public int magCap = 12;
-    public Transform muzzle;
-    public float weaponRange = 20f;
-    public Camera playerCam;
-    public float nextFire;
     public int currentAmmo, firedShots, remainingAmmo;
-    public Text left, loaded;
+    public float weaponRange = 20f;
+    #endregion
+    #region Weapon Components
+    [Header("Weapon Components")]
+    public Transform muzzle;
+    #endregion
+    #region Player Cam
+    public Camera playerCam;
+    #endregion
+    #region Weapon Functions
+    public float nextFire;
     public Text ammoText;
     private bool reloading;
     private float rayDistance = 25f;
     private bool canFire;
     private LineRenderer bulletTrail;
     private WaitForSeconds shotDuration = new WaitForSeconds(0.3f);
+    #endregion
+    #region Particles
+    public GameObject bulletParticle;
+    #endregion
     // Use this for initialization
     void Start()
     {
@@ -99,6 +111,7 @@ public class PistolWeapon : MonoBehaviour
         //bulletTrail.SetPosition(0, muzzle.position);
         if (Physics.Raycast(rayOrigin, playerCam.transform.forward, out hit, weaponRange))
         {
+            Instantiate(bulletParticle, hit.point, Quaternion.identity);
             Vector3 direction = (hit.point - muzzle.position).normalized;
             //bulletTrail.SetPosition(1, hit.point);
             MinionHealth enemyHealth = hit.collider.GetComponent<MinionHealth>();
@@ -151,7 +164,7 @@ public class PistolWeapon : MonoBehaviour
     }
     public void AmmoLoadedText()
     {
-        left.text = "" + currentAmmo.ToString();
+        ammoText.text = "" + currentAmmo.ToString();
     }
 
     public void SpawnCollider()

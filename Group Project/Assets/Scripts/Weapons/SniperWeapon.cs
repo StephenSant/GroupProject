@@ -35,6 +35,9 @@ public class SniperWeapon : MonoBehaviour
     private bool canFire;
     private WaitForSeconds shotDuration = new WaitForSeconds(0.3f);
     #endregion
+    #region Particles
+    public GameObject bulletParticle;
+    #endregion
 
 
 
@@ -126,6 +129,7 @@ public class SniperWeapon : MonoBehaviour
 
         if (Physics.Raycast(rayOrigin, playerCam.transform.forward, out hit, weaponRange))
         {
+            Instantiate(bulletParticle, hit.point, Quaternion.identity);
             Vector3 direction = (hit.point - muzzle.position).normalized;
             MinionHealth enemyHealth = hit.collider.GetComponent<MinionHealth>();
             Barrel barrelHealth = hit.collider.GetComponent<Barrel>();
