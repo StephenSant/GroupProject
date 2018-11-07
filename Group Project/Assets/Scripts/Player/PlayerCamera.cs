@@ -71,7 +71,7 @@ public class PlayerCamera : MonoBehaviour
             offset.z = Mathf.Lerp(offset.z, originalOffset.z, zoomSpeed);
         }
     }
-    void FixedUpdate()
+    private void FixedUpdate()
     {
         if (target)//if a target has been set
         {
@@ -91,7 +91,7 @@ public class PlayerCamera : MonoBehaviour
         }
 
     }
-    void LateUpdate()
+    private void LateUpdate()
     {
         if (target)//if a target has been set
         {

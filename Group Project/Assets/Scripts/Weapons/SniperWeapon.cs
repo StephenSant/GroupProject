@@ -19,7 +19,7 @@ public class SniperWeapon : MonoBehaviour
     [Header("Weapon Components")]
     public Transform muzzle;
     //public SphereCollider soundCollider;
-//    public GameObject soundPoint;
+    public GameObject soundCollision;
     #endregion
     #region Player Cam
     public Camera playerCam;
@@ -200,9 +200,9 @@ public class SniperWeapon : MonoBehaviour
 <<<<<<< HEAD
     //public void SpawnCollider()
     //{
-    //    GameObject soundPoint = new GameObject("SphereBubble");
-    //    soundPoint.transform.position = gameObject.transform.position;
-    //    soundPoint.AddComponent<SoundBubble>().SpawnCollider();
+    //    GameObject soundCollision = new GameObject("SphereBubble");
+    //    soundCollision.transform.position = gameObject.transform.position;
+    //    soundCollision.AddComponent<SoundBubble>().SpawnCollider();
     //}
 
 =======
@@ -218,20 +218,14 @@ public class SniperWeapon : MonoBehaviour
 >>>>>>> parent of 7aa2651... weapon additions (laser sight)
     public void SpawnCollider()
     {
-//        Transform soundPosition = gameObject.transform;
-//        Instantiate(soundPoint, soundPosition);
+
         Collider[] hitColliders = Physics.OverlapSphere(transform.position, 30f);
         int i = 0;
         while (i < hitColliders.Length)
         {
             if (hitColliders[i].tag == "Enemy")
             {
-                BehaviourAI enemy = hitColliders[i].GetComponent<BehaviourAI>();
-                enemy.Investigate(transform.position); // Tell enemy to investigate a position
-                
-                //yield return new WaitForSeconds(5.0f);
-                //Physics.IgnoreCollision(enemy.GetComponent<Collider>().hitColliders[i].tag == "Enemy");
-                //hitColliders[i].SendMessage("Investigate");
+                hitColliders[i].SendMessage("Seek");
             }
             i++;
         }

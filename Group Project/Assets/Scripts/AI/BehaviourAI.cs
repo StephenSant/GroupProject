@@ -14,16 +14,12 @@ public class BehaviourAI : MonoBehaviour
         Investigate = 2
     }
 
-    [Header("Components")]
+    public State currentState = State.Patrol; // The default/start state set to Patrol.
     public NavMeshAgent agent; // Unity component reference
     public Transform target; // Reference assigned target's Transform data (position/rotation/scale).
-    public Transform waypointParent; // Reference one waypoint Parent (used to get children in array).
     public BossFoV_SearchLight fov; // Reference FieldOfView Script (used for line of sight player detection).
 
-    [Header("Behaviours")]
-    public State currentState = State.Patrol; // The default/start state set to Patrol.
-
-    public float speedPatrol = 4f, speedSeek = 4f; // Movement speeds for different states (up to you).
+    public Transform waypointParent; // Reference one waypoint Parent (used to get children in array).
     public float stoppingDistance = 1f; // Enemy AI's required distance to clear/'pass' a waypoint.
 
     public float pauseDuration; // Time to wait before going to the next waypoint.
@@ -40,7 +36,7 @@ public class BehaviourAI : MonoBehaviour
     {
         // Transform(s) of each waypoint in the array.
         Transform point = waypoints[currentIndex];
-        agent.speed = speedPatrol; // NavMeshAgent movement speed during patrol.
+        agent.speed = 3.5f; // NavMeshAgent movement speed.
 
         // Gets the distance between enemy and waypoint.
         float distance = Vector3.Distance(transform.position, point.position);
@@ -94,8 +90,8 @@ public class BehaviourAI : MonoBehaviour
     // The contained variables for the Seek state (what rules the enemy AI follows when in 'Seek').
     void Seek()
     {
-        agent.speed = speedSeek; // NavMeshAgent movement speed during seek.
-        agent.SetDestination(target.position); // (NavMeshAgent) agent move to the Transform position of the player.
+        agent.speed = 0f; // Stop moving NavMeshAgent upon spotting player (WORKAROUND FOR STOPPING MOVEMENT)
+        transform.LookAt(target.position); // (NavMeshAgent) agent move to the Transform position of the player.
 
         // Gets the distance between enemy and player.
         float distToTarget = Vector3.Distance(transform.position, target.position);
@@ -115,17 +111,11 @@ public class BehaviourAI : MonoBehaviour
         }
         //fov.viewRadius = 10f; // FieldOfView arc radius during 'Seek'.
     }
-    #endregion STATE - Seek
-
-    #region STATE - Investigate
-    public void Investigate(Vector3 position)
+    void Investigate()
     {
-        agent.speed = speedSeek;
-        agent.SetDestination(position);
-        //agent.SetDestination(noisePos.position);
-        currentState = State.Investigate;
-    } 
-    #endregion
+        
+    }
+    #endregion STATE - Seek
 
     #region Start
     // Use this for initialization
@@ -152,24 +142,8 @@ public class BehaviourAI : MonoBehaviour
                 Seek();
                 break;
             case State.Investigate:
-                // Run this code while in investigate state
-                // If the agent gets close to the investigate position
-                if(agent.remainingDistance < stoppingDistance)
-                {
-                    // Note(Manny): Why not wait for 5 seconds here (timer)
-                    // Switch to Patrol
-                    currentState = State.Patrol;
-                }
-
-                // If the agent sees the player
-                if (fov.visibleTargets.Count > 0)
-                {
-                    // Switch over to seek
-                    currentState = State.Seek;
-                    // Seek towards the visible target
-                    target = fov.visibleTargets[0];
-                }
-                break;                
+                Investigate();
+                break;
             default:
                 break;
         }
