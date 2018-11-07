@@ -699,7 +699,10 @@ MonoBehaviour:
   currentState: 0
   agent: {fileID: 1690118454}
   target: {fileID: 499082044}
+  noisePos: {fileID: 0}
   fov: {fileID: 1690118460}
+  speedPatrol: 4
+  speedSeek: 4
   waypointParent: {fileID: 1734364570}
   stoppingDistance: 4
   pauseDuration: 1
@@ -807,7 +810,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4a755962eff501478c82fcb810d828c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minHealth: 0
   curHealth: 0
   maxHealth: 100
 --- !u!1 &1734364569
@@ -1007,6 +1009,18 @@ Prefab:
       propertyPath: bulletParticle
       value: 
       objectReference: {fileID: 1257130005484098, guid: 8552e3a19826b6a4c90ca73a10dac407,
+        type: 2}
+    - target: {fileID: 114289168102777638, guid: ba09b0c40cefd75439db3b8cbfc70554,
+        type: 2}
+      propertyPath: soundCollision
+      value: 
+      objectReference: {fileID: 1904620244699828, guid: fe4edcd04a815be4e8c25c1243907c7b,
+        type: 2}
+    - target: {fileID: 114289168102777638, guid: ba09b0c40cefd75439db3b8cbfc70554,
+        type: 2}
+      propertyPath: soundPoint
+      value: 
+      objectReference: {fileID: 1904620244699828, guid: fe4edcd04a815be4e8c25c1243907c7b,
         type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ba09b0c40cefd75439db3b8cbfc70554, type: 2}
