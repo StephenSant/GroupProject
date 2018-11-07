@@ -37,7 +37,6 @@ public class SniperWeapon : MonoBehaviour
     #endregion
     #region Particles
     public GameObject bulletParticle;
-
     #endregion
 
 
@@ -50,7 +49,6 @@ public class SniperWeapon : MonoBehaviour
         currentAmmo = magCap;
         playerCam = Camera.main;
         soundSource = GameObject.Find("SniperSounds").GetComponent<AudioSource>();
-
         //soundCollider.enabled = false;
     }
     private void OnDrawGizmos()
@@ -73,14 +71,12 @@ public class SniperWeapon : MonoBehaviour
             transform.rotation = Quaternion.LookRotation(relativePos, Vector3.up);
             laserSight.position = hit.point;
 
-
         }
         else
         {
             Vector3 relativePos = playerCam.transform.forward * weaponRange;
             transform.rotation = Quaternion.LookRotation(relativePos, Vector3.up);
             laserSight.position = playerCam.transform.forward * weaponRange;
-
         }
 
     }
@@ -176,23 +172,20 @@ public class SniperWeapon : MonoBehaviour
 
         reloading = true;
         yield return new WaitForSeconds(3.5f);
-        if (reloading)
+        if (currentAmmo > 0)
         {
-            if (currentAmmo > 0)
-            {
-                remainingAmmo -= firedShots;
-                currentAmmo = magCap;
-            }
-            if (currentAmmo <= 0)
-            {
-                remainingAmmo -= magCap;
-                currentAmmo = magCap;
-            }
-            if (currentAmmo > 0 && remainingAmmo >= 0)
-            {
-                currentAmmo += remainingAmmo;
-                remainingAmmo -= firedShots;
-            } 
+            remainingAmmo -= firedShots;
+            currentAmmo = magCap;
+        }
+        if (currentAmmo <= 0)
+        {
+            remainingAmmo -= magCap;
+            currentAmmo = magCap;
+        }
+        if (currentAmmo > 0 && remainingAmmo >= 0)
+        {
+            currentAmmo += remainingAmmo;
+            remainingAmmo -= firedShots;
         }
         firedShots = 0;
         reloading = false;
@@ -204,6 +197,7 @@ public class SniperWeapon : MonoBehaviour
     }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
     //public void SpawnCollider()
     //{
     //    GameObject soundPoint = new GameObject("SphereBubble");
@@ -213,6 +207,15 @@ public class SniperWeapon : MonoBehaviour
 
 =======
 >>>>>>> 21ade4e12bc56923f2565fd47cfffb4f18b084dd
+=======
+    //public void SpawnCollider()
+    //{
+    //    GameObject soundCollision = new GameObject("SphereBubble");
+    //    soundCollision.transform.position = gameObject.transform.position;
+    //    soundCollision.AddComponent<SoundBubble>().SpawnCollider();
+    //}
+
+>>>>>>> parent of 7aa2651... weapon additions (laser sight)
     public void SpawnCollider()
     {
 //        Transform soundPosition = gameObject.transform;

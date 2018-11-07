@@ -27,7 +27,7 @@ public class PistolWeapon : MonoBehaviour
     private bool reloading;
     private float rayDistance = 25f;
     private bool canFire;
-    public Transform laserSight;
+    private LineRenderer bulletTrail;
     private WaitForSeconds shotDuration = new WaitForSeconds(0.3f);
     #endregion
     #region Particles
@@ -37,7 +37,7 @@ public class PistolWeapon : MonoBehaviour
     void Start()
     {
         currentAmmo = magCap;
-
+        bulletTrail = GetComponent<LineRenderer>();
         playerCam = Camera.main;
     }
     private void OnDrawGizmos()
@@ -48,7 +48,7 @@ public class PistolWeapon : MonoBehaviour
     }
 
     // Update is called once per frame
-    void LateUpdate()
+    void Update()
     {
         // Detect collision with wall (Raycast to wall)
         Vector3 rayOrigin = playerCam.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, 0.0f));
@@ -59,13 +59,11 @@ public class PistolWeapon : MonoBehaviour
         {// Rotate gun to hit point - Quaternion.LookRotation(direction)
             Vector3 relativePos = hit.point - transform.position;
             transform.rotation = Quaternion.LookRotation(relativePos, Vector3.up);
-            laserSight.position = hit.point;
         }
         else
         {
             Vector3 relativePos = new Vector3(playerCam.transform.position.x, playerCam.transform.position.y, playerCam.transform.position.z + weaponRange) - transform.position;
             transform.rotation = Quaternion.LookRotation(relativePos, Vector3.up);
-            laserSight.position = playerCam.transform.forward * weaponRange;
         }
 
 
@@ -117,14 +115,9 @@ public class PistolWeapon : MonoBehaviour
             Vector3 direction = (hit.point - muzzle.position).normalized;
             //bulletTrail.SetPosition(1, hit.point);
             MinionHealth enemyHealth = hit.collider.GetComponent<MinionHealth>();
-            Barrel barrelHealth = hit.collider.GetComponent<Barrel>();
             if (enemyHealth != null)
             {
                 enemyHealth.TakeDamage(damage);
-            }
-            if (barrelHealth != null)
-            {
-                barrelHealth.health -= damage;
             }
         }
         else
@@ -140,6 +133,7 @@ public class PistolWeapon : MonoBehaviour
             //soundsource plays
         }
 
+
         yield return shotDuration;
     }
     private IEnumerator ReloadingSequence()
@@ -150,24 +144,20 @@ public class PistolWeapon : MonoBehaviour
         }
         reloading = true;
         yield return new WaitForSeconds(3.5f);
-
-        if (reloading)
+        if (currentAmmo > 0)
         {
-            if (currentAmmo > 0)
-            {
-                remainingAmmo -= firedShots;
-                currentAmmo = magCap;
-            }
-            if (currentAmmo <= 0)
-            {
-                remainingAmmo -= magCap;
-                currentAmmo = magCap;
-            }
-            if (currentAmmo > 0 && remainingAmmo >= 0)
-            {
-                currentAmmo += remainingAmmo;
-                remainingAmmo -= firedShots;
-            } 
+            remainingAmmo -= firedShots;
+            currentAmmo = magCap;
+        }
+        if (currentAmmo <= 0)
+        {
+            remainingAmmo -= magCap;
+            currentAmmo = magCap;
+        }
+        if (currentAmmo > 0 && remainingAmmo >= 0)
+        {
+            currentAmmo += remainingAmmo;
+            remainingAmmo -= firedShots;
         }
         firedShots = 0;
         reloading = false;
