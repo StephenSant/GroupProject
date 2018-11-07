@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Barrel : MonoBehaviour
 {
-    public Health hHandler;
+    public float health;
     public bool exploded;
     public GameObject explosionEffect;
 
@@ -12,13 +12,12 @@ public class Barrel : MonoBehaviour
     void Start()
     {
         exploded = false;
-        hHandler = GetComponent<Health>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (hHandler.curHealth <= 0)
+        if (health <= 0)
         {
             if (!exploded)
             {

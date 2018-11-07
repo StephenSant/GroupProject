@@ -2,51 +2,39 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Explosion : MonoBehaviour
-{
+public class Explosion : MonoBehaviour {
     public float animTime;
     private float timer;
 
     public float damage;
 
-    public float explosionForce=10;
-    public float explosionSize=4;
-
     // Use this for initialization
-    void Start()
+    void Start ()
     {
         timer = animTime;
     }
-
-    // Update is called once per frame
-    void Update()
+	
+	// Update is called once per frame
+	void Update ()
     {
         timer -= Time.deltaTime;
         if (timer <= 0)
         {
-
-            if (gameObject.transform.parent == null)
-            {
-                Destroy(gameObject);
-            }
-            else
-            {
-                Destroy(gameObject.transform.parent.gameObject);
-                Destroy(gameObject);
-            }
+            Destroy(gameObject);
         }
     }
     private void OnTriggerEnter(Collider other)
     {
-        Health hHandler = other.GetComponent<Health>();
-        if (hHandler != null)
+        MinionHealth enemyHealth = other.GetComponent<MinionHealth>();
+        Barrel barrelHealth = other.GetComponent<Barrel>();
+        if (enemyHealth != null)
         {
-            hHandler.TakeDamage(damage);
+            enemyHealth.TakeDamage(damage);
         }
-        Rigidbody rigidbody = other.GetComponent<Rigidbody>();
-        if(rigidbody != null)
-            {
-            rigidbody.AddExplosionForce(explosionForce, transform.position, explosionSize);
+        if (barrelHealth != null)
+        {
+            barrelHealth.health -= damage;
         }
+        //player and boss
     }
 }

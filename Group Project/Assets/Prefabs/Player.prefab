@@ -41,7 +41,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1442767722415216
 GameObject:
   m_ObjectHideFlags: 0
@@ -88,14 +88,13 @@ GameObject:
   - component: {fileID: 4492963033273400}
   - component: {fileID: 33912442011617966}
   - component: {fileID: 23261236836531570}
-  - component: {fileID: 114621766957578218}
   m_Layer: 9
   m_Name: Pistol
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1633388570224178
 GameObject:
   m_ObjectHideFlags: 1
@@ -534,8 +533,6 @@ MonoBehaviour:
   soundclips:
   - {fileID: 8300000, guid: c7906872e170049478c5fe475640fbbd, type: 3}
   - {fileID: 8300000, guid: 5afc1e4e7999b844abd6b398674426bf, type: 3}
-  bulletParticle: {fileID: 1257130005484098, guid: 8552e3a19826b6a4c90ca73a10dac407,
-    type: 2}
 --- !u!114 &114323343137533806
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -557,32 +554,6 @@ MonoBehaviour:
   walkSpeed: 125
   sneakSpeed: 90
   moveSpeed: 1
---- !u!114 &114621766957578218
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1562429032429354}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a970f678078edff438a52aad45ff4c70, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  damage: 15
-  reloadTime: 3.1
-  delayBetweenShots: 0.1
-  fireRate: 1
-  magCap: 12
-  currentAmmo: 0
-  firedShots: 0
-  remainingAmmo: 0
-  weaponRange: 20
-  muzzle: {fileID: 4798762981843778}
-  playerCam: {fileID: 0}
-  nextFire: 0
-  ammoText: {fileID: 0}
-  bulletParticle: {fileID: 1257130005484098, guid: 8552e3a19826b6a4c90ca73a10dac407,
-    type: 2}
 --- !u!114 &114725515571541916
 MonoBehaviour:
   m_ObjectHideFlags: 1

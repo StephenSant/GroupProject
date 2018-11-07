@@ -135,10 +135,15 @@ public class SniperWeapon : MonoBehaviour
         {
             Instantiate(bulletParticle, hit.point, Quaternion.identity);
             Vector3 direction = (hit.point - muzzle.position).normalized;
-            Health hHandler = hit.collider.GetComponent<Health>();
-            if (hHandler != null)
+            MinionHealth enemyHealth = hit.collider.GetComponent<MinionHealth>();
+            Barrel barrelHealth = hit.collider.GetComponent<Barrel>();
+            if (enemyHealth != null)
             {
-                hHandler.TakeDamage(damage);
+                enemyHealth.TakeDamage(damage);
+            }
+            if (barrelHealth != null)
+            {
+                barrelHealth.health -= damage;
             }
         }
         else
