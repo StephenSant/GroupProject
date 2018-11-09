@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -232,6 +232,8 @@ MonoBehaviour:
   maxHealth: 100
   curHealth: 0
   isDead: 0
+  isRegen: 0
+  healthRegen: 2
 --- !u!4 &431491871 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4697046566232550, guid: 16a28fe7c9f7dab41b05f3687f8cc702,
@@ -886,7 +888,7 @@ MonoBehaviour:
   viewAngle: 70
   targetMask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 512
   obstacleMask:
     serializedVersion: 2
     m_Bits: 256
@@ -1189,7 +1191,8 @@ Prefab:
       propertyPath: ammoText
       value: 
       objectReference: {fileID: 1812278796}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 114303351226793708, guid: ba09b0c40cefd75439db3b8cbfc70554, type: 2}
   m_SourcePrefab: {fileID: 100100000, guid: ba09b0c40cefd75439db3b8cbfc70554, type: 2}
   m_IsPrefabAsset: 0
 --- !u!1001 &1864019950

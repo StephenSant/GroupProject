@@ -7,7 +7,8 @@ public class PlayerHealth : MonoBehaviour
     public float maxHealth = 100f;
     public float curHealth;
     public bool isDead;
-
+    public bool isRegen;
+    public float healthRegen = 1;
     // Use this for initialization
     void Start()
     {
@@ -27,7 +28,25 @@ public class PlayerHealth : MonoBehaviour
             isDead = true;
             Dead();
         }
+        if (curHealth != maxHealth && !isRegen)
+        {
+            StartCoroutine(RegenerateHealth());
+        }
+    }
+    public IEnumerator RegenerateHealth()
+    {
+        isRegen = true;
+        while (curHealth < maxHealth)
+        {
+            RegenHealth();
+            yield return new WaitForSeconds(0.5f);
 
+        }
+        isRegen = false;
+    }
+    public void RegenHealth()
+    {
+        curHealth += healthRegen;
     }
     public void TakeDamage(float damage)
     {
