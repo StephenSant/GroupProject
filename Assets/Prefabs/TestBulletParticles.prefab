@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 4487299265757000}
   - component: {fileID: 198826676855622778}
   - component: {fileID: 199545924230364638}
+  - component: {fileID: 114342463937648646}
   m_Layer: 0
   m_Name: TestBulletParticles
   m_TagString: Untagged
@@ -41,6 +42,17 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114342463937648646
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1257130005484098}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: acf80e5fed9d8e649bfb4ed2620548db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!198 &198826676855622778
 ParticleSystem:
   m_ObjectHideFlags: 1
