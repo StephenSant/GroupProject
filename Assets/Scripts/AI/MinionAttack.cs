@@ -5,18 +5,21 @@ using UnityEngine;
 public class MinionAttack : MonoBehaviour
 {
     public Transform muzzle;
-    public float damage = 1f;
+    public float damage = 10f;
     public LineRenderer laser;
     public float delayBetweenShots;
     public float weaponRange = 75f;
     public float distanceToTarget;
-    public WaitForSeconds shotDuration = new WaitForSeconds(1f);
-    public float rateOfFire = 1f;
+    public WaitForSeconds shotDuration = new WaitForSeconds(0.2f);
+    public float rateOfFire = 0.12f;
     public float readyToFire;
+    public AudioSource soundSource;
+    public AudioClip[] soundclips;
     // Use this for initialization
     void Start()
     {
         laser = GetComponent<LineRenderer>();
+        soundSource = GetComponentInChildren<AudioSource>(true);
     }
 
     // Update is called once per frame
@@ -25,20 +28,24 @@ public class MinionAttack : MonoBehaviour
         Vector3 origin = gameObject.transform.forward;
         RaycastHit hit;
         Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, weaponRange);
-        if (hit.collider)
+        if (Time.time > readyToFire)
         {
-            Vector3 direction = (hit.point - muzzle.position).normalized;
-            laser.SetPosition(0, muzzle.position);
-            DealDamage();
+            if (hit.collider)
+            {
+                Vector3 direction = (hit.point - muzzle.position).normalized;
+                laser.SetPosition(0, muzzle.position);
+                DealDamage();
 
+            }
         }
+
     }
     void DealDamage()
     {
         readyToFire = Time.time + rateOfFire;
         StartCoroutine(Shooting());
         Vector3 origin = gameObject.transform.forward;
-        laser.SetPosition(0, muzzle.position);
+        
         RaycastHit hit;
         if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, weaponRange))
         {
@@ -60,9 +67,11 @@ public class MinionAttack : MonoBehaviour
             }
         }
     }
-    public IEnumerator Shooting()
+    private IEnumerator Shooting()
     {
         laser.enabled = true;
+        soundSource.clip = soundclips[0];
+        soundSource.Play();
         yield return shotDuration;
         laser.enabled = false;
     }

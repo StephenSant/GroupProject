@@ -6,7 +6,7 @@ public class PistolWeapon : MonoBehaviour
 {
     #region Weapon Stats
     [Header("Weapon Stats")]
-    public float damage = 15f;
+    public float damage = 25f;
     public float reloadTime = 3.1f;
     public float delayBetweenShots = 0.1f;
     public float fireRate = 1f;
@@ -108,7 +108,7 @@ public class PistolWeapon : MonoBehaviour
     void Shoot()
     {
         nextFire = Time.time + fireRate;
-
+        SpawnCollider();
         StartCoroutine(ShotEffect());
         Vector3 rayOrigin = playerCam.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, 0.0f));
         RaycastHit hit;
@@ -188,7 +188,8 @@ public class PistolWeapon : MonoBehaviour
         {
             if (hitColliders[i].tag == "Enemy")
             {
-                hitColliders[i].SendMessage("Seek");
+                BehaviourAI enemy = hitColliders[i].GetComponent<BehaviourAI>();
+                enemy.Investigate(transform.position);
             }
             i++;
         }

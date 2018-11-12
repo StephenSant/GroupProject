@@ -7,7 +7,7 @@ public class SniperWeapon : MonoBehaviour
 {
     #region Weapon Stats
     [Header("Weapon Stats")]
-    public float damage = 80f;
+    public float damage = 100f;
     public int currentAmmo, firedShots, remainingAmmo;
     public float reloadTime = 3.1f;
     public float delayBetweenShots = 0.2f;
@@ -208,7 +208,7 @@ public class SniperWeapon : MonoBehaviour
     {
 //        Transform soundPosition = gameObject.transform;
 //        Instantiate(soundPoint, soundPosition);
-        Collider[] hitColliders = Physics.OverlapSphere(transform.position, 30f);
+        Collider[] hitColliders = Physics.OverlapSphere(transform.position, 50f);
         int i = 0;
         while (i < hitColliders.Length)
         {
