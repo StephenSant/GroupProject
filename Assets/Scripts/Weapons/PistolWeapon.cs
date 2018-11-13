@@ -35,6 +35,7 @@ public class PistolWeapon : MonoBehaviour
     #region Particles
     public GameObject bulletParticle;
     #endregion
+    public Texture2D crosshair;
     // Use this for initialization
     void Start()
     {
@@ -195,5 +196,11 @@ public class PistolWeapon : MonoBehaviour
             }
             i++;
         }
+    }
+    private void OnGUI()
+    {
+        float xMin = (Screen.width / 2) - (crosshair.width / 2);
+        float yMin = (Screen.height / 2) - (crosshair.height / 2);
+        GUI.DrawTexture(new Rect(xMin, yMin, crosshair.width, crosshair.height), crosshair);
     }
 }
