@@ -13,6 +13,7 @@ public class PistolWeapon : MonoBehaviour
     public int magCap = 12;
     public int currentAmmo, firedShots, remainingAmmo;
     public float weaponRange = 20f;
+    public float laserRange = 100f;
     #endregion
     #region Weapon Components
     [Header("Weapon Components")]
@@ -29,6 +30,7 @@ public class PistolWeapon : MonoBehaviour
     private bool canFire;
     public Transform laserSight;
     private WaitForSeconds shotDuration = new WaitForSeconds(0.3f);
+
     #endregion
     #region Particles
     public GameObject bulletParticle;
@@ -53,7 +55,7 @@ public class PistolWeapon : MonoBehaviour
         // Detect collision with wall (Raycast to wall)
         Vector3 rayOrigin = playerCam.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, 0.0f));
         RaycastHit hit;
-        Physics.Raycast(rayOrigin, playerCam.transform.forward, out hit, weaponRange);
+        Physics.Raycast(rayOrigin, playerCam.transform.forward, out hit, weaponRange + laserRange);
         // If Raycast hits wall
         if (hit.collider)
         {// Rotate gun to hit point - Quaternion.LookRotation(direction)
@@ -63,9 +65,9 @@ public class PistolWeapon : MonoBehaviour
         }
         else
         {
-            Vector3 relativePos = playerCam.transform.forward * weaponRange;
+            Vector3 relativePos = playerCam.transform.forward * laserRange;
             transform.rotation = Quaternion.LookRotation(relativePos, Vector3.up);
-            laserSight.position = playerCam.transform.forward * weaponRange;
+            laserSight.position = playerCam.transform.forward * laserRange;
         }
 
     }
