@@ -810,6 +810,7 @@ MonoBehaviour:
   laserRange: 100
   bulletParticle: {fileID: 1257130005484098, guid: 8552e3a19826b6a4c90ca73a10dac407,
     type: 2}
+  crosshair: {fileID: 2800000, guid: 9e6fdb7bfc45d4d48ad99eedc050a082, type: 3}
 --- !u!114 &114323343137533806
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -859,6 +860,7 @@ MonoBehaviour:
   laserSight: {fileID: 4884637996531004}
   bulletParticle: {fileID: 1257130005484098, guid: 8552e3a19826b6a4c90ca73a10dac407,
     type: 2}
+  crosshair: {fileID: 2800000, guid: 9e6fdb7bfc45d4d48ad99eedc050a082, type: 3}
 --- !u!114 &114725515571541916
 MonoBehaviour:
   m_ObjectHideFlags: 1
