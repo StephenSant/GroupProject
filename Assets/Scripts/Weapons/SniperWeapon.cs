@@ -204,9 +204,9 @@ public class SniperWeapon : MonoBehaviour
     }
     private void OnGUI()
     {
-        float xMin = (Screen.width / 2) - (crosshair.width / 2);
-        float yMin = (Screen.height / 2) - (crosshair.height / 2);
-        GUI.DrawTexture(new Rect(xMin, yMin, crosshair.width, crosshair.height), crosshair);
+        float x = (Screen.width / 2) - (crosshair.width / 2);
+        float y = (Screen.height / 2) - (crosshair.height / 2);
+        GUI.DrawTexture(new Rect(x/1.0145f, y/1.03f, crosshair.width*2, crosshair.height*2),crosshair,ScaleMode.ScaleToFit,true,1,Color.red,0,0);
     }
 
     public void SpawnCollider()
