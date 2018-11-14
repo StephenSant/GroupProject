@@ -15,6 +15,7 @@ public class MinionAttack : MonoBehaviour
     public float readyToFire;
     public AudioSource soundSource;
     public AudioClip[] soundclips;
+    public LayerMask targetMask;
     // Use this for initialization
     void Start()
     {
@@ -27,7 +28,7 @@ public class MinionAttack : MonoBehaviour
     {
         Vector3 origin = gameObject.transform.forward;
         RaycastHit hit;
-        Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, weaponRange);
+        Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, weaponRange, targetMask);
         if (Time.time > readyToFire)
         {
             if (hit.collider)
@@ -47,7 +48,7 @@ public class MinionAttack : MonoBehaviour
         Vector3 origin = gameObject.transform.forward;
         
         RaycastHit hit;
-        if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, weaponRange))
+        if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, weaponRange, targetMask))
         {
             if (hit.collider)
             {
