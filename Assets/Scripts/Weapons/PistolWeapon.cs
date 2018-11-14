@@ -124,6 +124,7 @@ public class PistolWeapon : MonoBehaviour
 
             MinionHealth enemyHealth = hit.collider.GetComponent<MinionHealth>();
             Health hHandler = hit.collider.GetComponent<Health>();
+            WeakpointHealth weakpoint = hit.collider.GetComponent<WeakpointHealth>();
             if (hHandler != null)
             {
                 hHandler.TakeDamage(damage);
@@ -131,6 +132,10 @@ public class PistolWeapon : MonoBehaviour
             if (enemyHealth != null)
             {
                 enemyHealth.TakeDamage(damage);
+            }
+            if (weakpoint != null)
+            {
+                weakpoint.TakeDamage(damage);
             }
         }
         else

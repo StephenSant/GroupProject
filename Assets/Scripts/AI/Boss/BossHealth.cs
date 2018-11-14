@@ -7,7 +7,7 @@ public class BossHealth : MonoBehaviour
     public float maxHealth = 450f;
     public float curHealth;
     public bool isAlive;
-
+    public Collider[] colliders;
 	// Use this for initialization
 	void Start ()
     {
@@ -24,16 +24,22 @@ public class BossHealth : MonoBehaviour
         }
         if (curHealth <= 0 && isAlive)
         {
-            isAlive = !isAlive;
+
             Dead();
         }
 	}
     void Dead()
     {
-        gameObject.SetActive(false);
+        isAlive = !isAlive;
+        if (!isAlive)
+        {
+            gameObject.SetActive(false);
+        }
+
     }
-    void TakeDamage()
+    public void TakeDamage(float damage)
     {
 
+        curHealth -= damage;
     }
 }

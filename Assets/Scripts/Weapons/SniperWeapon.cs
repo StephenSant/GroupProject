@@ -138,6 +138,7 @@ public class SniperWeapon : MonoBehaviour
             MinionHealth enemyHealth = hit.collider.GetComponent<MinionHealth>();
             Health hHandler = hit.collider.GetComponent<Health>();
             WeakpointHealth weakpoint = hit.collider.GetComponent<WeakpointHealth>();
+            BossHealth bossHealth = hit.collider.GetComponentInParent<BossHealth>();
             if (hHandler != null)
             {
                 hHandler.TakeDamage(damage);
@@ -149,6 +150,10 @@ public class SniperWeapon : MonoBehaviour
             if (weakpoint != null)
             {
                 weakpoint.TakeDamage(damage);
+            }
+            if (bossHealth != null)
+            {
+                bossHealth.TakeDamage(2);
             }
         }
         else
