@@ -20,7 +20,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4463085040923090}
   - component: {fileID: 198633284927849344}
-  - component: {fileID: 114761180089892128}
   - component: {fileID: 199711807552150648}
   - component: {fileID: 135866522759349628}
   - component: {fileID: 82821377310027498}
@@ -68,7 +67,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1075525436542748}
   m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 431.01984, y: 62.690125, z: 200.92583}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4231674774186582}
@@ -170,21 +169,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &114761180089892128
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1075525436542748}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d1971ce318a9e954fb0bec80211432ba, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  animTime: 5
-  damage: 100
-  explosionForce: 250
-  explosionSize: 6
 --- !u!135 &135866522759349628
 SphereCollider:
   m_ObjectHideFlags: 1
@@ -4823,7 +4807,7 @@ ParticleSystem:
   serializedVersion: 5
   lengthInSec: 3
   simulationSpeed: 1
-  stopAction: 0
+  stopAction: 2
   looping: 0
   prewarm: 0
   playOnAwake: 1
