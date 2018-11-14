@@ -16,6 +16,7 @@ public class MinionAttack : MonoBehaviour
     public AudioSource soundSource;
     public AudioClip[] soundclips;
     public LayerMask targetMask;
+
     // Use this for initialization
     void Start()
     {
