@@ -92,8 +92,10 @@ public class AI_ScoutDrone : MonoBehaviour
         // Direction of target (player) from current position.
         Vector3 targetDir = target.position - transform.position;
 
+        float step = speedSeek * Time.deltaTime;
+
         // Rotate front face of ScoutDrone towards targetDir.
-        Vector3 newDir = Vector3.RotateTowards(transform.up, targetDir, 1f, 0.0f);
+        Vector3 newDir = Vector3.RotateTowards(transform.forward, targetDir, step, 0.0f);
 
         // Execute rotation using newDir.
         transform.rotation = Quaternion.LookRotation(newDir);
