@@ -63,24 +63,27 @@ public class SniperWeapon : MonoBehaviour
     public void LateUpdate()
     {
         // Detect collision with wall (Raycast to wall)
-        Vector3 rayOrigin = playerCam.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, 0.0f));
+        //Vector3 rayOrigin = playerCam.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, 0.0f));
+        Vector3 rayOrigin = muzzle.transform.position;
         RaycastHit hit;
-        Physics.Raycast(rayOrigin, playerCam.transform.forward, out hit, weaponRange + laserRange);
+        Physics.Raycast(rayOrigin, /*playerCam.transform.forward*/ muzzle.forward, out hit, weaponRange + laserRange);
         // If Raycast hits wall
+
+        Vector3 euler = Camera.main.transform.eulerAngles;
+        transform.localRotation = Quaternion.Euler(euler.x, 0, 0);
         if (hit.collider)
         {// Rotate gun to hit point - Quaternion.LookRotation(direction)
-            Vector3 relativePos = hit.point - transform.position;
-            transform.rotation = Quaternion.LookRotation(relativePos, Vector3.up);
+            //Vector3 relativePos = hit.point - transform.position;
+            //transform.rotation = Quaternion.LookRotation(relativePos, Vector3.up);
             laserSight.position = hit.point;
 
 
         }
         else
         {
-            Vector3 relativePos = playerCam.transform.forward * laserRange;
-            transform.rotation = Quaternion.LookRotation(relativePos, Vector3.up);
+            //Vector3 relativePos = playerCam.transform.forward * laserRange;
+            //transform.rotation = Quaternion.LookRotation(relativePos, Vector3.up);
             laserSight.position = playerCam.transform.forward * laserRange;
-
         }
 
     }
@@ -128,10 +131,13 @@ public class SniperWeapon : MonoBehaviour
 
         StartCoroutine(ShotEffect());
         SpawnCollider();
-        Vector3 rayOrigin = playerCam.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, 0.0f));
+        //Vector3 rayOrigin = playerCam.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, 0.0f));
+
+        Vector3 rayOrigin = muzzle.transform.position;
+
         RaycastHit hit;
 
-        if (Physics.Raycast(rayOrigin, playerCam.transform.forward, out hit, weaponRange))
+        if (Physics.Raycast(rayOrigin, /*playerCam.transform.forward*/ muzzle.forward, out hit, weaponRange))
         {
             Instantiate(bulletParticle, hit.point, Quaternion.identity);
             Vector3 direction = (hit.point - muzzle.position).normalized;

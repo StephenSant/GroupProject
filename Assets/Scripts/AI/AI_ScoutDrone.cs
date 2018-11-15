@@ -29,6 +29,9 @@ public class AI_ScoutDrone : MonoBehaviour
     public float pauseDuration; // Time to wait before going to the next waypoint.
     private float waitTime, lookTime; // Defined later as UnityEngine 'Time.time'.
 
+    [Header("Animations")]
+    public Animator anim;
+
     // Creates a collection of Transforms
     private Transform[] waypoints; // Transform of (child) waypoints in array.
     private int currentIndex = 1; // Counts sequential waypoints of array index.
@@ -76,6 +79,30 @@ public class AI_ScoutDrone : MonoBehaviour
         }
         transform.position = Vector3.MoveTowards(transform.position, point.position, 0.1f);
 
+        #region RotateTowards waypoint
+        // Direction of point (waypoint) from current position.
+        Vector3 pointDir = point.position - transform.position;
+
+        float step = speedPatrol * Time.deltaTime;
+
+        // Rotate front face of ScoutDrone towards pointDir.
+        Vector3 newDir = Vector3.RotateTowards(transform.forward, pointDir, step, 0.0f);
+
+        //float angle = Vector3.Angle(Vector3.right, pointDir.normalized);
+        //Vector3 euler = transform.eulerAngles;
+        //euler.y = angle;
+        //transform.eulerAngles = euler;
+
+        if (pointDir.magnitude > 0)
+        {
+            transform.rotation = Quaternion.LookRotation(pointDir.normalized, Vector3.up);
+            transform.rotation *= Quaternion.Euler(90, 0, 0);
+        }
+
+        // Execute rotation using newDir.
+        //transform.rotation = Quaternion.LookRotation(newDir);
+        #endregion
+
         if (fov.visibleTargets.Count > 0)
         {
             currentState = State.Seek;
@@ -111,7 +138,9 @@ public class AI_ScoutDrone : MonoBehaviour
             {
                 lookTime = 0;
                 currentState = State.Patrol;
-                target = fov.visibleTargets[0];
+
+                if(fov.visibleTargets.Count > 0)
+                    target = fov.visibleTargets[0];
             }
         }
         //fov.viewRadius = 10f; // FieldOfView arc radius during 'Seek'.
@@ -146,10 +175,12 @@ public class AI_ScoutDrone : MonoBehaviour
             case State.Patrol:
                 // Patrol state
                 Patrol();
+                anim.SetBool("hasTarget", false);
                 break;
             case State.Seek:
                 // Seek state
                 Seek();
+                anim.SetBool("hasTarget", true);
                 break;
             case State.Investigate:
                 // Run this code while in investigate state
