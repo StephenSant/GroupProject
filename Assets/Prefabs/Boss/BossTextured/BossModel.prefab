@@ -67,6 +67,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4456710859292382}
+  - component: {fileID: 114988140257045792}
   m_Layer: 0
   m_Name: Lazer_Cannon
   m_TagString: Untagged
@@ -303,6 +304,7 @@ GameObject:
   - component: {fileID: 114646259358256378}
   - component: {fileID: 114156982232105388}
   - component: {fileID: 114655228926019370}
+  - component: {fileID: 114737297635577084}
   m_Layer: 0
   m_Name: BossModel
   m_TagString: Boss
@@ -700,7 +702,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1650968725215892}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -17.437418, y: 2.8685672, z: -14.708378}
+  m_LocalPosition: {x: -15.723863, y: 2.8685672, z: -18.733643}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4502848920790272}
@@ -774,7 +776,7 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1328110865511464}
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -3.538497, y: 2.283967, z: 1.1752551}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -2330,7 +2332,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1650968725215892}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a6af6b2b3608715478be2a5b1143c3e6, type: 3}
   m_Name: 
@@ -2356,7 +2358,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 20
-  curHealth: 0
+  curHealth: 20
   explosion: {fileID: 198633284927849344, guid: 95f366d7a16975445bcd076bac869f04,
     type: 2}
 --- !u!114 &114156982232105388
@@ -2365,7 +2367,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1650968725215892}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bdec1458279b1d041a64391a0896179a, type: 3}
   m_Name: 
@@ -2395,14 +2397,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   viewRadius: 50
-  viewAngle: 70
+  viewAngle: 75
   targetMask:
     serializedVersion: 2
     m_Bits: 512
   obstacleMask:
     serializedVersion: 2
     m_Bits: 256
-  visibleTargets: []
+  visibleTargets:
+  - {fileID: 0}
   meshResolution: 3
   edgeResolveIterations: 4
   edgeDstThreshold: 0.5
@@ -2419,9 +2422,29 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 450
-  curHealth: 0
-  isAlive: 0
+  curHealth: 450
+  isAlive: 1
   colliders: []
+--- !u!114 &114737297635577084
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1650968725215892}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58e3dad62e143ac4696e4183e8e1af9f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  agent: {fileID: 195039832811538988}
+  target: {fileID: 0}
+  waypointParent: {fileID: 0}
+  fov: {fileID: 114646259358256378}
+  currentState: 1
+  speedPatrol: 4
+  speedSeek: 4
+  stoppingDistance: 1
+  pauseDuration: 0
 --- !u!114 &114807611237704282
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2434,7 +2457,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 20
-  curHealth: 0
+  curHealth: 20
   explosion: {fileID: 198633284927849344, guid: 95f366d7a16975445bcd076bac869f04,
     type: 2}
 --- !u!114 &114932506162031368
@@ -2449,9 +2472,34 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 20
-  curHealth: 0
+  curHealth: 20
   explosion: {fileID: 198633284927849344, guid: 95f366d7a16975445bcd076bac869f04,
     type: 2}
+--- !u!114 &114988140257045792
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1328110865511464}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d546454d8a5c814592d3928e858e213, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  muzzle: {fileID: 4870943311410638}
+  damage: 10
+  laser: {fileID: 120577768839479010}
+  delayBetweenShots: 0
+  weaponRange: 75
+  distanceToTarget: 0
+  rateOfFire: 0.12
+  readyToFire: 0
+  soundSource: {fileID: 0}
+  soundclips: []
+  targetMask:
+    serializedVersion: 2
+    m_Bits: 512
+  target: {fileID: 0}
 --- !u!120 &120577768839479010
 LineRenderer:
   m_ObjectHideFlags: 1
@@ -2640,7 +2688,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 3.5
+  m_Speed: 4
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
