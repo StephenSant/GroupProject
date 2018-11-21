@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-public class Buttons : MonoBehaviour
+public class MenuHandler : MonoBehaviour
 {
     public GameObject mainMenu, optionMenu;
     public bool optionOn;
