@@ -82,16 +82,8 @@ public class PlayerMovement : MonoBehaviour
                 break;
 
         }
-
-        /*if (Input.GetButton("Jump") && isGrounded)
-        {
-            rb.velocity = new Vector3(rb.velocity.x, jumpHeight, rb.velocity.z);
-        }*/
     }
-    //private void OnGUI()
-    //{
-    //    GUI.Box(new Rect(Screen.width / 2, Screen.height / 2, 1, 1), "");
-    //}
+
     public enum MoveSpeed
     {
         run,
