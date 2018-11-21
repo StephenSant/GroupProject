@@ -40,8 +40,8 @@ public class BossFoV_SearchLight : MonoBehaviour
     {
         // Get Light component from child SpotLight and assign values.
         fovLight = GetComponentInChildren<Light>();
-        fovLight.spotAngle = viewAngle;
-        fovLight.range = viewRadius * 1.5f;
+        //fovLight.spotAngle = viewAngle;
+        //fovLight.range = viewRadius * 1.5f;
 
         // Where the MeshFilter is initialized.
         viewMesh = new Mesh();
@@ -265,7 +265,7 @@ public class BossFoV_SearchLight : MonoBehaviour
     #endregion
 
     #region void METHOD - Draw Line to Target
-    private void OnDrawGizmos()
+    /*private void OnDrawGizmos()
     {
         // 3D GUI Drawing Colour.
         Gizmos.color = Color.red;
@@ -275,7 +275,7 @@ public class BossFoV_SearchLight : MonoBehaviour
             // Draw a line from the script's transform position in 3D space to the target's position.
             Gizmos.DrawLine(transform.position, visibleTarget.position);
         }
-    }
+    }*/
     #endregion
 
     #region STRUCTS (or: 'The Rabbit Hole') - The Heart of Optimization

@@ -525,6 +525,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4071112265989376, guid: c486b61f03b55284cb67f844adbb66bf,
     type: 2}
   m_PrefabInternal: {fileID: 181950724}
+--- !u!108 &289186116 stripped
+Light:
+  m_CorrespondingSourceObject: {fileID: 108738240169812078, guid: e497b2f23728f4145a15a2a601c99248,
+    type: 2}
+  m_PrefabInternal: {fileID: 2038246191}
 --- !u!1 &309583301
 GameObject:
   m_ObjectHideFlags: 0
@@ -2773,7 +2778,7 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1514616006}
-  m_LocalRotation: {x: -0.5000002, y: -0, z: -0, w: -0.8660253}
+  m_LocalRotation: {x: -0.5000001, y: 0, z: 0, w: -0.86602527}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -3727,6 +3732,21 @@ Prefab:
       propertyPath: target
       value: 
       objectReference: {fileID: 1506534801}
+    - target: {fileID: 114583876062504572, guid: e497b2f23728f4145a15a2a601c99248,
+        type: 2}
+      propertyPath: target
+      value: 
+      objectReference: {fileID: 1506534801}
+    - target: {fileID: 114583876062504572, guid: e497b2f23728f4145a15a2a601c99248,
+        type: 2}
+      propertyPath: waypointParent
+      value: 
+      objectReference: {fileID: 756618692}
+    - target: {fileID: 114583876062504572, guid: e497b2f23728f4145a15a2a601c99248,
+        type: 2}
+      propertyPath: searchLight
+      value: 
+      objectReference: {fileID: 289186116}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e497b2f23728f4145a15a2a601c99248, type: 2}
   m_IsPrefabAsset: 0
