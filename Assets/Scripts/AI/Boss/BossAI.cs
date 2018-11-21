@@ -59,7 +59,7 @@ public class BossAI : MonoBehaviour
          *              reset currentIndex to 1 (return/repeat cycle).
         */
         #endregion
-        if (distance < .5f)
+        if (distance < 5f)
         {
             if (waitTime == 0)
                 waitTime = Time.time;
@@ -80,15 +80,15 @@ public class BossAI : MonoBehaviour
         // Gets the distance between enemy and player.
         float distToTarget = Vector3.Distance(transform.position, target.position);
 
-        if (fov.visibleTargets.Count > 0 || bossHP.curHealth < bossHP.maxHealth)
+        /*if (fov.visibleTargets.Count > 0 || bossHP.curHealth < bossHP.maxHealth)
         {
             currentState = State.Engage;
             target = fov.visibleTargets[0];
-        }
+        }*/
 
         //fov.viewRadius = 6f; // FieldOfView arc radius during 'Patrol'.
     }
-    #endregion STATE - Patrol
+    #endregion 
 
     #region Engage
     public void Engage()
@@ -101,7 +101,8 @@ public class BossAI : MonoBehaviour
     public void Start()
     {
         waypoints = waypointParent.GetComponentsInChildren<Transform>();
-
+        target = GameObject.Find("Player").transform;
+        currentState = State.Patrol;
     }
     public void Update()
     {
