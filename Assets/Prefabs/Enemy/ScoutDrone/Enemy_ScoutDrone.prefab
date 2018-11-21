@@ -107,7 +107,7 @@ GameObject:
   - component: {fileID: 33779713985989870}
   - component: {fileID: 23738051207256412}
   - component: {fileID: 135080311319453912}
-  - component: {fileID: 114323058467327288}
+  - component: {fileID: 114583876062504572}
   - component: {fileID: 95771004029754540}
   m_Layer: 10
   m_Name: Enemy_ScoutDrone
@@ -406,10 +406,10 @@ Light:
   m_Enabled: 1
   serializedVersion: 8
   m_Type: 0
-  m_Color: {r: 0.804, g: 0, b: 0, a: 1}
+  m_Color: {r: 0.8039216, g: 0, b: 0, a: 1}
   m_Intensity: 1
   m_Range: 80
-  m_SpotAngle: 30
+  m_SpotAngle: 45
   m_CookieSize: 10
   m_Shadows:
     m_Type: 1
@@ -434,7 +434,7 @@ Light:
   m_UseColorTemperature: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
---- !u!114 &114323058467327288
+--- !u!114 &114583876062504572
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -448,11 +448,14 @@ MonoBehaviour:
   target: {fileID: 0}
   waypointParent: {fileID: 0}
   fov: {fileID: 114810797768525310}
+  searchLight: {fileID: 0}
+  colorPatrol: {r: 0.8039216, g: 0.4019608, b: 0, a: 1}
+  colorSeek: {r: 0.8039216, g: 0, b: 0, a: 1}
   currentState: 0
   speedPatrol: 4
   speedSeek: 4
   stoppingDistance: 1
-  pauseDuration: 1
+  pauseDuration: 3
   anim: {fileID: 95771004029754540}
 --- !u!114 &114810797768525310
 MonoBehaviour:
@@ -466,7 +469,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   viewRadius: 50
-  viewAngle: 30
+  viewAngle: 45
   targetMask:
     serializedVersion: 2
     m_Bits: 512
@@ -474,6 +477,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   visibleTargets: []
+  fovLight: {fileID: 0}
   meshResolution: 3
   edgeResolveIterations: 4
   edgeDstThreshold: 0.5

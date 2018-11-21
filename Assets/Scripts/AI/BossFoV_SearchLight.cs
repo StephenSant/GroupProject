@@ -19,6 +19,9 @@ public class BossFoV_SearchLight : MonoBehaviour
     [HideInInspector] // Hide the List below in Unity (it needs to be public so that the 'FieldOfViewEditor' script can access it).
     public List<Transform> visibleTargets = new List<Transform>(); // using System.Collections.Generic;
 
+    // Spotlight component (to control the 'Spot Angle' and 'Range' with the script's viewAngle and Radius).
+    public Light fovLight;
+
     // (advanced)
     // Used in constructing mesh from contact points of Raycast.
     // NOTE: This is where things get complicated, but it's all for the sake of efficiency.
@@ -35,6 +38,11 @@ public class BossFoV_SearchLight : MonoBehaviour
 
     void Start()
     {
+        // Get Light component from child SpotLight and assign values.
+        fovLight = GetComponentInChildren<Light>();
+        fovLight.spotAngle = viewAngle;
+        fovLight.range = viewRadius * 1.5f;
+
         // Where the MeshFilter is initialized.
         viewMesh = new Mesh();
         viewMesh.name = "View Mesh";
