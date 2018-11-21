@@ -23,6 +23,7 @@ public class AI_ScoutDrone : MonoBehaviour
     [Header("SearchLight")]
     public Light searchLight; // Reference Light (child 'SearchLight').
     public Color colorPatrol = new Color(0.8039216f - 0 / 100, 0.4019608f - 0 / 100, 0);
+    public Color colorSearch = Color.white;
     public Color colorSeek = new Color(0.8039216f - 0 / 100, 0, 0);
 
     [Header("Behaviours")]
@@ -50,6 +51,9 @@ public class AI_ScoutDrone : MonoBehaviour
     {
         // Transform(s) of each waypoint in the array.
         Transform point = waypoints[currentIndex];
+
+        //
+        searchLight.color = colorPatrol;
 
         // Gets the distance between enemy and waypoint.
         float distance = Vector3.Distance(transform.position, point.position);
@@ -134,6 +138,7 @@ public class AI_ScoutDrone : MonoBehaviour
 
         if (fov.visibleTargets.Count > 0)
         {
+            anim.SetBool("hasTarget", true);
             currentState = State.Seek;
             target = fov.visibleTargets[0];
         }
@@ -144,29 +149,12 @@ public class AI_ScoutDrone : MonoBehaviour
     // The contained variables for the Seek state (what rules the enemy AI follows when in 'Seek').
     void Seek()
     {
-        #region RotateTowards player
-        // Direction of target (player) from current position.
-        Vector3 targetDir = target.position - transform.position;
 
-        float step = speedPatrol * Time.deltaTime;
-
-        // Rotate front face of ScoutDrone towards targetDir.
-        Vector3 newTarDir = Vector3.RotateTowards(transform.forward, targetDir, step, 0.0f);
-
-        //float angle = Vector3.Angle(Vector3.right, targetDir.normalized);
-        //Vector3 euler = transform.eulerAngles;
-        //euler.y = angle;
-        //transform.eulerAngles = euler;
-
-        if (targetDir.magnitude > 0)
-        {
-            transform.rotation = Quaternion.LookRotation(targetDir.normalized, Vector3.up);
-            transform.rotation *= Quaternion.Euler(0, 0, 0);
-        }
-        #endregion
-
+        #region Look (Wait) at Player
         if (fov.visibleTargets.Count < 1)
         {
+            anim.SetBool("hasTarget", false);
+            searchLight.color = colorSearch;
             lookTimer -= Time.deltaTime;
 
             if (lookTimer <= 0)
@@ -180,6 +168,35 @@ public class AI_ScoutDrone : MonoBehaviour
                 }
             }
         }
+
+        if (fov.visibleTargets.Count > 0)
+        {
+            anim.SetBool("hasTarget", true);
+            searchLight.color = colorSeek;
+            lookTimer = pauseDuration;
+
+            #region Track Player Position
+            // Direction of target (player) from current position.
+            Vector3 targetDir = target.position - transform.position;
+
+            float step = speedPatrol * Time.deltaTime;
+
+            // Rotate front face of ScoutDrone towards targetDir.
+            Vector3 newTarDir = Vector3.RotateTowards(transform.forward, targetDir, step, 0.0f);
+
+            //float angle = Vector3.Angle(Vector3.right, targetDir.normalized);
+            //Vector3 euler = transform.eulerAngles;
+            //euler.y = angle;
+            //transform.eulerAngles = euler;
+
+            if (targetDir.magnitude > 0)
+            {
+                transform.rotation = Quaternion.LookRotation(targetDir.normalized, Vector3.up);
+                transform.rotation *= Quaternion.Euler(0, 0, 0);
+            }
+            #endregion
+        }
+        #endregion
 
         #region // DEFUNCT - Old Look (Wait) at Player
         // // Makes AI wait after losing line of sight of the player. 'lookTime' instead of 'waitTime' to ensure AI still waits at next waypoint.
@@ -236,14 +253,10 @@ public class AI_ScoutDrone : MonoBehaviour
             case State.Patrol:
                 // Patrol state
                 Patrol();
-                searchLight.color = colorPatrol;
-                anim.SetBool("hasTarget", false);
                 break;
             case State.Seek:
                 // Seek state
                 Seek();
-                searchLight.color = colorSeek;
-                anim.SetBool("hasTarget", true);
                 break;
             case State.Investigate:
                 // Run this code while in investigate state

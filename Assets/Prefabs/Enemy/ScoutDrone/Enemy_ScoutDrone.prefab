@@ -450,12 +450,15 @@ MonoBehaviour:
   fov: {fileID: 114810797768525310}
   searchLight: {fileID: 0}
   colorPatrol: {r: 0.8039216, g: 0.4019608, b: 0, a: 1}
+  colorSearch: {r: 1, g: 1, b: 1, a: 1}
   colorSeek: {r: 0.8039216, g: 0, b: 0, a: 1}
   currentState: 0
   speedPatrol: 4
   speedSeek: 4
   stoppingDistance: 1
-  pauseDuration: 3
+  pauseDuration: 10
+  waitTimer: 0
+  lookTimer: 0
   anim: {fileID: 95771004029754540}
 --- !u!114 &114810797768525310
 MonoBehaviour:
