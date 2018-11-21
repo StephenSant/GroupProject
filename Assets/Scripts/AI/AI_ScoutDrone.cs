@@ -22,8 +22,8 @@ public class AI_ScoutDrone : MonoBehaviour
 
     [Header("SearchLight")]
     public Light searchLight; // Reference Light (child 'SearchLight').
-    public Color colorPatrol = colp;
-    public Color colorSeek = cols;
+    public Color colorPatrol = new Color(0.8039216f - 0 / 100, 0.4019608f - 0 / 100, 0);
+    public Color colorSeek = new Color(0.8039216f - 0 / 100, 0, 0);
 
     [Header("Behaviours")]
     public State currentState = State.Patrol; // The default/start state set to Patrol.
@@ -32,8 +32,10 @@ public class AI_ScoutDrone : MonoBehaviour
     public float stoppingDistance = 1f; // Enemy AI's required distance to clear/'pass' a waypoint.
 
     public float pauseDuration; // Time to wait before going to the next waypoint.
-    private float waitTime, lookTime; // Defined later as UnityEngine 'Time.time'.
 
+    [SerializeField] // Makes private access types work like public access types (good for debug, in a way).
+    private float waitTimer, lookTimer; // Used to count how much time has passed since...
+    
     [Header("Animations")]
     public Animator anim;
 
@@ -51,6 +53,26 @@ public class AI_ScoutDrone : MonoBehaviour
 
         // Gets the distance between enemy and waypoint.
         float distance = Vector3.Distance(transform.position, point.position);
+
+        #region Hold (Wait) at Waypoint
+        if (distance < .5f)
+        {
+            waitTimer -= Time.deltaTime;
+            if (waitTimer <= 0)
+            {
+                waitTimer = pauseDuration;
+                currentIndex++;
+                if (currentIndex >= waypoints.Length)
+                {
+                    currentIndex = 1;
+                }
+            }
+        }
+        #endregion
+
+        #region // DEFUNCT - Old Hold (Wait) at Waypoint
+        /// NOTE: Never use Time.time
+        /// This method breaks with Time.deltaTime, due to it counting frame time (see current method - courtesy of Stephen)).
         #region if statement logic
         // if statement reads as:
         /*
@@ -66,22 +88,24 @@ public class AI_ScoutDrone : MonoBehaviour
          *              reset currentIndex to 1 (return/repeat cycle).
         */
         #endregion
-        if (distance < .5f)
-        {
-            if (waitTime == 0)
-                waitTime = Time.time;
+        // if (distance < .5f)
+        // {
+        //     if (waitTime == 0)
+        //         waitTime = Time.time;
+        // 
+        //     if ((Time.time - waitTime) >= pauseDuration)
+        //     {
+        //         currentIndex++;
+        //         waitTime = 0;
+        // 
+        //         if (currentIndex >= waypoints.Length)
+        //         {
+        //             currentIndex = 1;
+        //         }
+        //     }
+        // } 
+        #endregion
 
-            if ((Time.time - waitTime) >= pauseDuration)
-            {
-                currentIndex++;
-                waitTime = 0;
-
-                if (currentIndex >= waypoints.Length)
-                {
-                    currentIndex = 1;
-                }
-            }
-        }
         transform.position = Vector3.MoveTowards(transform.position, point.position, 0.1f);
 
         #region RotateTowards waypoint
@@ -141,22 +165,39 @@ public class AI_ScoutDrone : MonoBehaviour
         }
         #endregion
 
-        // Makes AI wait after losing line of sight of the player. 'lookTime' instead of 'waitTime' to ensure AI still waits at next waypoint.
         if (fov.visibleTargets.Count < 1)
         {
-            if (lookTime == 0)
-                lookTime = Time.time;
+            lookTimer -= Time.deltaTime;
 
-            if ((Time.time - lookTime) >= pauseDuration)
+            if (lookTimer <= 0)
             {
-                lookTime = 0;
+                lookTimer = pauseDuration;
                 currentState = State.Patrol;
 
-                if(fov.visibleTargets.Count > 0)
+                if (fov.visibleTargets.Count > 0)
+                {
                     target = fov.visibleTargets[0];
+                }
             }
         }
-        //fov.viewRadius = 10f; // FieldOfView arc radius during 'Seek'.
+
+        #region // DEFUNCT - Old Look (Wait) at Player
+        // // Makes AI wait after losing line of sight of the player. 'lookTime' instead of 'waitTime' to ensure AI still waits at next waypoint.
+        // if (fov.visibleTargets.Count < 1)
+        // {
+        //     if (lookTime == 0)
+        //         lookTime = Time.time;
+        // 
+        //     if ((Time.time - lookTime) >= pauseDuration)
+        //     {
+        //         lookTime = 0;
+        //         currentState = State.Patrol;
+        // 
+        //         if (fov.visibleTargets.Count > 0)
+        //             target = fov.visibleTargets[0];
+        //     }
+        // }
+        #endregion
     }
     #endregion STATE - Seek
 
@@ -173,6 +214,10 @@ public class AI_ScoutDrone : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        // Set waitTimer to pauseDuration.
+        waitTimer = pauseDuration;
+        lookTimer = pauseDuration;
+
         // Get children of waypointParent.
         waypoints = waypointParent.GetComponentsInChildren<Transform>();
 
@@ -228,7 +273,4 @@ public class AI_ScoutDrone : MonoBehaviour
         // Call Seek()
     }
     #endregion Update
-
-    public static Color colp = new Color(0.8039216f - 0 / 100, 0.4019608f - 0 / 100, 0);
-    public static Color cols = new Color(0.8039216f - 0 / 100, 0, 0);
 }
