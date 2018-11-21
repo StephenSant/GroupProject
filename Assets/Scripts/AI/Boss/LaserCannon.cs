@@ -31,22 +31,22 @@ public class LaserCannon : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Vector3 targetPosition = new Vector3(target.position.x, transform.rotation.x, target.position.z);
-        this.transform.LookAt(targetPosition);
-        Vector3 origin = muzzle.transform.position;
-        RaycastHit hit;
-        Physics.Raycast(muzzle.position, transform.TransformDirection(Vector3.forward), out hit, weaponRange, targetMask);
-        if (Time.time > readyToFire)
-        {
-            if (hit.collider)
-            {
-                Vector3 direction = (hit.point - muzzle.position).normalized;
+        //Vector3 targetPosition = new Vector3(target.position.x, transform.rotation.x, target.position.z);
+        //transform.LookAt(targetPosition);
+        //Vector3 origin = muzzle.transform.position;
+        //RaycastHit hit;
+        //Physics.Raycast(muzzle.position, transform.TransformDirection(Vector3.forward), out hit, weaponRange, targetMask);
+        //if (Time.time > readyToFire)
+        //{
+        //    if (hit.collider)
+        //    {
+        //        Vector3 direction = (hit.point - muzzle.position).normalized;
 
-                laser.SetPosition(0, muzzle.position);
-                DealDamage();
+        //        laser.SetPosition(0, muzzle.position);
+        //        DealDamage();
 
-            }
-        }
+        //    }
+        //}
 
     }
     void DealDamage()
