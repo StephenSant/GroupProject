@@ -20,6 +20,11 @@ public class AI_ScoutDrone : MonoBehaviour
     public Transform waypointParent; // Reference one waypoint Parent (used to get children in array).
     public BossFoV_SearchLight fov; // Reference FieldOfView Script (used for line of sight player detection).
 
+    [Header("SearchLight")]
+    public Light searchLight; // Reference Light (child 'SearchLight').
+    public Color colorPatrol = colp;
+    public Color colorSeek = cols;
+
     [Header("Behaviours")]
     public State currentState = State.Patrol; // The default/start state set to Patrol.
 
@@ -28,6 +33,9 @@ public class AI_ScoutDrone : MonoBehaviour
 
     public float pauseDuration; // Time to wait before going to the next waypoint.
     private float waitTime, lookTime; // Defined later as UnityEngine 'Time.time'.
+
+    [Header("Animations")]
+    public Animator anim;
 
     // Creates a collection of Transforms
     private Transform[] waypoints; // Transform of (child) waypoints in array.
@@ -76,6 +84,30 @@ public class AI_ScoutDrone : MonoBehaviour
         }
         transform.position = Vector3.MoveTowards(transform.position, point.position, 0.1f);
 
+        #region RotateTowards waypoint
+        // Direction of point (waypoint) from current position.
+        Vector3 pointDir = point.position - transform.position;
+
+        float step = speedPatrol * Time.deltaTime;
+
+        // Rotate front face of ScoutDrone towards pointDir.
+        Vector3 newDir = Vector3.RotateTowards(transform.forward, pointDir, step, 0.0f);
+
+        //float angle = Vector3.Angle(Vector3.right, pointDir.normalized);
+        //Vector3 euler = transform.eulerAngles;
+        //euler.y = angle;
+        //transform.eulerAngles = euler;
+
+        if (pointDir.magnitude > 0)
+        {
+            transform.rotation = Quaternion.LookRotation(pointDir.normalized, Vector3.up);
+            transform.rotation *= Quaternion.Euler(90, 0, 0);
+        }
+
+        // Execute rotation using newDir.
+        //transform.rotation = Quaternion.LookRotation(newDir);
+        #endregion
+
         if (fov.visibleTargets.Count > 0)
         {
             currentState = State.Seek;
@@ -92,15 +124,23 @@ public class AI_ScoutDrone : MonoBehaviour
         // Direction of target (player) from current position.
         Vector3 targetDir = target.position - transform.position;
 
-        float step = speedSeek * Time.deltaTime;
+        float step = speedPatrol * Time.deltaTime;
 
         // Rotate front face of ScoutDrone towards targetDir.
-        Vector3 newDir = Vector3.RotateTowards(transform.forward, targetDir, step, 0.0f);
+        Vector3 newTarDir = Vector3.RotateTowards(transform.forward, targetDir, step, 0.0f);
 
-        // Execute rotation using newDir.
-        transform.rotation = Quaternion.LookRotation(newDir);
+        //float angle = Vector3.Angle(Vector3.right, targetDir.normalized);
+        //Vector3 euler = transform.eulerAngles;
+        //euler.y = angle;
+        //transform.eulerAngles = euler;
+
+        if (targetDir.magnitude > 0)
+        {
+            transform.rotation = Quaternion.LookRotation(targetDir.normalized, Vector3.up);
+            transform.rotation *= Quaternion.Euler(0, 0, 0);
+        }
         #endregion
-        
+
         // Makes AI wait after losing line of sight of the player. 'lookTime' instead of 'waitTime' to ensure AI still waits at next waypoint.
         if (fov.visibleTargets.Count < 1)
         {
@@ -111,7 +151,9 @@ public class AI_ScoutDrone : MonoBehaviour
             {
                 lookTime = 0;
                 currentState = State.Patrol;
-                target = fov.visibleTargets[0];
+
+                if(fov.visibleTargets.Count > 0)
+                    target = fov.visibleTargets[0];
             }
         }
         //fov.viewRadius = 10f; // FieldOfView arc radius during 'Seek'.
@@ -133,6 +175,9 @@ public class AI_ScoutDrone : MonoBehaviour
     {
         // Get children of waypointParent.
         waypoints = waypointParent.GetComponentsInChildren<Transform>();
+
+        // Get Light component from child in GameObject.
+        searchLight = GetComponentInChildren<Light>();
     }
     #endregion Start
 
@@ -146,10 +191,14 @@ public class AI_ScoutDrone : MonoBehaviour
             case State.Patrol:
                 // Patrol state
                 Patrol();
+                searchLight.color = colorPatrol;
+                anim.SetBool("hasTarget", false);
                 break;
             case State.Seek:
                 // Seek state
                 Seek();
+                searchLight.color = colorSeek;
+                anim.SetBool("hasTarget", true);
                 break;
             case State.Investigate:
                 // Run this code while in investigate state
@@ -179,4 +228,7 @@ public class AI_ScoutDrone : MonoBehaviour
         // Call Seek()
     }
     #endregion Update
+
+    public static Color colp = new Color(0.8039216f - 0 / 100, 0.4019608f - 0 / 100, 0);
+    public static Color cols = new Color(0.8039216f - 0 / 100, 0, 0);
 }
