@@ -83,10 +83,10 @@ public class PlayerMovement : MonoBehaviour
 
         }
 
-        if (Input.GetButton("Jump") && isGrounded)
-        {
-            rb.velocity = new Vector3(rb.velocity.x, jumpHeight, rb.velocity.z);
-        }
+        //if (Input.GetButton("Jump") && isGrounded)
+        //{
+        //    rb.velocity = new Vector3(rb.velocity.x, jumpHeight * Time.deltaTime, rb.velocity.z);
+        //}
     }
     //private void OnGUI()
     //{
