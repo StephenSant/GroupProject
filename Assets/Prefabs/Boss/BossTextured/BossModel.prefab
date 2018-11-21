@@ -254,7 +254,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1605303480316576
 GameObject:
   m_ObjectHideFlags: 1
@@ -300,7 +300,9 @@ GameObject:
   m_Component:
   - component: {fileID: 4282991675556196}
   - component: {fileID: 195039832811538988}
+  - component: {fileID: 114014518268623692}
   - component: {fileID: 114646259358256378}
+  - component: {fileID: 114156982232105388}
   - component: {fileID: 114655228926019370}
   - component: {fileID: 114737297635577084}
   m_Layer: 0
@@ -699,9 +701,9 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1650968725215892}
-  m_LocalRotation: {x: -0, y: 1, z: -0, w: 0.0000026226041}
-  m_LocalPosition: {x: 303.48325, y: 0.98731995, z: 417.94867}
-  m_LocalScale: {x: 3, y: 3, z: 3}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -15.723863, y: 2.8685672, z: -18.733643}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4502848920790272}
   - {fileID: 4507393100428296}
@@ -712,7 +714,7 @@ Transform:
   - {fileID: 4733405054945776}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 180.00002, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4293565252164872
 Transform:
   m_ObjectHideFlags: 1
@@ -2324,6 +2326,26 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 2.3738704, y: 3.3641036, z: 3.5800548}
   m_Center: {x: 0.000000059604645, y: 1.6820515, z: 0.015176237}
+--- !u!114 &114014518268623692
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1650968725215892}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6af6b2b3608715478be2a5b1143c3e6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  agent: {fileID: 195039832811538988}
+  target: {fileID: 0}
+  waypointParent: {fileID: 0}
+  fov: {fileID: 114646259358256378}
+  currentState: 0
+  speedPatrol: 4
+  speedSeek: 4
+  stoppingDistance: 1
+  pauseDuration: 0
 --- !u!114 &114051250553232678
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2339,6 +2361,30 @@ MonoBehaviour:
   curHealth: 20
   explosion: {fileID: 198633284927849344, guid: 95f366d7a16975445bcd076bac869f04,
     type: 2}
+--- !u!114 &114156982232105388
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1650968725215892}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bdec1458279b1d041a64391a0896179a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  muzzle: {fileID: 4870943311410638}
+  damage: 10
+  laser: {fileID: 120577768839479010}
+  delayBetweenShots: 0
+  weaponRange: 75
+  distanceToTarget: 0
+  rateOfFire: 0.12
+  readyToFire: 0
+  soundSource: {fileID: 0}
+  soundclips: []
+  targetMask:
+    serializedVersion: 2
+    m_Bits: 512
 --- !u!114 &114646259358256378
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2394,7 +2440,7 @@ MonoBehaviour:
   target: {fileID: 0}
   waypointParent: {fileID: 0}
   fov: {fileID: 114646259358256378}
-  currentState: 0
+  currentState: 1
   speedPatrol: 4
   speedSeek: 4
   stoppingDistance: 1
