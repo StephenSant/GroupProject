@@ -256,20 +256,6 @@ public class BossFoV_SearchLight : MonoBehaviour
     }
     #endregion
 
-    #region void METHOD - Draw Line to Target
-    private void OnDrawGizmos()
-    {
-        // 3D GUI Drawing Colour.
-        Gizmos.color = Color.red;
-        // foreach (for each instance of) 'visibleTarget' added to the list in the 'BossFoV_SearchLight' script...
-        foreach (Transform visibleTarget in visibleTargets)
-        {
-            // Draw a line from the script's transform position in 3D space to the target's position.
-            Gizmos.DrawLine(transform.position, visibleTarget.position);
-        }
-    }
-    #endregion
-
     #region STRUCTS (or: 'The Rabbit Hole') - The Heart of Optimization
     // "Welcome to The Rabbit Hole, stranger!~" - ???                                                                                    God help me.
     #region An Attempt to Explain STRUCTS (accuracy not assured)

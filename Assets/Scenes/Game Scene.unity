@@ -3426,6 +3426,16 @@ Prefab:
       propertyPath: m_LocalScale.y
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114323343137533806, guid: ba09b0c40cefd75439db3b8cbfc70554,
+        type: 2}
+      propertyPath: runSpeed
+      value: 750
+      objectReference: {fileID: 0}
+    - target: {fileID: 114323343137533806, guid: ba09b0c40cefd75439db3b8cbfc70554,
+        type: 2}
+      propertyPath: walkSpeed
+      value: 325
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ba09b0c40cefd75439db3b8cbfc70554, type: 2}
   m_IsPrefabAsset: 0
@@ -3711,22 +3721,14 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 114323058467327288, guid: e497b2f23728f4145a15a2a601c99248,
         type: 2}
-      propertyPath: waypointParent
-      value: 
-      objectReference: {fileID: 756618692}
-    - target: {fileID: 4192005310103214, guid: e497b2f23728f4145a15a2a601c99248, type: 2}
-      propertyPath: m_LocalScale.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4192005310103214, guid: e497b2f23728f4145a15a2a601c99248, type: 2}
-      propertyPath: m_LocalScale.z
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114323058467327288, guid: e497b2f23728f4145a15a2a601c99248,
-        type: 2}
       propertyPath: target
       value: 
       objectReference: {fileID: 1506534801}
+    - target: {fileID: 114323058467327288, guid: e497b2f23728f4145a15a2a601c99248,
+        type: 2}
+      propertyPath: waypointParent
+      value: 
+      objectReference: {fileID: 756618692}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e497b2f23728f4145a15a2a601c99248, type: 2}
   m_IsPrefabAsset: 0
