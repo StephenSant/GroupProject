@@ -235,9 +235,11 @@ public class SniperWeapon : MonoBehaviour
         {
             if (hitColliders[i].tag == "Enemy")
             {
-                BehaviourAI enemy = hitColliders[i].GetComponent<BehaviourAI>();
-                enemy.Investigate(transform.position); // Tell enemy to investigate a position
-                
+                //BehaviourAI enemy = hitColliders[i].GetComponent<BehaviourAI>();
+                //enemy.Investigate(transform.position); // Tell enemy to investigate a position
+
+                AI_ScoutDrone enemy = hitColliders[i].GetComponent<AI_ScoutDrone>();
+                enemy.Investigate(transform.position);
                 //yield return new WaitForSeconds(5.0f);
                 //Physics.IgnoreCollision(enemy.GetComponent<Collider>().hitColliders[i].tag == "Enemy");
                 //hitColliders[i].SendMessage("Investigate");
