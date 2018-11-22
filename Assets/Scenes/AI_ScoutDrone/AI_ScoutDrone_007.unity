@@ -113,6 +113,11 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!95 &16205589 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 95771004029754540, guid: e497b2f23728f4145a15a2a601c99248,
+    type: 2}
+  m_PrefabInternal: {fileID: 1901161598}
 --- !u!1 &26379749
 GameObject:
   m_ObjectHideFlags: 0
@@ -142,6 +147,12 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: -30.000002}
+--- !u!114 &63920054 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 114810797768525310, guid: e497b2f23728f4145a15a2a601c99248,
+    type: 2}
+  m_PrefabInternal: {fileID: 1901161598}
+  m_Script: {fileID: 11500000, guid: c40633e44621e0f41a8e9375ecfcb18f, type: 3}
 --- !u!1 &77826783
 GameObject:
   m_ObjectHideFlags: 0
@@ -1074,9 +1085,49 @@ Prefab:
       objectReference: {fileID: 989541477}
     - target: {fileID: 114583876062504572, guid: e497b2f23728f4145a15a2a601c99248,
         type: 2}
+      propertyPath: fov
+      value: 
+      objectReference: {fileID: 63920054}
+    - target: {fileID: 114583876062504572, guid: e497b2f23728f4145a15a2a601c99248,
+        type: 2}
+      propertyPath: colorPatrol.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114583876062504572, guid: e497b2f23728f4145a15a2a601c99248,
+        type: 2}
+      propertyPath: colorPatrol.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114583876062504572, guid: e497b2f23728f4145a15a2a601c99248,
+        type: 2}
+      propertyPath: colorPatrol.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114583876062504572, guid: e497b2f23728f4145a15a2a601c99248,
+        type: 2}
+      propertyPath: colorSearch.r
+      value: 0.8039216
+      objectReference: {fileID: 0}
+    - target: {fileID: 114583876062504572, guid: e497b2f23728f4145a15a2a601c99248,
+        type: 2}
+      propertyPath: colorSearch.g
+      value: 0.4019608
+      objectReference: {fileID: 0}
+    - target: {fileID: 114583876062504572, guid: e497b2f23728f4145a15a2a601c99248,
+        type: 2}
+      propertyPath: colorSearch.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114583876062504572, guid: e497b2f23728f4145a15a2a601c99248,
+        type: 2}
       propertyPath: pauseDuration
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 114583876062504572, guid: e497b2f23728f4145a15a2a601c99248,
+        type: 2}
+      propertyPath: anim
+      value: 
+      objectReference: {fileID: 16205589}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e497b2f23728f4145a15a2a601c99248, type: 2}
   m_IsPrefabAsset: 0

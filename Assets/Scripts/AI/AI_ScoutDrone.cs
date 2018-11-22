@@ -22,8 +22,8 @@ public class AI_ScoutDrone : MonoBehaviour
 
     [Header("SearchLight")]
     public Light searchLight; // Reference Light (child 'SearchLight').
-    public Color colorPatrol = new Color(0.8039216f - 0 / 100, 0.4019608f - 0 / 100, 0);
-    public Color colorSearch = Color.white;
+    public Color colorPatrol = Color.white;
+    public Color colorSearch = new Color(0.8039216f - 0 / 100, 0.4019608f - 0 / 100, 0);
     public Color colorSeek = new Color(0.8039216f - 0 / 100, 0, 0);
 
     [Header("Behaviours")]
@@ -52,7 +52,8 @@ public class AI_ScoutDrone : MonoBehaviour
         // Transform(s) of each waypoint in the array.
         Transform point = waypoints[currentIndex];
 
-        //
+        // Current animation and SearchLight Color.
+        anim.SetBool("hasTarget", false);
         searchLight.color = colorPatrol;
 
         // Gets the distance between enemy and waypoint.
@@ -138,7 +139,6 @@ public class AI_ScoutDrone : MonoBehaviour
 
         if (fov.visibleTargets.Count > 0)
         {
-            anim.SetBool("hasTarget", true);
             currentState = State.Seek;
             target = fov.visibleTargets[0];
         }
@@ -149,12 +149,15 @@ public class AI_ScoutDrone : MonoBehaviour
     // The contained variables for the Seek state (what rules the enemy AI follows when in 'Seek').
     void Seek()
     {
-
         #region Look (Wait) at Player
+
+        #region If Target is Lost...
         if (fov.visibleTargets.Count < 1)
         {
+            // Current animation and SearchLight Color.
             anim.SetBool("hasTarget", false);
             searchLight.color = colorSearch;
+            
             lookTimer -= Time.deltaTime;
 
             if (lookTimer <= 0)
@@ -168,36 +171,6 @@ public class AI_ScoutDrone : MonoBehaviour
                 }
             }
         }
-
-        if (fov.visibleTargets.Count > 0)
-        {
-            anim.SetBool("hasTarget", true);
-            searchLight.color = colorSeek;
-            lookTimer = pauseDuration;
-
-            #region Track Player Position
-            // Direction of target (player) from current position.
-            Vector3 targetDir = target.position - transform.position;
-
-            float step = speedPatrol * Time.deltaTime;
-
-            // Rotate front face of ScoutDrone towards targetDir.
-            Vector3 newTarDir = Vector3.RotateTowards(transform.forward, targetDir, step, 0.0f);
-
-            //float angle = Vector3.Angle(Vector3.right, targetDir.normalized);
-            //Vector3 euler = transform.eulerAngles;
-            //euler.y = angle;
-            //transform.eulerAngles = euler;
-
-            if (targetDir.magnitude > 0)
-            {
-                transform.rotation = Quaternion.LookRotation(targetDir.normalized, Vector3.up);
-                transform.rotation *= Quaternion.Euler(0, 0, 0);
-            }
-            #endregion
-        }
-        #endregion
-
         #region // DEFUNCT - Old Look (Wait) at Player
         // // Makes AI wait after losing line of sight of the player. 'lookTime' instead of 'waitTime' to ensure AI still waits at next waypoint.
         // if (fov.visibleTargets.Count < 1)
@@ -215,6 +188,56 @@ public class AI_ScoutDrone : MonoBehaviour
         //     }
         // }
         #endregion
+        #endregion
+        #region If Target is Seen...
+        if (fov.visibleTargets.Count > 0)
+        {
+            // Current animation and SearchLight Color.
+            anim.SetBool("hasTarget", true);
+            searchLight.color = colorSeek;
+            
+            lookTimer = pauseDuration;
+
+            #region Track Player Position
+            // Direction of target (player) from current position.
+            Vector3 targetDir = target.position - transform.position;
+
+            float step = speedPatrol * Time.deltaTime;
+
+            // Rotate front face of ScoutDrone towards targetDir.
+            Vector3 newTarDir = Vector3.RotateTowards(transform.forward, targetDir, step, 0.0f);
+
+            if (targetDir.magnitude > 0)
+            {
+                transform.rotation = Quaternion.LookRotation(targetDir.normalized, Vector3.up);
+                transform.rotation *= Quaternion.Euler(0, 0, 0);
+            }
+            #endregion
+        }
+        #endregion
+
+        #endregion
+
+        #region Waypoint Timer (Fix)
+        // NOTE: Copy-paste from Patrol() - This is to keep the waitTimer counting down during Seek().
+        Transform point = waypoints[currentIndex];
+
+        float distance = Vector3.Distance(transform.position, point.position);
+
+        if (distance < .5f)
+        {
+            waitTimer -= Time.deltaTime;
+            if (waitTimer <= 0)
+            {
+                waitTimer = pauseDuration;
+                currentIndex++;
+                if (currentIndex >= waypoints.Length)
+                {
+                    currentIndex = 1;
+                }
+            }
+        } 
+        #endregion
     }
     #endregion STATE - Seek
 
@@ -231,7 +254,7 @@ public class AI_ScoutDrone : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        // Set waitTimer to pauseDuration.
+        // Set thisTimer to pauseDuration.
         waitTimer = pauseDuration;
         lookTimer = pauseDuration;
 
@@ -276,7 +299,7 @@ public class AI_ScoutDrone : MonoBehaviour
                     // Seek towards the visible target
                     target = fov.visibleTargets[0];
                 }
-                break;                
+                break;
             default:
                 break;
         }
