@@ -99,7 +99,7 @@ NavMeshSettings:
   m_BuildSettings:
     serializedVersion: 2
     agentTypeID: 0
-    agentRadius: 2.42
+    agentRadius: 4.2
     agentHeight: 10
     agentSlope: 45
     agentClimb: 0.4
@@ -107,7 +107,7 @@ NavMeshSettings:
     maxJumpAcrossDistance: 0
     minRegionArea: 2
     manualCellSize: 0
-    cellSize: 0.8066667
+    cellSize: 1.4
     manualTileSize: 0
     tileSize: 256
     accuratePlacement: 0
@@ -161,7 +161,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &129410535
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -275,7 +275,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4282991675556196, guid: b2f9d55c7b177d043ae4b9de78b6b0ad, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 2.8685672
+      value: 2.95
       objectReference: {fileID: 0}
     - target: {fileID: 4282991675556196, guid: b2f9d55c7b177d043ae4b9de78b6b0ad, type: 2}
       propertyPath: m_LocalPosition.z
@@ -333,11 +333,40 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1650968725215892, guid: b2f9d55c7b177d043ae4b9de78b6b0ad, type: 2}
       propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 195039832811538988, guid: b2f9d55c7b177d043ae4b9de78b6b0ad,
+        type: 2}
+      propertyPath: m_BaseOffset
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 195039832811538988, guid: b2f9d55c7b177d043ae4b9de78b6b0ad,
+        type: 2}
+      propertyPath: m_AgentTypeID
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b2f9d55c7b177d043ae4b9de78b6b0ad, type: 2}
   m_IsPrefabAsset: 0
+--- !u!1 &191168976 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1903114399840966, guid: b2f9d55c7b177d043ae4b9de78b6b0ad,
+    type: 2}
+  m_PrefabInternal: {fileID: 178337700}
+--- !u!114 &191168981
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 191168976}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 53daa89cdc185c44e9ca4ddac102ebb7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  knockRadius: 5.5
+  knockPower: 10
+  newForce: {x: 0, y: 0, z: 0}
 --- !u!1 &204694934
 GameObject:
   m_ObjectHideFlags: 0
@@ -429,7 +458,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!54 &257113521
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -549,7 +578,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &290809319
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1206,7 +1235,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1090622454
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1420,7 +1449,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1304994114
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1596,7 +1625,7 @@ Prefab:
     - target: {fileID: 54618696805739678, guid: ba09b0c40cefd75439db3b8cbfc70554,
         type: 2}
       propertyPath: m_Constraints
-      value: 112
+      value: 116
       objectReference: {fileID: 0}
     - target: {fileID: 114323343137533806, guid: ba09b0c40cefd75439db3b8cbfc70554,
         type: 2}
@@ -1626,7 +1655,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1509603324
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2484,6 +2513,25 @@ Transform:
   m_Father: {fileID: 1734364570}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2007259730 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1305459563693408, guid: b2f9d55c7b177d043ae4b9de78b6b0ad,
+    type: 2}
+  m_PrefabInternal: {fileID: 178337700}
+--- !u!114 &2007259735
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2007259730}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 53daa89cdc185c44e9ca4ddac102ebb7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  knockRadius: 5.5
+  knockPower: 10
+  newForce: {x: 0, y: 0, z: 0}
 --- !u!1 &2116297282
 GameObject:
   m_ObjectHideFlags: 0
