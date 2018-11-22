@@ -816,33 +816,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 11
       objectReference: {fileID: 0}
-    - target: {fileID: 4454489348072902, guid: 5c724b550e1538b46a8ab49fa4e01ece, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4138245736926556, guid: 5c724b550e1538b46a8ab49fa4e01ece, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4087570713429906, guid: 5c724b550e1538b46a8ab49fa4e01ece, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1521019822488050, guid: 5c724b550e1538b46a8ab49fa4e01ece, type: 2}
-      propertyPath: m_Icon
-      value: 
-      objectReference: {fileID: 4422084297763085224, guid: 0000000000000000d000000000000000,
-        type: 0}
-    - target: {fileID: 1323325913960096, guid: 5c724b550e1538b46a8ab49fa4e01ece, type: 2}
-      propertyPath: m_Icon
-      value: 
-      objectReference: {fileID: 4422084297763085224, guid: 0000000000000000d000000000000000,
-        type: 0}
-    - target: {fileID: 1130747376288758, guid: 5c724b550e1538b46a8ab49fa4e01ece, type: 2}
-      propertyPath: m_Icon
-      value: 
-      objectReference: {fileID: 4422084297763085224, guid: 0000000000000000d000000000000000,
-        type: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5c724b550e1538b46a8ab49fa4e01ece, type: 2}
   m_IsPrefabAsset: 0
@@ -899,6 +872,11 @@ Prefab:
       propertyPath: waypointParent
       value: 
       objectReference: {fileID: 989541477}
+    - target: {fileID: 114341987504658942, guid: f255082e3cfedd64481f00692a0b1fdd,
+        type: 2}
+      propertyPath: stoppingDistance
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f255082e3cfedd64481f00692a0b1fdd, type: 2}
   m_IsPrefabAsset: 0
