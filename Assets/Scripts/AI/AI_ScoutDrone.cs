@@ -80,6 +80,16 @@ public class AI_ScoutDrone : MonoBehaviour
         }
         #endregion
 
+        
+
+        //transform.position = Vector3.MoveTowards(transform.position, point.position, 0.1f);
+        agent.SetDestination(point.position); // (NavMeshAgent) agent: move to the Transform position of current waypoint.
+        
+        if (fov.visibleTargets.Count > 0)
+        {
+            currentState = State.Seek;
+            target = fov.visibleTargets[0];
+        }
         #region // DEFUNCT - Old Hold (Wait) at Waypoint
         /// NOTE: Never use Time.time
         /// This method breaks with Time.deltaTime, due to it counting frame time (see current method - courtesy of Stephen)).
@@ -115,10 +125,6 @@ public class AI_ScoutDrone : MonoBehaviour
         //     }
         // } 
         #endregion
-
-        //transform.position = Vector3.MoveTowards(transform.position, point.position, 0.1f);
-        agent.SetDestination(point.position); // (NavMeshAgent) agent: move to the Transform position of current waypoint.
-
         #region // DEFUNCT - RotateTowards waypoint
         // // Direction of point (waypoint) from current position.
         // Vector3 pointDir = point.position - transform.position;
@@ -142,12 +148,6 @@ public class AI_ScoutDrone : MonoBehaviour
         // // Execute rotation using newDir.
         // //transform.rotation = Quaternion.LookRotation(newDir);
         #endregion
-
-        if (fov.visibleTargets.Count > 0)
-        {
-            currentState = State.Seek;
-            target = fov.visibleTargets[0];
-        }
     }
 
     
@@ -156,9 +156,7 @@ public class AI_ScoutDrone : MonoBehaviour
     {
         // Agent navigation speed.
         agent.speed = speedSeek;
-
-        #region Look (Wait) at Player
-
+        
         #region If Target is Lost...
         if (fov.visibleTargets.Count < 1)
         {
@@ -172,7 +170,7 @@ public class AI_ScoutDrone : MonoBehaviour
             if (lookTimer <= 0)
             {
                 lookTimer = pauseDuration;
-                body.transform.rotation = startRotation;
+                body.transform.localRotation = startRotation;
                 currentState = State.Patrol;
 
                 if (fov.visibleTargets.Count > 0)
@@ -228,8 +226,6 @@ public class AI_ScoutDrone : MonoBehaviour
         }
         #endregion
 
-        #endregion
-
         #region Waypoint Timer (Fix)
         // NOTE: Copy-paste from Patrol() - This is to keep the waitTimer counting down during Seek().
         Transform point = waypoints[currentIndex];
@@ -279,7 +275,7 @@ public class AI_ScoutDrone : MonoBehaviour
         // Get NavMeshAgent (failsafe).
         agent = GetComponent<NavMeshAgent>();
 
-        startRotation = body.transform.rotation;
+        startRotation = body.transform.localRotation;
     }
     #endregion Start
 
@@ -301,7 +297,7 @@ public class AI_ScoutDrone : MonoBehaviour
             case State.Investigate:
                 // Run this code while in investigate state
                 // If the agent gets close to the investigate position
-                if(stoppingDistance < 0.5f)
+                if(agent.remainingDistance < stoppingDistance)
                 {
                     // Note(Manny): Why not wait for 5 seconds here (timer)
                     // Switch to Patrol
