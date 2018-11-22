@@ -15,7 +15,8 @@ public class AI_ScoutDrone : MonoBehaviour
     }
 
     [Header("Components")]
-    //public NavMeshAgent agent;
+    public NavMeshAgent agent; // Unity component reference
+    public Transform body; // Transform of drone chasis/body position.
     public Transform target; // Reference assigned target's Transform data (position/rotation/scale).
     public Transform waypointParent; // Reference one waypoint Parent (used to get children in array).
     public BossFoV_SearchLight fov; // Reference FieldOfView Script (used for line of sight player detection).
@@ -29,7 +30,7 @@ public class AI_ScoutDrone : MonoBehaviour
     [Header("Behaviours")]
     public State currentState = State.Patrol; // The default/start state set to Patrol.
 
-    public float speedPatrol = 4f, speedSeek = 4f; // Movement speeds for different states (up to you).
+    public float speedPatrol = 4f, speedSeek = 4f, speedInvestigate = 4f; // Movement speeds for different states (up to you).
     public float stoppingDistance = 1f; // Enemy AI's required distance to clear/'pass' a waypoint.
 
     public float pauseDuration; // Time to wait before going to the next waypoint.
@@ -43,14 +44,18 @@ public class AI_ScoutDrone : MonoBehaviour
     // Creates a collection of Transforms
     private Transform[] waypoints; // Transform of (child) waypoints in array.
     private int currentIndex = 1; // Counts sequential waypoints of array index.
+    private Quaternion startRotation;
     #endregion VARIABLES
 
-    #region STATE - Patrol
+    #region STATES
     // The contained variables for the Patrol state (what rules the enemy AI follows when in 'Patrol').
     void Patrol()
     {
         // Transform(s) of each waypoint in the array.
         Transform point = waypoints[currentIndex];
+
+        // Agent navigation speed.
+        agent.speed = speedPatrol;
 
         // Current animation and SearchLight Color.
         anim.SetBool("hasTarget", false);
@@ -111,30 +116,31 @@ public class AI_ScoutDrone : MonoBehaviour
         // } 
         #endregion
 
-        transform.position = Vector3.MoveTowards(transform.position, point.position, 0.1f);
+        //transform.position = Vector3.MoveTowards(transform.position, point.position, 0.1f);
+        agent.SetDestination(point.position); // (NavMeshAgent) agent: move to the Transform position of current waypoint.
 
-        #region RotateTowards waypoint
-        // Direction of point (waypoint) from current position.
-        Vector3 pointDir = point.position - transform.position;
-
-        float step = speedPatrol * Time.deltaTime;
-
-        // Rotate front face of ScoutDrone towards pointDir.
-        Vector3 newDir = Vector3.RotateTowards(transform.forward, pointDir, step, 0.0f);
-
-        //float angle = Vector3.Angle(Vector3.right, pointDir.normalized);
-        //Vector3 euler = transform.eulerAngles;
-        //euler.y = angle;
-        //transform.eulerAngles = euler;
-
-        if (pointDir.magnitude > 0)
-        {
-            transform.rotation = Quaternion.LookRotation(pointDir.normalized, Vector3.up);
-            transform.rotation *= Quaternion.Euler(90, 0, 0);
-        }
-
-        // Execute rotation using newDir.
-        //transform.rotation = Quaternion.LookRotation(newDir);
+        #region // DEFUNCT - RotateTowards waypoint
+        // // Direction of point (waypoint) from current position.
+        // Vector3 pointDir = point.position - transform.position;
+        // 
+        // float step = speedPatrol * Time.deltaTime;
+        // 
+        // // Rotate front face of ScoutDrone towards pointDir.
+        // Vector3 newDir = Vector3.RotateTowards(transform.forward, pointDir, step, 0.0f);
+        // 
+        // //float angle = Vector3.Angle(Vector3.right, pointDir.normalized);
+        // //Vector3 euler = transform.eulerAngles;
+        // //euler.y = angle;
+        // //transform.eulerAngles = euler;
+        // 
+        // if (pointDir.magnitude > 0)
+        // {
+        //     body.transform.rotation = Quaternion.LookRotation(pointDir.normalized, Vector3.up);
+        //     body.transform.rotation *= Quaternion.Euler(90, 0, 0);
+        // }
+        // 
+        // // Execute rotation using newDir.
+        // //transform.rotation = Quaternion.LookRotation(newDir);
         #endregion
 
         if (fov.visibleTargets.Count > 0)
@@ -143,17 +149,20 @@ public class AI_ScoutDrone : MonoBehaviour
             target = fov.visibleTargets[0];
         }
     }
-    #endregion STATE - Patrol
 
-    #region STATE - Seek
+    
     // The contained variables for the Seek state (what rules the enemy AI follows when in 'Seek').
     void Seek()
     {
+        // Agent navigation speed.
+        agent.speed = speedSeek;
+
         #region Look (Wait) at Player
 
         #region If Target is Lost...
         if (fov.visibleTargets.Count < 1)
         {
+
             // Current animation and SearchLight Color.
             anim.SetBool("hasTarget", false);
             searchLight.color = colorSearch;
@@ -163,6 +172,7 @@ public class AI_ScoutDrone : MonoBehaviour
             if (lookTimer <= 0)
             {
                 lookTimer = pauseDuration;
+                body.transform.rotation = startRotation;
                 currentState = State.Patrol;
 
                 if (fov.visibleTargets.Count > 0)
@@ -199,20 +209,22 @@ public class AI_ScoutDrone : MonoBehaviour
             lookTimer = pauseDuration;
 
             #region Track Player Position
-            // Direction of target (player) from current position.
-            Vector3 targetDir = target.position - transform.position;
-
-            float step = speedPatrol * Time.deltaTime;
-
+            // Direction of target (player) from the body position.
+            Vector3 targetDir = target.position - body.position;
+            
+            float step = speedSeek * Time.deltaTime;
+            
             // Rotate front face of ScoutDrone towards targetDir.
-            Vector3 newTarDir = Vector3.RotateTowards(transform.forward, targetDir, step, 0.0f);
-
+            Vector3 newTarDir = Vector3.RotateTowards(body.position, targetDir, step, 0.0f);
+            
             if (targetDir.magnitude > 0)
             {
-                transform.rotation = Quaternion.LookRotation(targetDir.normalized, Vector3.up);
-                transform.rotation *= Quaternion.Euler(0, 0, 0);
+                body.transform.rotation = Quaternion.LookRotation(targetDir.normalized, Vector3.up);
+                body.transform.rotation *= Quaternion.Euler(0, 0, 0);
             }
             #endregion
+            
+            agent.SetDestination(target.position);
         }
         #endregion
 
@@ -239,13 +251,13 @@ public class AI_ScoutDrone : MonoBehaviour
         } 
         #endregion
     }
-    #endregion STATE - Seek
 
-    #region STATE - Investigate
+    
     public void Investigate(Vector3 position)
     {
-        transform.position = Vector3.MoveTowards(transform.position, position, 0.1f);
-        //agent.SetDestination(noisePos.position);
+        agent.speed = speedInvestigate;
+        //transform.position = Vector3.MoveTowards(transform.position, position, 1f);
+        agent.SetDestination(position);
         currentState = State.Investigate;
     }
     #endregion
@@ -263,6 +275,11 @@ public class AI_ScoutDrone : MonoBehaviour
 
         // Get Light component from child in GameObject.
         searchLight = GetComponentInChildren<Light>();
+
+        // Get NavMeshAgent (failsafe).
+        agent = GetComponent<NavMeshAgent>();
+
+        startRotation = body.transform.rotation;
     }
     #endregion Start
 
