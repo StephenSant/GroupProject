@@ -16,17 +16,18 @@ public class Barrel : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void Damage()
     {
         if (hHandler.curHealth <= 0)
         {
             if (!exploded)
             {
-                Explode();
+                //Explode();
+                Distract();
                 exploded = true;
-                
+
             }
-            
+
         }
     }
     void Explode()
@@ -36,5 +37,19 @@ public class Barrel : MonoBehaviour
         GetComponent<MeshCollider>().enabled = false;
 
         Instantiate(explosionEffect, transform.position, transform.rotation, transform);
+    }
+    void Distract()
+    {
+        Collider[] nearbyColliders = Physics.OverlapSphere(transform.position, 100f);
+        int i = 0;
+        while (i < nearbyColliders.Length)
+        {
+            if (nearbyColliders[i].tag == "Drone")
+            {
+                AI_ScoutDrone scoutDrone = nearbyColliders[i].GetComponent<AI_ScoutDrone>();
+                scoutDrone.Investigate(transform.position);
+            }
+            i++;
+        }
     }
 }
