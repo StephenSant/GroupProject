@@ -301,7 +301,7 @@ public class AI_ScoutDrone : MonoBehaviour
             case State.Investigate:
                 // Run this code while in investigate state
                 // If the agent gets close to the investigate position
-                if(stoppingDistance < 0.5f)
+                if(agent.remainingDistance < stoppingDistance)
                 {
                     // Note(Manny): Why not wait for 5 seconds here (timer)
                     // Switch to Patrol
