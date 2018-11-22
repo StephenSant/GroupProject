@@ -9,8 +9,9 @@ public class BossAI : MonoBehaviour
     // Declaration
     public enum State // The behaviour states of the enemy AI.
     {
-        Patrol = 0,
-        Engage = 1,
+        Patrol,
+        Vent,
+        Engage,
 
     }
 
@@ -19,15 +20,16 @@ public class BossAI : MonoBehaviour
     public Transform target; // Reference assigned target's Transform data (position/rotation/scale).
     public Transform waypointParent; // Reference one waypoint Parent (used to get children in array).
     public BossFoV_SearchLight fov; // Reference FieldOfView Script (used for line of sight player detection).
+    public GameObject vent;
 
     [Header("Behaviours")]
     public State currentState = State.Patrol; // The default/start state set to Patrol.
-
+    public bool openVent = false;
     public float speedPatrol = 4f, speedSeek = 4f; // Movement speeds for different states (up to you).
     public float stoppingDistance = 1f; // Enemy AI's required distance to clear/'pass' a waypoint.
 
     public float pauseDuration; // Time to wait before going to the next waypoint.
-    private float waitTime, lookTime; // Defined later as UnityEngine 'Time.time'.
+    public float waitTime, lookTime; // Defined later as UnityEngine 'Time.time'.
     private BossHealth bossHP;
     // Creates a collection of Transforms
     private Transform[] waypoints; // Transform of (child) waypoints in array.
@@ -38,6 +40,8 @@ public class BossAI : MonoBehaviour
     #region Patrol
     void Patrol()
     {
+        openVent = false;
+waitTime = pauseDuration;
         // Transform(s) of each waypoint in the array.
         Transform point = waypoints[currentIndex];
         agent.speed = speedPatrol; // NavMeshAgent movement speed during patrol.
@@ -59,21 +63,11 @@ public class BossAI : MonoBehaviour
          *              reset currentIndex to 1 (return/repeat cycle).
         */
         #endregion
-        if (distance < 5f)
+        if (distance < .5f)
         {
-            if (waitTime == 0)
-                waitTime = Time.time;
 
-            if ((Time.time - waitTime) >= pauseDuration)
-            {
-                currentIndex++;
-                waitTime = 0;
+            currentState = State.Vent;
 
-                if (currentIndex >= waypoints.Length)
-                {
-                    currentIndex = 1;
-                }
-            }
         }
         agent.SetDestination(point.position); // (NavMeshAgent) agent: move to the Transform position of current waypoint.
 
@@ -88,13 +82,31 @@ public class BossAI : MonoBehaviour
 
         //fov.viewRadius = 6f; // FieldOfView arc radius during 'Patrol'.
     }
-    #endregion 
+    #endregion
+
+    #region Vent
+    public void Vent()
+    {
+        openVent = true;
+        waitTime -= Time.deltaTime;
+        if (waitTime <= 0)
+        {
+            currentIndex++;
+            if (currentIndex >= waypoints.Length)
+            {
+                currentIndex = 1;
+            }
+            currentState = State.Patrol;
+        }
+    }
+    #endregion
 
     #region Engage
     public void Engage()
     {
-        //transform.LookAt(target.transform);
-
+        openVent = false;
+        transform.LookAt(target.transform);
+        waitTime = pauseDuration;
 
     }
     #endregion
@@ -103,6 +115,8 @@ public class BossAI : MonoBehaviour
         waypoints = waypointParent.GetComponentsInChildren<Transform>();
         target = GameObject.Find("Player").transform;
         currentState = State.Patrol;
+        openVent = false;
+        waitTime = pauseDuration;
     }
     public void Update()
     {
@@ -112,6 +126,10 @@ public class BossAI : MonoBehaviour
                 // Patrol state
                 Patrol();
                 break;
+            case State.Vent:
+                // Vent state
+                Vent();
+                break;
             case State.Engage:
                 // Seek state
                 Engage();
@@ -120,5 +138,7 @@ public class BossAI : MonoBehaviour
             default:
                 break;
         }
+        if (openVent) { vent.SetActive(false); }
+        else { vent.SetActive(true); }
     }
 }
