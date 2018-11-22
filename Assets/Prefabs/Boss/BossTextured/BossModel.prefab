@@ -270,7 +270,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1605303480316576
 GameObject:
   m_ObjectHideFlags: 1
@@ -1725,7 +1725,7 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: d9e12899674cfa448bc259dc03de3947, type: 2}
+  - {fileID: 2100000, guid: 7406e274ac330334eb0e9cedcd1a9462, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2462,11 +2462,15 @@ MonoBehaviour:
   target: {fileID: 0}
   waypointParent: {fileID: 0}
   fov: {fileID: 114646259358256378}
+  vent: {fileID: 1522414329922442}
   currentState: 0
+  openVent: 0
   speedPatrol: 4
   speedSeek: 4
   stoppingDistance: 1
-  pauseDuration: 0
+  pauseDuration: 10
+  waitTime: 0
+  lookTime: 0
 --- !u!114 &114807611237704282
 MonoBehaviour:
   m_ObjectHideFlags: 1

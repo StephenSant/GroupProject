@@ -17,7 +17,6 @@ public class BossAI : MonoBehaviour
 
     [Header("Components")]
     public NavMeshAgent agent; // Unity component reference
-    public Transform target; // Reference assigned target's Transform data (position/rotation/scale).
     public Transform waypointParent; // Reference one waypoint Parent (used to get children in array).
     public BossFoV_SearchLight fov; // Reference FieldOfView Script (used for line of sight player detection).
     public GameObject vent;
@@ -28,6 +27,7 @@ public class BossAI : MonoBehaviour
     public float speedPatrol = 4f, speedSeek = 4f; // Movement speeds for different states (up to you).
     public float stoppingDistance = 1f; // Enemy AI's required distance to clear/'pass' a waypoint.
 
+    public Vector3 targetPos;
     public float pauseDuration; // Time to wait before going to the next waypoint.
     public float waitTime, lookTime; // Defined later as UnityEngine 'Time.time'.
     private BossHealth bossHP;
@@ -35,13 +35,15 @@ public class BossAI : MonoBehaviour
     private Transform[] waypoints; // Transform of (child) waypoints in array.
     private int currentIndex = 1; // Counts sequential waypoints of array index.
 
+    public GameObject laser;
+
     #endregion VARIABLES
 
     #region Patrol
     void Patrol()
     {
         openVent = false;
-waitTime = pauseDuration;
+        waitTime = pauseDuration;
         // Transform(s) of each waypoint in the array.
         Transform point = waypoints[currentIndex];
         agent.speed = speedPatrol; // NavMeshAgent movement speed during patrol.
@@ -72,7 +74,7 @@ waitTime = pauseDuration;
         agent.SetDestination(point.position); // (NavMeshAgent) agent: move to the Transform position of current waypoint.
 
         // Gets the distance between enemy and player.
-        float distToTarget = Vector3.Distance(transform.position, target.position);
+        float distToTarget = Vector3.Distance(transform.position, targetPos);
 
         /*if (fov.visibleTargets.Count > 0 || bossHP.curHealth < bossHP.maxHealth)
         {
@@ -104,19 +106,29 @@ waitTime = pauseDuration;
     #region Engage
     public void Engage()
     {
+        
         openVent = false;
-        transform.LookAt(target.transform);
         waitTime = pauseDuration;
-
+        agent.SetDestination(targetPos);
+        agent.speed = speedSeek;
+        float distance = Vector3.Distance(transform.position, targetPos);
+        if (distance < 15f)
+        {
+            lookTime -= Time.deltaTime;
+            if (lookTime <= 0)
+            {
+                currentState = State.Patrol;
+            }
+        }
     }
     #endregion
     public void Start()
     {
         waypoints = waypointParent.GetComponentsInChildren<Transform>();
-        target = GameObject.Find("Player").transform;
         currentState = State.Patrol;
         openVent = false;
         waitTime = pauseDuration;
+        lookTime = pauseDuration;
     }
     public void Update()
     {
@@ -140,5 +152,16 @@ waitTime = pauseDuration;
         }
         if (openVent) { vent.SetActive(false); }
         else { vent.SetActive(true); }
+        if (currentState == State.Engage) { laser.GetComponent<LaserCannon>().enabled = true; }
+        else
+        {
+            laser.GetComponent<LaserCannon>().enabled = false;
+            laser.transform.localRotation = Quaternion.Euler(0,0,0);
+        }
+    }
+    public void Receive(Vector3 playerPos)
+    {
+        targetPos = playerPos;
+        currentState = State.Engage;
     }
 }

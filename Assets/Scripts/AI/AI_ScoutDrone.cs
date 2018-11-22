@@ -20,6 +20,9 @@ public class AI_ScoutDrone : MonoBehaviour
     public Transform waypointParent; // Reference one waypoint Parent (used to get children in array).
     public BossFoV_SearchLight fov; // Reference FieldOfView Script (used for line of sight player detection).
 
+    [Header ("References")]
+    public BossAI boss;
+
     [Header("SearchLight")]
     public Light searchLight; // Reference Light (child 'SearchLight').
     public Color colorPatrol = new Color(0.8039216f - 0 / 100, 0.4019608f - 0 / 100, 0);
@@ -149,7 +152,7 @@ public class AI_ScoutDrone : MonoBehaviour
     // The contained variables for the Seek state (what rules the enemy AI follows when in 'Seek').
     void Seek()
     {
-
+        
         #region Look (Wait) at Player
         if (fov.visibleTargets.Count < 1)
         {
@@ -171,6 +174,7 @@ public class AI_ScoutDrone : MonoBehaviour
 
         if (fov.visibleTargets.Count > 0)
         {
+            boss.Receive(target.position);
             anim.SetBool("hasTarget", true);
             searchLight.color = colorSeek;
             lookTimer = pauseDuration;
@@ -231,6 +235,7 @@ public class AI_ScoutDrone : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        boss = GameObject.FindGameObjectWithTag("Boss").GetComponent<BossAI>();
         // Set waitTimer to pauseDuration.
         waitTimer = pauseDuration;
         lookTimer = pauseDuration;
