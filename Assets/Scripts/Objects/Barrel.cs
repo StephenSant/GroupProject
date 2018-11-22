@@ -5,13 +5,13 @@ using UnityEngine;
 public class Barrel : MonoBehaviour
 {
     public Health hHandler;
-    public bool exploded;
-    public GameObject explosionEffect;
+    //public bool exploded;
+    public ParticleSystem explosionEffect;
 
     // Use this for initialization
     void Start()
     {
-        exploded = false;
+        //exploded = false;
         hHandler = GetComponent<Health>();
     }
 
@@ -20,21 +20,46 @@ public class Barrel : MonoBehaviour
     {
         if (hHandler.curHealth <= 0)
         {
-            if (!exploded)
-            {
-                Explode();
-                exploded = true;
-                
-            }
-            
+
+            Distract();
+            Explode();
+            Destroy();
+            //exploded = true;
+            //if (!exploded)
+            //{
+            //    //Explode();
+            //    Distract();
+            //    exploded = true;
+
+            //}
+
         }
     }
-    void Explode()
-    {
-        GetComponent<Rigidbody>().isKinematic = true;
-        GetComponent<MeshRenderer>().enabled = false;
-        GetComponent<MeshCollider>().enabled = false;
 
-        Instantiate(explosionEffect, transform.position, transform.rotation, transform);
+    public void Explode()
+    {
+        //GetComponent<Rigidbody>().isKinematic = true;
+        //GetComponent<MeshRenderer>().enabled = false;
+        //GetComponent<MeshCollider>().enabled = false;
+
+        Instantiate(explosionEffect, transform.position, transform.rotation);
+    }
+    public void Distract()
+    {
+        Collider[] nearbyColliders = Physics.OverlapSphere(transform.position, 100f);
+        int i = 0;
+        while (i < nearbyColliders.Length)
+        {
+            if (nearbyColliders[i].tag == "Enemy")
+            {
+                AI_ScoutDrone scoutDrone = nearbyColliders[i].GetComponent<AI_ScoutDrone>();
+                scoutDrone.Investigate(transform.position);
+            }
+            i++;
+        }
+    }
+    public void Destroy()
+    {
+        Destroy(gameObject);
     }
 }
