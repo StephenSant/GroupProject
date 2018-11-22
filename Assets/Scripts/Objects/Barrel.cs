@@ -6,7 +6,7 @@ public class Barrel : MonoBehaviour
 {
     public Health hHandler;
     //public bool exploded;
-    public GameObject explosionEffect;
+    public ParticleSystem explosionEffect;
 
     // Use this for initialization
     void Start()
@@ -16,12 +16,14 @@ public class Barrel : MonoBehaviour
     }
 
     // Update is called once per frame
-    void FixedUpdate()
+    void Update()
     {
         if (hHandler.curHealth <= 0)
         {
+
             Distract();
             Explode();
+            Destroy();
             //exploded = true;
             //if (!exploded)
             //{
@@ -33,13 +35,14 @@ public class Barrel : MonoBehaviour
 
         }
     }
-    void Explode()
-    {
-        GetComponent<Rigidbody>().isKinematic = true;
-        GetComponent<MeshRenderer>().enabled = false;
-        GetComponent<MeshCollider>().enabled = false;
 
-        Instantiate(explosionEffect, transform.position, transform.rotation, transform);
+    public void Explode()
+    {
+        //GetComponent<Rigidbody>().isKinematic = true;
+        //GetComponent<MeshRenderer>().enabled = false;
+        //GetComponent<MeshCollider>().enabled = false;
+
+        Instantiate(explosionEffect, transform.position, transform.rotation);
     }
     public void Distract()
     {
@@ -54,5 +57,9 @@ public class Barrel : MonoBehaviour
             }
             i++;
         }
+    }
+    public void Destroy()
+    {
+        Destroy(gameObject);
     }
 }

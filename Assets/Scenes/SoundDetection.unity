@@ -1178,6 +1178,12 @@ Prefab:
       propertyPath: m_Layer
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 114210121840902786, guid: c486b61f03b55284cb67f844adbb66bf,
+        type: 2}
+      propertyPath: explosionEffect
+      value: 
+      objectReference: {fileID: 198633284927849344, guid: 95f366d7a16975445bcd076bac869f04,
+        type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c486b61f03b55284cb67f844adbb66bf, type: 2}
   m_IsPrefabAsset: 0
