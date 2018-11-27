@@ -4,28 +4,27 @@ using UnityEngine;
 
 public class StompKnockback : MonoBehaviour
 {
-    public float knockRadius = 3.5f; //the knockback Radius
-    public float knockPower = 1f;//Knockback power
+    public float knockRadius = 360f; //the knockback Radius
+    public float knockPower = 10f;//Knockback power
     public Vector3 newForce;
+
 
     // Use this for initialization
 
 
     // Update is called once per frame
-    void FixedUpdate()
+    void OnCollisionEnter(Collision other)
     {
-        Vector3 knockBackPos = transform.position;//position where the knockback happens
-        Collider[] colliders = Physics.OverlapSphere(knockBackPos, knockRadius);
-        foreach (Collider hit in colliders)
+        if (other.gameObject.tag == "Player")
         {
-            Rigidbody rb = hit.GetComponent<Rigidbody>();
-            if (hit.tag == "Player")
+            Rigidbody pRigid = other.gameObject.GetComponent<Rigidbody>();
+            if (pRigid != null)
             {
+                //pRigid.AddExplosionForce(1000f, transform.position, 360f, 20f, ForceMode.VelocityChange);
+                //other.transform.Translate(0, 1, -10);
 
-                newForce = rb.transform.position - transform.position;
-                rb.AddForce((rb.transform.position - transform.position).normalized * 500f);
             }
-        }
 
+        }
     }
 }
