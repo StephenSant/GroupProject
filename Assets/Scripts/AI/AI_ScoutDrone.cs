@@ -23,6 +23,7 @@ public class AI_ScoutDrone : MonoBehaviour
 
     [Header("SearchLight")]
     public Light searchLight; // Reference Light (child 'SearchLight').
+    // Colours! Switching searchlight colour during different states (names are self explanatory).
     public Color colorPatrol = Color.white;
     public Color colorSearch = new Color(0.8039216f - 0 / 100, 0.4019608f - 0 / 100, 0);
     public Color colorSeek = new Color(0.8039216f - 0 / 100, 0, 0);
@@ -59,6 +60,7 @@ public class AI_ScoutDrone : MonoBehaviour
 
         // Current animation and SearchLight Color.
         anim.SetBool("hasTarget", false);
+        anim.SetBool("isAlert", false);
         searchLight.color = colorPatrol;
 
         // Gets the distance between enemy and waypoint.
@@ -79,9 +81,7 @@ public class AI_ScoutDrone : MonoBehaviour
             }
         }
         #endregion
-
         
-
         //transform.position = Vector3.MoveTowards(transform.position, point.position, 0.1f);
         agent.SetDestination(point.position); // (NavMeshAgent) agent: move to the Transform position of current waypoint.
         
@@ -163,6 +163,7 @@ public class AI_ScoutDrone : MonoBehaviour
 
             // Current animation and SearchLight Color.
             anim.SetBool("hasTarget", false);
+            anim.SetBool("isAlert", true);
             searchLight.color = colorSearch;
             
             lookTimer -= Time.deltaTime;
@@ -202,6 +203,7 @@ public class AI_ScoutDrone : MonoBehaviour
         {
             // Current animation and SearchLight Color.
             anim.SetBool("hasTarget", true);
+            anim.SetBool("isAlert", true);
             searchLight.color = colorSeek;
             
             lookTimer = pauseDuration;
@@ -251,7 +253,14 @@ public class AI_ScoutDrone : MonoBehaviour
     
     public void Investigate(Vector3 position)
     {
+        // Agent navigation speed.
         agent.speed = speedInvestigate;
+
+        // Current animation and SearchLight Color.
+        anim.SetBool("hasTarget", true);
+        anim.SetBool("isAlert", false);
+        searchLight.color = colorSearch;
+
         //transform.position = Vector3.MoveTowards(transform.position, position, 1f);
         agent.SetDestination(position);
         currentState = State.Investigate;
@@ -300,8 +309,13 @@ public class AI_ScoutDrone : MonoBehaviour
                 if(agent.remainingDistance < stoppingDistance)
                 {
                     // Note(Manny): Why not wait for 5 seconds here (timer)
-                    // Switch to Patrol
-                    currentState = State.Patrol;
+                    waitTimer -= Time.deltaTime;
+                    if (waitTimer <= 0)
+                    {
+                        waitTimer = pauseDuration;
+                        // Switch to Patrol
+                        currentState = State.Patrol;
+                    }
                 }
 
                 // If the agent sees the player
