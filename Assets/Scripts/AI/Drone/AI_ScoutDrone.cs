@@ -16,7 +16,7 @@ public class AI_ScoutDrone : MonoBehaviour
 
     [Header("Components")]
     //public NavMeshAgent agent;
-    public Transform target; // Reference assigned target's Transform data (position/rotation/scale).
+    private Transform target; // Reference assigned target's Transform data (position/rotation/scale).
     public Transform waypointParent; // Reference one waypoint Parent (used to get children in array).
     public BossFoV_SearchLight fov; // Reference FieldOfView Script (used for line of sight player detection).
 
@@ -236,6 +236,7 @@ public class AI_ScoutDrone : MonoBehaviour
     void Start()
     {
         boss = GameObject.FindGameObjectWithTag("Boss").GetComponent<BossAI>();
+        target = GameObject.FindGameObjectWithTag("Player").transform;
         // Set waitTimer to pauseDuration.
         waitTimer = pauseDuration;
         lookTimer = pauseDuration;

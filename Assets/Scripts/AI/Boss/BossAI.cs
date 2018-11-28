@@ -74,7 +74,7 @@ public class BossAI : MonoBehaviour
         agent.SetDestination(point.position); // (NavMeshAgent) agent: move to the Transform position of current waypoint.
 
         // Gets the distance between enemy and player.
-        float distToTarget = Vector3.Distance(transform.position, targetPos);
+        //float distToTarget = Vector3.Distance(transform.position, targetPos);
 
         /*if (fov.visibleTargets.Count > 0 || bossHP.curHealth < bossHP.maxHealth)
         {
@@ -110,16 +110,18 @@ public class BossAI : MonoBehaviour
         openVent = false;
         waitTime = pauseDuration;
         agent.SetDestination(targetPos);
-        agent.speed = speedSeek;
+        
         float distance = Vector3.Distance(transform.position, targetPos);
-        if (distance < 15f)
+        if (distance < 7.5f)
         {
+            agent.speed--;
             lookTime -= Time.deltaTime;
             if (lookTime <= 0)
             {
                 currentState = State.Patrol;
             }
         }
+        else {agent.speed = speedSeek; }
     }
     #endregion
     public void Start()
