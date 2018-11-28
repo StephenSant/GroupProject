@@ -112,7 +112,7 @@ public class BossAI : MonoBehaviour
         agent.SetDestination(targetPos);
         
         float distance = Vector3.Distance(transform.position, targetPos);
-        if (distance < 7.5f)
+        if (distance < 15)
         {
             agent.speed--;
             lookTime -= Time.deltaTime;
