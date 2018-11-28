@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class PlayerHealth : MonoBehaviour
 {
@@ -10,19 +9,16 @@ public class PlayerHealth : MonoBehaviour
     public bool isDead;
     public bool isRegen;
     public float healthRegen = 1;
-    public Slider healthBar;
     // Use this for initialization
     void Start()
     {
         curHealth = maxHealth;
         isDead = false;
-        healthBar.maxValue = maxHealth;
     }
 
     // Update is called once per frame
     void Update()
     {
-        healthBar.value = curHealth;
         if (curHealth >= maxHealth)
         {
             curHealth = maxHealth;
