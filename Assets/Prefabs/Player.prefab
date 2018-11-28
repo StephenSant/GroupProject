@@ -88,7 +88,6 @@ GameObject:
   - component: {fileID: 23093045673733324}
   - component: {fileID: 136943051875789164}
   - component: {fileID: 114323343137533806}
-  - component: {fileID: 114725515571541916}
   - component: {fileID: 54618696805739678}
   - component: {fileID: 114274387821031526}
   m_Layer: 9
@@ -138,7 +137,6 @@ GameObject:
   - component: {fileID: 4584552145601136}
   - component: {fileID: 33995777264607658}
   - component: {fileID: 23484018455493692}
-  - component: {fileID: 65107334549592386}
   m_Layer: 9
   m_Name: Cube
   m_TagString: Untagged
@@ -415,18 +413,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
---- !u!65 &65107334549592386
-BoxCollider:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1744548116047710}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!82 &82289686929593122
 AudioSource:
   m_ObjectHideFlags: 1
@@ -538,6 +524,7 @@ MonoBehaviour:
   isDead: 0
   isRegen: 0
   healthRegen: 2
+  healthBar: {fileID: 0}
 --- !u!114 &114289168102777638
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -592,18 +579,6 @@ MonoBehaviour:
   walkSpeed: 225
   sneakSpeed: 90
   moveSpeed: 1
---- !u!114 &114725515571541916
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1442767722415216}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dcb2d15c5b896234485bc5cd1fc0232b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  selectedWeapon: 0
 --- !u!136 &136943051875789164
 CapsuleCollider:
   m_ObjectHideFlags: 1

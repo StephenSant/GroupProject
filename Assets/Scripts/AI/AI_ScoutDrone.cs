@@ -21,6 +21,9 @@ public class AI_ScoutDrone : MonoBehaviour
     public Transform waypointParent; // Reference one waypoint Parent (used to get children in array).
     public BossFoV_SearchLight fov; // Reference FieldOfView Script (used for line of sight player detection).
 
+    [Header ("References")]
+    public BossAI boss;
+
     [Header("SearchLight")]
     public Light searchLight; // Reference Light (child 'SearchLight').
     // Colours! Switching searchlight colour during different states (names are self explanatory).
