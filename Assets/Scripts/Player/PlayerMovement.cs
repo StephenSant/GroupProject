@@ -36,8 +36,12 @@ public class PlayerMovement : MonoBehaviour
 
         Vector3 camEuler = Camera.main.transform.eulerAngles;
         moveDir = Quaternion.AngleAxis(camEuler.y, Vector3.up) * moveDir;
-        Vector3 force = new Vector3(moveDir.x, rb.velocity.y, moveDir.z);
-        rb.velocity = force;
+        //Vector3 force = new Vector3(moveDir.x, 0, moveDir.z );
+        //rb.velocity = force;
+        rb.AddForce(moveDir, ForceMode.VelocityChange);
+
+       
+ 
         Quaternion playerRotation = Quaternion.AngleAxis(camEuler.y, Vector3.up);
         transform.rotation = playerRotation;
 
@@ -69,16 +73,17 @@ public class PlayerMovement : MonoBehaviour
         switch (moveSpeed)
         {
             case MoveSpeed.run:
-                moveDir = new Vector3(Input.GetAxis("Horizontal") * Time.deltaTime * runSpeed, rb.velocity.y, Input.GetAxis("Vertical") * Time.deltaTime * runSpeed);
+                moveDir = new Vector3(Input.GetAxis("Horizontal") * Time.deltaTime * runSpeed, 0, Input.GetAxis("Vertical") * Time.deltaTime * runSpeed);
                 transform.localScale = new Vector3(1, 1, 1);
                 break;
             case MoveSpeed.sneak:
-                moveDir = new Vector3(Input.GetAxis("Horizontal") * Time.deltaTime * sneakSpeed, rb.velocity.y, Input.GetAxis("Vertical") * Time.deltaTime * sneakSpeed);
+                moveDir = new Vector3(Input.GetAxis("Horizontal") * Time.deltaTime * sneakSpeed, 0, Input.GetAxis("Vertical") * Time.deltaTime * sneakSpeed);
                 transform.localScale = new Vector3(1,.5f,1);
                 break;
             default:
-                moveDir = new Vector3(Input.GetAxis("Horizontal") * Time.deltaTime * walkSpeed, rb.velocity.y, Input.GetAxis("Vertical") * Time.deltaTime * walkSpeed);
+                moveDir = new Vector3(Input.GetAxis("Horizontal") * Time.deltaTime * walkSpeed, 0, Input.GetAxis("Vertical") * Time.deltaTime * walkSpeed);
                 transform.localScale = new Vector3(1, 1, 1);
+                rb.velocity = new Vector3(Mathf.Clamp(rb.velocity.x,-50,50), rb.velocity.y, Mathf.Clamp(rb.velocity.z, -50, 50));
                 break;
 
         }
