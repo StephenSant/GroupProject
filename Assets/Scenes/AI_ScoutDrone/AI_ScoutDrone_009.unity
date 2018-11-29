@@ -527,6 +527,22 @@ Prefab:
       propertyPath: soundclips.Array.data[1]
       value: 
       objectReference: {fileID: 8300000, guid: 5f679a2d54f860243a662b2aaf036f25, type: 3}
+    - target: {fileID: 114323343137533806, guid: ba09b0c40cefd75439db3b8cbfc70554,
+        type: 2}
+      propertyPath: walkSpeed
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 114323343137533806, guid: ba09b0c40cefd75439db3b8cbfc70554,
+        type: 2}
+      propertyPath: runSpeed
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 136943051875789164, guid: ba09b0c40cefd75439db3b8cbfc70554,
+        type: 2}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 13400000, guid: 689c8e383ffbd7745872efb110284aff,
+        type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ba09b0c40cefd75439db3b8cbfc70554, type: 2}
   m_IsPrefabAsset: 0
@@ -826,6 +842,30 @@ Prefab:
       propertyPath: m_RootOrder
       value: 11
       objectReference: {fileID: 0}
+    - target: {fileID: 4454489348072902, guid: 5c724b550e1538b46a8ab49fa4e01ece, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4454489348072902, guid: 5c724b550e1538b46a8ab49fa4e01ece, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: -15
+      objectReference: {fileID: 0}
+    - target: {fileID: 4138245736926556, guid: 5c724b550e1538b46a8ab49fa4e01ece, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 4138245736926556, guid: 5c724b550e1538b46a8ab49fa4e01ece, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: -11
+      objectReference: {fileID: 0}
+    - target: {fileID: 4087570713429906, guid: 5c724b550e1538b46a8ab49fa4e01ece, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 4087570713429906, guid: 5c724b550e1538b46a8ab49fa4e01ece, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 8
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5c724b550e1538b46a8ab49fa4e01ece, type: 2}
   m_IsPrefabAsset: 0
@@ -918,7 +958,57 @@ Prefab:
     - target: {fileID: 114341987504658942, guid: f255082e3cfedd64481f00692a0b1fdd,
         type: 2}
       propertyPath: pauseDuration
-      value: 8
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 114341987504658942, guid: f255082e3cfedd64481f00692a0b1fdd,
+        type: 2}
+      propertyPath: speedState.Array.data[0]
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 114341987504658942, guid: f255082e3cfedd64481f00692a0b1fdd,
+        type: 2}
+      propertyPath: speedState.Array.data[1]
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 114341987504658942, guid: f255082e3cfedd64481f00692a0b1fdd,
+        type: 2}
+      propertyPath: speedState.Array.data[2]
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 114341987504658942, guid: f255082e3cfedd64481f00692a0b1fdd,
+        type: 2}
+      propertyPath: speedState.Array.data[3]
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 114341987504658942, guid: f255082e3cfedd64481f00692a0b1fdd,
+        type: 2}
+      propertyPath: speedState.Array.data[4]
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 114341987504658942, guid: f255082e3cfedd64481f00692a0b1fdd,
+        type: 2}
+      propertyPath: holdStateTimer.Array.data[0]
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114341987504658942, guid: f255082e3cfedd64481f00692a0b1fdd,
+        type: 2}
+      propertyPath: holdStateTimer.Array.data[1]
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114341987504658942, guid: f255082e3cfedd64481f00692a0b1fdd,
+        type: 2}
+      propertyPath: holdStateTimer.Array.data[2]
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114341987504658942, guid: f255082e3cfedd64481f00692a0b1fdd,
+        type: 2}
+      propertyPath: pauseDuration.Array.data[1]
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 114341987504658942, guid: f255082e3cfedd64481f00692a0b1fdd,
+        type: 2}
+      propertyPath: pauseDuration.Array.data[2]
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f255082e3cfedd64481f00692a0b1fdd, type: 2}
