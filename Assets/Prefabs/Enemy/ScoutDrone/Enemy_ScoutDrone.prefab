@@ -164,8 +164,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1939608869674748}
   m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 299.60995, y: 32.5, z: 313.8186}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 150.6, y: 32.5, z: 335.8}
+  m_LocalScale: {x: 1, y: 1.0000005, z: 1.0000005}
   m_Children:
   - {fileID: 4480316127489876}
   - {fileID: 4157087031245214}
@@ -445,13 +445,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a37c325277d297d44a11d8f129b52cb8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 0}
   waypointParent: {fileID: 0}
   fov: {fileID: 114810797768525310}
+  boss: {fileID: 0}
   searchLight: {fileID: 0}
   colorPatrol: {r: 1, g: 0.97867006, b: 0.9575472, a: 1}
-  colorSearch: {r: 0.80392164, g: 0.4039216, b: 0, a: 1}
-  colorSeek: {r: 0.8039216, g: 0, b: 0, a: 1}
+  colorSearch: {r: 1, g: 0.502439, b: 0, a: 1}
+  colorSeek: {r: 1, g: 0, b: 0, a: 1}
   currentState: 0
   speedPatrol: 4
   speedSeek: 4

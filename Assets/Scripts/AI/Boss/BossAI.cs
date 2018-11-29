@@ -49,7 +49,7 @@ public class BossAI : MonoBehaviour
         agent.speed = speedPatrol; // NavMeshAgent movement speed during patrol.
 
         // Gets the distance between enemy and waypoint.
-        float distance = Vector3.Distance(transform.position, point.position);
+        float distance = Vector3.Distance(new Vector3 (transform.position.x,0,transform.position.z), new Vector3(point.position.x, 0, point.position.z));
         #region if statement logic
         // if statement reads as:
         /*
@@ -112,13 +112,14 @@ public class BossAI : MonoBehaviour
         agent.SetDestination(targetPos);
         
         float distance = Vector3.Distance(transform.position, targetPos);
-        if (distance < 15)
+        if (distance < 50)
         {
             agent.speed--;
             lookTime -= Time.deltaTime;
             if (lookTime <= 0)
             {
                 currentState = State.Patrol;
+                lookTime = pauseDuration;
             }
         }
         else {agent.speed = speedSeek; }
