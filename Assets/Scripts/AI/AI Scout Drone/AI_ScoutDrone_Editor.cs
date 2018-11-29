@@ -5,6 +5,8 @@ using UnityEditor;
 [CustomPropertyDrawer(typeof(AI_ScoutDrone_Attribute))]
 public class AI_ScoutDrone_Editor : PropertyDrawer
 {
+    
+
     public override void OnGUI(Rect rect, SerializedProperty property, GUIContent label)
     {
         try

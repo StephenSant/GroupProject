@@ -37,7 +37,7 @@ public class AI_ScoutDrone : MonoBehaviour
     public float[] pauseDuration = new float[3]; // Time to wait before doing next thing.
     [SerializeField] // Makes private access types work like public access types (good for debug, in a way).
     [AI_ScoutDrone_(new string[] { "Timer Patrol", "Timer Seek", "Timer Investigate" })]
-    private float[] holdTimer = new float[3]; // Used to count how much time has passed since...
+    public float[] holdStateTimer = new float[3]; // Used to count how much time has passed since...
 
     public float stoppingDistance = 1f; // Enemy AI's required distance to clear/'pass' a waypoint.
 
@@ -72,10 +72,10 @@ public class AI_ScoutDrone : MonoBehaviour
         #region Hold (Wait) at Waypoint
         if (distance < .5f)
         {
-            holdTimer[0] -= Time.deltaTime;
-            if (holdTimer[0] <= 0)
+            holdStateTimer[0] -= Time.deltaTime;
+            if (holdStateTimer[0] <= 0)
             {
-                holdTimer[0] = pauseDuration[0];
+                holdStateTimer[0] = pauseDuration[0];
                 currentIndex++;
                 if (currentIndex >= waypoints.Length)
                 {
@@ -172,11 +172,11 @@ public class AI_ScoutDrone : MonoBehaviour
             // 
             body.transform.localRotation = startRotation;
 
-            holdTimer[1] -= Time.deltaTime;
+            holdStateTimer[1] -= Time.deltaTime;
 
-            if (holdTimer[1] <= 0)
+            if (holdStateTimer[1] <= 0)
             {
-                holdTimer[1] = pauseDuration[1];
+                holdStateTimer[1] = pauseDuration[1];
                 currentState = State.Patrol;
 
                 if (fov.visibleTargets.Count > 0)
@@ -211,7 +211,7 @@ public class AI_ScoutDrone : MonoBehaviour
             anim.SetBool("isAlert", true);
             searchLight.color = colorSeek;
 
-            holdTimer[1] = pauseDuration[1];
+            holdStateTimer[1] = pauseDuration[1];
 
             #region Track Player Position
             // Direction of target (player) from the body position.
@@ -241,10 +241,10 @@ public class AI_ScoutDrone : MonoBehaviour
 
         if (distance < .5f)
         {
-            holdTimer[0] -= Time.deltaTime;
-            if (holdTimer[0] <= 0)
+            holdStateTimer[0] -= Time.deltaTime;
+            if (holdStateTimer[0] <= 0)
             {
-                holdTimer[0] = pauseDuration[0];
+                holdStateTimer[0] = pauseDuration[0];
                 currentIndex++;
                 if (currentIndex >= waypoints.Length)
                 {
@@ -277,9 +277,9 @@ public class AI_ScoutDrone : MonoBehaviour
     void Start()
     {
         // Set thisTimer to pauseDuration.
-        holdTimer[0] = pauseDuration[0];
-        holdTimer[1] = pauseDuration[1];
-        holdTimer[2] = pauseDuration[2];
+        holdStateTimer[0] = pauseDuration[0];
+        holdStateTimer[1] = pauseDuration[1];
+        holdStateTimer[2] = pauseDuration[2];
 
         moveSpeed[0] = moveSpeed[0];
         moveSpeed[1] = moveSpeed[1];
@@ -319,10 +319,10 @@ public class AI_ScoutDrone : MonoBehaviour
                 if (agent.remainingDistance < stoppingDistance)
                 {
                     // Note(Manny): Why not wait for 5 seconds here (timer)
-                    holdTimer[2] -= Time.deltaTime;
-                    if (holdTimer[2] <= 0)
+                    holdStateTimer[2] -= Time.deltaTime;
+                    if (holdStateTimer[2] <= 0)
                     {
-                        holdTimer[2] = pauseDuration[2];
+                        holdStateTimer[2] = pauseDuration[2];
                         // Switch to Patrol
                         currentState = State.Patrol;
                     }
