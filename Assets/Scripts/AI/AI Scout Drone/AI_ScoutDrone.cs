@@ -225,7 +225,7 @@ public class AI_ScoutDrone : MonoBehaviour
             if (targetDir.magnitude > 0)
             {
                 body.transform.rotation = Quaternion.LookRotation(targetDir.normalized, Vector3.up);
-                body.transform.rotation *= Quaternion.Euler(0, 0, 0);
+                body.transform.rotation *= Quaternion.Euler(-90, 0, 0);
             }
             #endregion
 
