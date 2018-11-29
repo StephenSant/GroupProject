@@ -25,5 +25,13 @@ public class Health : MonoBehaviour
         {
             curHealth = maxHealth;
         }
+        if (curHealth <= 0)
+        {
+            Dead();
+        }
+    }
+    void Dead()
+    {
+        Destroy(gameObject);
     }
 }
