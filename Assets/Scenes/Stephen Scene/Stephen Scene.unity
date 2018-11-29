@@ -4829,6 +4829,11 @@ Prefab:
       propertyPath: m_Intensity
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 108738240169812078, guid: e497b2f23728f4145a15a2a601c99248,
+        type: 2}
+      propertyPath: m_DrawHalo
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e497b2f23728f4145a15a2a601c99248, type: 2}
   m_IsPrefabAsset: 0
