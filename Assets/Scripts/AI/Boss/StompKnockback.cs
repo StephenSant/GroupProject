@@ -6,7 +6,7 @@ public class StompKnockback : MonoBehaviour
 {
     public float knockRadius = 360f; //the knockback Radius
     public float knockPower = 10f;//Knockback power
-
+    public float upForce = 10f;
 
     //public Vector3 newForce;
     //private void KnockBack()
@@ -24,15 +24,17 @@ public class StompKnockback : MonoBehaviour
     //        }
     //    }
     //}
-    private void OnCollisionEnter(Collision collision)
+    private void OnCollisionEnter(Collision col)
     {
 
-        if(collision.gameObject.tag == "Player")
+        if(col.gameObject.tag == "Player")
         {
-            Rigidbody pRigid = collision.gameObject.GetComponent<Rigidbody>();
-            Vector3 knockBackPos = transform.position - collision.transform.position;
-            Vector3 launchLocation = new Vector3(knockBackPos.x, 10, knockBackPos.z);
-            pRigid.AddForce(launchLocation * 10, ForceMode.Impulse);
+            ContactPoint contact = col.contacts[0];
+            Vector3 normal = -contact.normal;
+            Rigidbody rigid = col.gameObject.GetComponent<Rigidbody>();
+            Vector3 knockBack = new Vector3(normal.x, 0, normal.z) * knockPower;
+            Vector3 force = new Vector3(knockBack.x, upForce, knockBack.z);
+            rigid.AddForce(force, ForceMode.Impulse);
             //KnockBack();
         }
     }

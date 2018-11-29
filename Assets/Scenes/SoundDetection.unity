@@ -173,12 +173,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60ea95096b540364f9141228bd85eeb7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  explosionRadius: 5
-  damage: 150
-  rocketRigid: {fileID: 129410536}
-  explosionForce: 1.5
-  explosionEffect: {fileID: 198633284927849344, guid: 95f366d7a16975445bcd076bac869f04,
-    type: 2}
 --- !u!54 &129410536
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -301,88 +295,14 @@ Prefab:
       propertyPath: m_RootOrder
       value: 4
       objectReference: {fileID: 0}
-    - target: {fileID: 114988140257045792, guid: b2f9d55c7b177d043ae4b9de78b6b0ad,
-        type: 2}
-      propertyPath: target
-      value: 
-      objectReference: {fileID: 499082044}
-    - target: {fileID: 114737297635577084, guid: b2f9d55c7b177d043ae4b9de78b6b0ad,
-        type: 2}
-      propertyPath: target
-      value: 
-      objectReference: {fileID: 499082044}
     - target: {fileID: 114737297635577084, guid: b2f9d55c7b177d043ae4b9de78b6b0ad,
         type: 2}
       propertyPath: waypointParent
       value: 
       objectReference: {fileID: 1734364570}
-    - target: {fileID: 114014518268623692, guid: b2f9d55c7b177d043ae4b9de78b6b0ad,
-        type: 2}
-      propertyPath: target
-      value: 
-      objectReference: {fileID: 499082044}
-    - target: {fileID: 114014518268623692, guid: b2f9d55c7b177d043ae4b9de78b6b0ad,
-        type: 2}
-      propertyPath: waypointParent
-      value: 
-      objectReference: {fileID: 1734364570}
-    - target: {fileID: 114737297635577084, guid: b2f9d55c7b177d043ae4b9de78b6b0ad,
-        type: 2}
-      propertyPath: currentState
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1650968725215892, guid: b2f9d55c7b177d043ae4b9de78b6b0ad, type: 2}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 195039832811538988, guid: b2f9d55c7b177d043ae4b9de78b6b0ad,
-        type: 2}
-      propertyPath: m_BaseOffset
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 195039832811538988, guid: b2f9d55c7b177d043ae4b9de78b6b0ad,
-        type: 2}
-      propertyPath: m_AgentTypeID
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 65543987007518864, guid: b2f9d55c7b177d043ae4b9de78b6b0ad,
-        type: 2}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b2f9d55c7b177d043ae4b9de78b6b0ad, type: 2}
   m_IsPrefabAsset: 0
---- !u!1 &191168976 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1903114399840966, guid: b2f9d55c7b177d043ae4b9de78b6b0ad,
-    type: 2}
-  m_PrefabInternal: {fileID: 178337700}
---- !u!114 &191168981
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 191168976}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 53daa89cdc185c44e9ca4ddac102ebb7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  knockRadius: 5.5
-  knockPower: 10
---- !u!135 &191168982
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 191168976}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 2.5
-  m_Center: {x: 0.000000059604645, y: 1.6820515, z: 0.015176237}
 --- !u!1 &204694934
 GameObject:
   m_ObjectHideFlags: 0
@@ -569,12 +489,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60ea95096b540364f9141228bd85eeb7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  explosionRadius: 5
-  damage: 150
-  rocketRigid: {fileID: 257113521}
-  explosionForce: 1.5
-  explosionEffect: {fileID: 198633284927849344, guid: 95f366d7a16975445bcd076bac869f04,
-    type: 2}
 --- !u!1 &290809318
 GameObject:
   m_ObjectHideFlags: 0
@@ -606,12 +520,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60ea95096b540364f9141228bd85eeb7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  explosionRadius: 5
-  damage: 150
-  rocketRigid: {fileID: 290809320}
-  explosionForce: 1.5
-  explosionEffect: {fileID: 198633284927849344, guid: 95f366d7a16975445bcd076bac869f04,
-    type: 2}
 --- !u!54 &290809320
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1143,10 +1051,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b54f8ba7d37241c4ba04076468ecc932, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 0}
-  waitTime: 1.5
-  range: 0
-  rocket: {fileID: 0}
 --- !u!1 &1032772269
 GameObject:
   m_ObjectHideFlags: 0
@@ -1214,21 +1118,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 3
       objectReference: {fileID: 0}
-    - target: {fileID: 114210121840902786, guid: c486b61f03b55284cb67f844adbb66bf,
-        type: 2}
-      propertyPath: exploded
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1760765891324074, guid: c486b61f03b55284cb67f844adbb66bf, type: 2}
-      propertyPath: m_Layer
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114210121840902786, guid: c486b61f03b55284cb67f844adbb66bf,
-        type: 2}
-      propertyPath: explosionEffect
-      value: 
-      objectReference: {fileID: 198633284927849344, guid: 95f366d7a16975445bcd076bac869f04,
-        type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c486b61f03b55284cb67f844adbb66bf, type: 2}
   m_IsPrefabAsset: 0
@@ -1263,12 +1152,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60ea95096b540364f9141228bd85eeb7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  explosionRadius: 5
-  damage: 150
-  rocketRigid: {fileID: 1090622455}
-  explosionForce: 1.5
-  explosionEffect: {fileID: 198633284927849344, guid: 95f366d7a16975445bcd076bac869f04,
-    type: 2}
 --- !u!54 &1090622455
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1477,12 +1360,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60ea95096b540364f9141228bd85eeb7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  explosionRadius: 5
-  damage: 150
-  rocketRigid: {fileID: 1304994115}
-  explosionForce: 1.5
-  explosionEffect: {fileID: 198633284927849344, guid: 95f366d7a16975445bcd076bac869f04,
-    type: 2}
 --- !u!54 &1304994115
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1605,72 +1482,18 @@ Prefab:
       propertyPath: m_RootOrder
       value: 5
       objectReference: {fileID: 0}
-    - target: {fileID: 114289168102777638, guid: ba09b0c40cefd75439db3b8cbfc70554,
-        type: 2}
-      propertyPath: ammoText
-      value: 
-      objectReference: {fileID: 1812278796}
-    - target: {fileID: 114621766957578218, guid: ba09b0c40cefd75439db3b8cbfc70554,
-        type: 2}
-      propertyPath: ammoText
-      value: 
-      objectReference: {fileID: 1812278796}
-    - target: {fileID: 1744548116047710, guid: ba09b0c40cefd75439db3b8cbfc70554, type: 2}
-      propertyPath: m_Name
-      value: SniperModel
-      objectReference: {fileID: 0}
-    - target: {fileID: 65107334549592386, guid: ba09b0c40cefd75439db3b8cbfc70554,
-        type: 2}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 54618696805739678, guid: ba09b0c40cefd75439db3b8cbfc70554,
-        type: 2}
-      propertyPath: m_UseGravity
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4108482343591110, guid: ba09b0c40cefd75439db3b8cbfc70554, type: 2}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: -233.091
-      objectReference: {fileID: 0}
-    - target: {fileID: 114323343137533806, guid: ba09b0c40cefd75439db3b8cbfc70554,
-        type: 2}
-      propertyPath: groundLayer.m_Bits
-      value: 4294967295
-      objectReference: {fileID: 0}
-    - target: {fileID: 54618696805739678, guid: ba09b0c40cefd75439db3b8cbfc70554,
-        type: 2}
-      propertyPath: m_Constraints
-      value: 112
-      objectReference: {fileID: 0}
-    - target: {fileID: 114323343137533806, guid: ba09b0c40cefd75439db3b8cbfc70554,
-        type: 2}
-      propertyPath: jumpHeight
-      value: 175
-      objectReference: {fileID: 0}
-    - target: {fileID: 114323343137533806, guid: ba09b0c40cefd75439db3b8cbfc70554,
-        type: 2}
-      propertyPath: runSpeed
-      value: 50
-      objectReference: {fileID: 0}
     - target: {fileID: 136943051875789164, guid: ba09b0c40cefd75439db3b8cbfc70554,
         type: 2}
       propertyPath: m_Material
       value: 
       objectReference: {fileID: 13400000, guid: fd284d2355c9a6c40a7130bfd6fe5588,
         type: 2}
-    - target: {fileID: 114323343137533806, guid: ba09b0c40cefd75439db3b8cbfc70554,
+    - target: {fileID: 114289168102777638, guid: ba09b0c40cefd75439db3b8cbfc70554,
         type: 2}
-      propertyPath: walkSpeed
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 114323343137533806, guid: ba09b0c40cefd75439db3b8cbfc70554,
-        type: 2}
-      propertyPath: sneakSpeed
-      value: 4
-      objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 114136716328806368, guid: ba09b0c40cefd75439db3b8cbfc70554, type: 2}
+      propertyPath: ammoText
+      value: 
+      objectReference: {fileID: 1812278796}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ba09b0c40cefd75439db3b8cbfc70554, type: 2}
   m_IsPrefabAsset: 0
 --- !u!1 &1509603323
@@ -1704,12 +1527,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60ea95096b540364f9141228bd85eeb7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  explosionRadius: 5
-  damage: 150
-  rocketRigid: {fileID: 1509603325}
-  explosionForce: 1.5
-  explosionEffect: {fileID: 198633284927849344, guid: 95f366d7a16975445bcd076bac869f04,
-    type: 2}
 --- !u!54 &1509603325
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2550,36 +2367,6 @@ Transform:
   m_Father: {fileID: 1734364570}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &2007259730 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1305459563693408, guid: b2f9d55c7b177d043ae4b9de78b6b0ad,
-    type: 2}
-  m_PrefabInternal: {fileID: 178337700}
---- !u!114 &2007259735
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 2007259730}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 53daa89cdc185c44e9ca4ddac102ebb7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  knockRadius: 360
-  knockPower: 10
---- !u!135 &2007259736
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 2007259730}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 2.5
-  m_Center: {x: 0.000000059604645, y: 1.6820515, z: 0.015176237}
 --- !u!1 &2116297282
 GameObject:
   m_ObjectHideFlags: 0
