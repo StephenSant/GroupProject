@@ -54,6 +54,7 @@ public class PlayerMovement : MonoBehaviour
         else
         {
             isGrounded = false;
+            
         }
 
         if (Input.GetKey(KeyCode.LeftShift))
@@ -69,23 +70,28 @@ public class PlayerMovement : MonoBehaviour
         {
             moveSpeed = MoveSpeed.walk;
         }
-
-        switch (moveSpeed)
+        if (isGrounded)
         {
+
+
+            switch (moveSpeed)
+            {
+
             case MoveSpeed.run:
                 moveDir = new Vector3(Input.GetAxis("Horizontal") * Time.deltaTime * runSpeed, 0, Input.GetAxis("Vertical") * Time.deltaTime * runSpeed);
                 transform.localScale = new Vector3(1, 1, 1);
                 break;
             case MoveSpeed.sneak:
                 moveDir = new Vector3(Input.GetAxis("Horizontal") * Time.deltaTime * sneakSpeed, 0, Input.GetAxis("Vertical") * Time.deltaTime * sneakSpeed);
-                transform.localScale = new Vector3(1,.5f,1);
+                transform.localScale = new Vector3(1, .5f, 1);
                 break;
             default:
                 moveDir = new Vector3(Input.GetAxis("Horizontal") * Time.deltaTime * walkSpeed, 0, Input.GetAxis("Vertical") * Time.deltaTime * walkSpeed);
                 transform.localScale = new Vector3(1, 1, 1);
-                rb.velocity = new Vector3(Mathf.Clamp(rb.velocity.x,-50,50), rb.velocity.y, Mathf.Clamp(rb.velocity.z, -50, 50));
+                rb.velocity = new Vector3(Mathf.Clamp(rb.velocity.x, -50, 50), rb.velocity.y, Mathf.Clamp(rb.velocity.z, -50, 50));
                 break;
 
+            }
         }
 
         //if (Input.GetButton("Jump") && isGrounded)
