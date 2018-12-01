@@ -61,7 +61,7 @@ public class AI_ScoutDrone : MonoBehaviour
         // Agent navigation speed.
         agent.speed = moveSpeed[0];
 
-        // Current animation and SearchLight Color.
+        // Current animation (Patrol) and SearchLight Color.
         anim.SetBool("hasTarget", false);
         anim.SetBool("isAlert", false);
         searchLight.color = colorPatrol;
@@ -164,12 +164,12 @@ public class AI_ScoutDrone : MonoBehaviour
         if (fov.visibleTargets.Count < 1)
         {
 
-            // Current animation and SearchLight Color.
+            // Current animation (Search) and SearchLight Color.
             anim.SetBool("hasTarget", false);
             anim.SetBool("isAlert", true);
             searchLight.color = colorSearch;
 
-            // 
+            // Reset rotation of SearchLight
             body.transform.localRotation = startRotation;
 
             holdStateTimer[1] -= Time.deltaTime;
@@ -206,7 +206,7 @@ public class AI_ScoutDrone : MonoBehaviour
         #region If Target is Seen...
         if (fov.visibleTargets.Count > 0)
         {
-            // Current animation and SearchLight Color.
+            // Current animation (Seek) and SearchLight Color.
             anim.SetBool("hasTarget", true);
             anim.SetBool("isAlert", true);
             searchLight.color = colorSeek;
@@ -220,12 +220,12 @@ public class AI_ScoutDrone : MonoBehaviour
             float step = moveSpeed[1] * Time.deltaTime;
 
             // Rotate front face of ScoutDrone towards targetDir.
-            Vector3 newTarDir = Vector3.RotateTowards(body.position, targetDir, step, 0.0f);
-
+            //Vector3 newTarDir = Vector3.RotateTowards(body.position, targetDir, step, 0.0f);
+            
             if (targetDir.magnitude > 0)
             {
                 body.transform.rotation = Quaternion.LookRotation(targetDir.normalized, Vector3.up);
-                body.transform.rotation *= Quaternion.Euler(-90, 0, 0);
+                //body.transform.rotation *= Quaternion.Euler(0, 0, 0);
             }
             #endregion
 
@@ -262,8 +262,8 @@ public class AI_ScoutDrone : MonoBehaviour
         agent.speed = moveSpeed[2];
 
         // Current animation and SearchLight Color.
-        anim.SetBool("hasTarget", true);
-        anim.SetBool("isAlert", false);
+        //anim.SetBool("hasTarget", true);
+        //anim.SetBool("isAlert", false);
         searchLight.color = colorSearch;
 
         //transform.position = Vector3.MoveTowards(transform.position, position, 1f);
@@ -318,6 +318,10 @@ public class AI_ScoutDrone : MonoBehaviour
                 // If the agent gets close to the investigate position
                 if (agent.remainingDistance < stoppingDistance)
                 {
+                    // Current animation (Search).
+                    anim.SetBool("hasTarget", false);
+                    anim.SetBool("isAlert", true);
+
                     // Note(Manny): Why not wait for 5 seconds here (timer)
                     holdStateTimer[2] -= Time.deltaTime;
                     if (holdStateTimer[2] <= 0)
@@ -326,6 +330,12 @@ public class AI_ScoutDrone : MonoBehaviour
                         // Switch to Patrol
                         currentState = State.Patrol;
                     }
+                }
+                else
+                {
+                    // Current animation (Investigate).
+                    anim.SetBool("hasTarget", true);
+                    anim.SetBool("isAlert", false);
                 }
 
                 // If the agent sees the player
