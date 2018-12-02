@@ -11072,6 +11072,21 @@ Prefab:
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114289168102777638, guid: ba09b0c40cefd75439db3b8cbfc70554,
+        type: 2}
+      propertyPath: soundclips.Array.data[0]
+      value: 
+      objectReference: {fileID: 8300000, guid: 68a812016699e3a40af44e0f8c44375f, type: 3}
+    - target: {fileID: 114289168102777638, guid: ba09b0c40cefd75439db3b8cbfc70554,
+        type: 2}
+      propertyPath: soundclips.Array.data[1]
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 82289686929593122, guid: ba09b0c40cefd75439db3b8cbfc70554,
+        type: 2}
+      propertyPath: m_Volume
+      value: 0.65
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ba09b0c40cefd75439db3b8cbfc70554, type: 2}
   m_IsPrefabAsset: 0
