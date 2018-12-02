@@ -26,7 +26,7 @@ RenderSettings:
   m_AmbientIntensity: 1
   m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
+  m_SkyboxMaterial: {fileID: 2100000, guid: e36de5cbadf33c14c8fb3e4f79c93caa, type: 2}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -37,7 +37,7 @@ RenderSettings:
   m_ReflectionBounces: 1
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
-  m_Sun: {fileID: 0}
+  m_Sun: {fileID: 1514616007}
   m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
@@ -4287,11 +4287,11 @@ Transform:
   - {fileID: 283819581}
   - {fileID: 722763654}
   - {fileID: 1200610738}
-  - {fileID: 1803766615}
   - {fileID: 2061506517}
   - {fileID: 807116185}
   - {fileID: 1660541741}
   - {fileID: 1606011248}
+  - {fileID: 1803766615}
   - {fileID: 458898787}
   - {fileID: 1436606978}
   - {fileID: 1189045329}
