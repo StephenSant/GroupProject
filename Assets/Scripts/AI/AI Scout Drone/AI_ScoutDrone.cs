@@ -21,9 +21,6 @@ public class AI_ScoutDrone : MonoBehaviour
     public Transform waypointParent; // Reference one waypoint Parent (used to get children in array).
     public BossFoV_SearchLight fov; // Reference FieldOfView Script (used for line of sight player detection).
 
-    [Header ("References")]
-    public BossAI boss;
-
     [Header("SearchLight")]
     public Light searchLight; // Reference Light (child 'SearchLight').
     // Colours! Switching searchlight colour during different states (names are self explanatory).
@@ -34,14 +31,17 @@ public class AI_ScoutDrone : MonoBehaviour
     [Header("Behaviours")]
     public State currentState = State.Patrol; // The default/start state set to Patrol.
 
-    public float speedPatrol = 4f, speedSeek = 4f, speedInvestigate = 4f; // Movement speeds for different states (up to you).
+    [AI_ScoutDrone_(new string[] { "Speed Patrol", "Speed Seek", "Speed Investigate" })]
+    public float[] moveSpeed = new float[3]; // Movement speeds for different states (up to you).
+    [AI_ScoutDrone_(new string[] { "Pause Patrol", "Pause Seek", "Pause Investigate" })]
+    public float[] pauseDuration = new float[3]; // Time to wait before doing next thing.
+    [SerializeField] // Makes private access types work like public access types (good for debug, in a way).
+    [AI_ScoutDrone_(new string[] { "Timer Patrol", "Timer Seek", "Timer Investigate" })]
+    public float[] holdStateTimer = new float[3]; // Used to count how much time has passed since...
+
     public float stoppingDistance = 1f; // Enemy AI's required distance to clear/'pass' a waypoint.
 
-    public float pauseDuration; // Time to wait before going to the next waypoint.
 
-    [SerializeField] // Makes private access types work like public access types (good for debug, in a way).
-    private float waitTimer, lookTimer; // Used to count how much time has passed since...
-    
     [Header("Animations")]
     public Animator anim;
 
@@ -59,9 +59,9 @@ public class AI_ScoutDrone : MonoBehaviour
         Transform point = waypoints[currentIndex];
 
         // Agent navigation speed.
-        agent.speed = speedPatrol;
+        agent.speed = moveSpeed[0];
 
-        // Current animation and SearchLight Color.
+        // Current animation (Patrol) and SearchLight Color.
         anim.SetBool("hasTarget", false);
         anim.SetBool("isAlert", false);
         searchLight.color = colorPatrol;
@@ -72,10 +72,10 @@ public class AI_ScoutDrone : MonoBehaviour
         #region Hold (Wait) at Waypoint
         if (distance < .5f)
         {
-            waitTimer -= Time.deltaTime;
-            if (waitTimer <= 0)
+            holdStateTimer[0] -= Time.deltaTime;
+            if (holdStateTimer[0] <= 0)
             {
-                waitTimer = pauseDuration;
+                holdStateTimer[0] = pauseDuration[0];
                 currentIndex++;
                 if (currentIndex >= waypoints.Length)
                 {
@@ -84,10 +84,10 @@ public class AI_ScoutDrone : MonoBehaviour
             }
         }
         #endregion
-        
+
         //transform.position = Vector3.MoveTowards(transform.position, point.position, 0.1f);
         agent.SetDestination(point.position); // (NavMeshAgent) agent: move to the Transform position of current waypoint.
-        
+
         if (fov.visibleTargets.Count > 0)
         {
             currentState = State.Seek;
@@ -153,28 +153,30 @@ public class AI_ScoutDrone : MonoBehaviour
         #endregion
     }
 
-    
+
     // The contained variables for the Seek state (what rules the enemy AI follows when in 'Seek').
     void Seek()
     {
         // Agent navigation speed.
-        agent.speed = speedSeek;
-        
+        agent.speed = moveSpeed[1];
+
         #region If Target is Lost...
         if (fov.visibleTargets.Count < 1)
         {
 
-            // Current animation and SearchLight Color.
+            // Current animation (Search) and SearchLight Color.
             anim.SetBool("hasTarget", false);
             anim.SetBool("isAlert", true);
             searchLight.color = colorSearch;
-            
-            lookTimer -= Time.deltaTime;
 
-            if (lookTimer <= 0)
+            // Reset rotation of SearchLight
+            body.transform.localRotation = startRotation;
+
+            holdStateTimer[1] -= Time.deltaTime;
+
+            if (holdStateTimer[1] <= 0)
             {
-                lookTimer = pauseDuration;
-                body.transform.localRotation = startRotation;
+                holdStateTimer[1] = pauseDuration[1];
                 currentState = State.Patrol;
 
                 if (fov.visibleTargets.Count > 0)
@@ -204,29 +206,29 @@ public class AI_ScoutDrone : MonoBehaviour
         #region If Target is Seen...
         if (fov.visibleTargets.Count > 0)
         {
-            // Current animation and SearchLight Color.
+            // Current animation (Seek) and SearchLight Color.
             anim.SetBool("hasTarget", true);
             anim.SetBool("isAlert", true);
             searchLight.color = colorSeek;
-            
-            lookTimer = pauseDuration;
+
+            holdStateTimer[1] = pauseDuration[1];
 
             #region Track Player Position
             // Direction of target (player) from the body position.
             Vector3 targetDir = target.position - body.position;
-            
-            float step = speedSeek * Time.deltaTime;
-            
+
+            float step = moveSpeed[1] * Time.deltaTime;
+
             // Rotate front face of ScoutDrone towards targetDir.
-            Vector3 newTarDir = Vector3.RotateTowards(body.position, targetDir, step, 0.0f);
+            //Vector3 newTarDir = Vector3.RotateTowards(body.position, targetDir, step, 0.0f);
             
             if (targetDir.magnitude > 0)
             {
                 body.transform.rotation = Quaternion.LookRotation(targetDir.normalized, Vector3.up);
-                body.transform.rotation *= Quaternion.Euler(0, 0, 0);
+                //body.transform.rotation *= Quaternion.Euler(0, 0, 0);
             }
             #endregion
-            
+
             agent.SetDestination(target.position);
         }
         #endregion
@@ -239,29 +241,29 @@ public class AI_ScoutDrone : MonoBehaviour
 
         if (distance < .5f)
         {
-            waitTimer -= Time.deltaTime;
-            if (waitTimer <= 0)
+            holdStateTimer[0] -= Time.deltaTime;
+            if (holdStateTimer[0] <= 0)
             {
-                waitTimer = pauseDuration;
+                holdStateTimer[0] = pauseDuration[0];
                 currentIndex++;
                 if (currentIndex >= waypoints.Length)
                 {
                     currentIndex = 1;
                 }
             }
-        } 
+        }
         #endregion
     }
 
-    
+
     public void Investigate(Vector3 position)
     {
         // Agent navigation speed.
-        agent.speed = speedInvestigate;
+        agent.speed = moveSpeed[2];
 
         // Current animation and SearchLight Color.
-        anim.SetBool("hasTarget", true);
-        anim.SetBool("isAlert", false);
+        //anim.SetBool("hasTarget", true);
+        //anim.SetBool("isAlert", false);
         searchLight.color = colorSearch;
 
         //transform.position = Vector3.MoveTowards(transform.position, position, 1f);
@@ -275,8 +277,13 @@ public class AI_ScoutDrone : MonoBehaviour
     void Start()
     {
         // Set thisTimer to pauseDuration.
-        waitTimer = pauseDuration;
-        lookTimer = pauseDuration;
+        holdStateTimer[0] = pauseDuration[0];
+        holdStateTimer[1] = pauseDuration[1];
+        holdStateTimer[2] = pauseDuration[2];
+
+        moveSpeed[0] = moveSpeed[0];
+        moveSpeed[1] = moveSpeed[1];
+        moveSpeed[2] = moveSpeed[2];
 
         // Get children of waypointParent.
         waypoints = waypointParent.GetComponentsInChildren<Transform>();
@@ -309,16 +316,26 @@ public class AI_ScoutDrone : MonoBehaviour
             case State.Investigate:
                 // Run this code while in investigate state
                 // If the agent gets close to the investigate position
-                if(agent.remainingDistance < stoppingDistance)
+                if (agent.remainingDistance < stoppingDistance)
                 {
+                    // Current animation (Search).
+                    anim.SetBool("hasTarget", false);
+                    anim.SetBool("isAlert", true);
+
                     // Note(Manny): Why not wait for 5 seconds here (timer)
-                    waitTimer -= Time.deltaTime;
-                    if (waitTimer <= 0)
+                    holdStateTimer[2] -= Time.deltaTime;
+                    if (holdStateTimer[2] <= 0)
                     {
-                        waitTimer = pauseDuration;
+                        holdStateTimer[2] = pauseDuration[2];
                         // Switch to Patrol
                         currentState = State.Patrol;
                     }
+                }
+                else
+                {
+                    // Current animation (Investigate).
+                    anim.SetBool("hasTarget", true);
+                    anim.SetBool("isAlert", false);
                 }
 
                 // If the agent sees the player
