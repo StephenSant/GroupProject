@@ -11,8 +11,11 @@ public class PlayerMovement : MonoBehaviour
     public LayerMask groundLayer;
 
     public float runSpeed;
+    public float runMax;
     public float walkSpeed;
+    public float walkMax;
     public float sneakSpeed;
+    public float sneakMax;
     public MoveSpeed moveSpeed;
 
     Vector3 moveDir;
@@ -38,12 +41,13 @@ public class PlayerMovement : MonoBehaviour
         moveDir = Quaternion.AngleAxis(camEuler.y, Vector3.up) * moveDir;
         //Vector3 force = new Vector3(moveDir.x, 0, moveDir.z );
         //rb.velocity = force;
-        rb.AddForce(moveDir, ForceMode.VelocityChange);
 
-       
- 
+
         Quaternion playerRotation = Quaternion.AngleAxis(camEuler.y, Vector3.up);
         transform.rotation = playerRotation;
+
+        rb.velocity += moveDir;
+
 
         //transform.rotation = playerRotation;
         RaycastHit hit;
@@ -54,7 +58,7 @@ public class PlayerMovement : MonoBehaviour
         else
         {
             isGrounded = false;
-            
+
         }
 
         if (Input.GetKey(KeyCode.LeftShift))
@@ -64,7 +68,7 @@ public class PlayerMovement : MonoBehaviour
         else if (Input.GetKey(KeyCode.LeftControl))
         {
             moveSpeed = MoveSpeed.sneak;
-            
+
         }
         else
         {
@@ -77,22 +81,73 @@ public class PlayerMovement : MonoBehaviour
             switch (moveSpeed)
             {
 
-            case MoveSpeed.run:
-                moveDir = new Vector3(Input.GetAxis("Horizontal") * Time.deltaTime * runSpeed, 0, Input.GetAxis("Vertical") * Time.deltaTime * runSpeed);
-                transform.localScale = new Vector3(1, 1, 1);
-                break;
-            case MoveSpeed.sneak:
-                moveDir = new Vector3(Input.GetAxis("Horizontal") * Time.deltaTime * sneakSpeed, 0, Input.GetAxis("Vertical") * Time.deltaTime * sneakSpeed);
-                transform.localScale = new Vector3(1, .5f, 1);
-                break;
-            default:
-                moveDir = new Vector3(Input.GetAxis("Horizontal") * Time.deltaTime * walkSpeed, 0, Input.GetAxis("Vertical") * Time.deltaTime * walkSpeed);
-                transform.localScale = new Vector3(1, 1, 1);
-                rb.velocity = new Vector3(Mathf.Clamp(rb.velocity.x, -50, 50), rb.velocity.y, Mathf.Clamp(rb.velocity.z, -50, 50));
-                break;
+                case MoveSpeed.run:
+
+                    moveDir = new Vector3(Input.GetAxis("Horizontal") * runSpeed, 0, Input.GetAxis("Vertical") * runSpeed);
+                    if (rb.velocity.x > runMax)
+                    {
+                        rb.velocity = new Vector3(runMax, rb.velocity.y, rb.velocity.z);
+                    }
+                    else if (rb.velocity.x < -runMax)
+                    {
+                        rb.velocity = new Vector3(-runMax, rb.velocity.y, rb.velocity.z);
+                    }
+                    if (rb.velocity.z > runMax)
+                    {
+                        rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y, runMax);
+                    }
+                    else if (rb.velocity.z < -runMax)
+                    {
+                        rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y, -runMax);
+                    }
+                    transform.localScale = new Vector3(1, 1, 1);
+                    break;
+                case MoveSpeed.sneak:
+                    moveDir = new Vector3(Input.GetAxis("Horizontal") * sneakSpeed, 0, Input.GetAxis("Vertical") * sneakSpeed);
+                    if (rb.velocity.x > sneakMax)
+                    {
+                        rb.velocity = new Vector3(sneakMax, rb.velocity.y, rb.velocity.z);
+                    }
+                    else if (rb.velocity.x < -sneakMax)
+                    {
+                        rb.velocity = new Vector3(-sneakMax, rb.velocity.y, rb.velocity.z);
+                    }
+                    if (rb.velocity.z > sneakMax)
+                    {
+                        rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y, sneakMax);
+                    }
+                    else if (rb.velocity.z < -sneakMax)
+                    {
+                        rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y, -sneakMax);
+                    }
+                    transform.localScale = new Vector3(1, .5f, 1);
+                    break;
+                default:
+                    moveDir = new Vector3(Input.GetAxis("Horizontal") * walkSpeed, 0, Input.GetAxis("Vertical") * walkSpeed);
+                    if (rb.velocity.x > walkMax)
+                    {
+                        rb.velocity = new Vector3(walkMax, rb.velocity.y, rb.velocity.z);
+                    }
+                    else if (rb.velocity.x < -walkMax)
+                    {
+                        rb.velocity = new Vector3(-walkMax, rb.velocity.y, rb.velocity.z);
+                    }
+                    if (rb.velocity.z > walkMax)
+                    {
+                        rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y, walkMax);
+                    }
+                    else if (rb.velocity.z < -walkMax)
+                    {
+                        rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y, -walkMax);
+                    }
+                    transform.localScale = new Vector3(1, 1, 1);
+                    break;
 
             }
+
         }
+
+
 
         //if (Input.GetButton("Jump") && isGrounded)
         //{
