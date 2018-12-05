@@ -13,19 +13,23 @@ public class Cutscene : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        wait = 10;
+        wait = 5;
     }
 
     // Update is called once per frame
     void Update()
     {
-        wait--;
+        wait -= Time.deltaTime;
         if (wait <= 0)
         {
-            if (Input.GetKeyUp(KeyCode.Space) || !videoPlayer.isPlaying)
+            if (!videoPlayer.isPlaying)
             {
                 SceneManager.LoadScene(gameScene);
             }
         }
+        if (Input.GetKeyUp(KeyCode.Space) )
+            {
+                SceneManager.LoadScene(gameScene);
+            }
     }
 }
