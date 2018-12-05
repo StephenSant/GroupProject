@@ -8,6 +8,7 @@ TagManager:
   - Weakpoint
   - Boss
   - Drone
+  - Terrain
   layers:
   - Default
   - TransparentFX
@@ -20,9 +21,9 @@ TagManager:
   - Obstacle
   - Player
   - EnemyDroneLight
-  - 
-  - 
-  - 
+  - Terrain
+  - Structure
+  - Rock
   - 
   - 
   - 

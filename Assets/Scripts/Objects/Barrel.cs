@@ -5,13 +5,13 @@ using UnityEngine;
 public class Barrel : MonoBehaviour
 {
     public Health hHandler;
-    //public bool exploded;
-    public ParticleSystem explosionEffect;
+    public bool exploded;
+    public GameObject explosionEffect;
 
     // Use this for initialization
     void Start()
     {
-        //exploded = false;
+        exploded = false;
         hHandler = GetComponent<Health>();
     }
 
@@ -20,10 +20,13 @@ public class Barrel : MonoBehaviour
     {
         if (hHandler.curHealth <= 0)
         {
+            if (!exploded)
+            {
+                Distract();
+                Explode();
+                Destroythis();
+            }
 
-            Distract();
-            Explode();
-            Destroy();
             //exploded = true;
             //if (!exploded)
             //{
@@ -42,7 +45,7 @@ public class Barrel : MonoBehaviour
         //GetComponent<MeshRenderer>().enabled = false;
         //GetComponent<MeshCollider>().enabled = false;
 
-        Instantiate(explosionEffect, transform.position, transform.rotation);
+        explosionEffect = Instantiate(explosionEffect, transform.position, transform.rotation);
     }
     public void Distract()
     {
@@ -58,7 +61,7 @@ public class Barrel : MonoBehaviour
             i++;
         }
     }
-    public void Destroy()
+    void Destroythis()
     {
         Destroy(gameObject);
     }

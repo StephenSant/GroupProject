@@ -66,7 +66,7 @@ public class SniperWeapon : MonoBehaviour
         //Vector3 rayOrigin = playerCam.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, 0.0f));
         Vector3 rayOrigin = muzzle.transform.position;
         RaycastHit hit;
-        Physics.Raycast(rayOrigin, /*playerCam.transform.forward*/ muzzle.forward, out hit, weaponRange + laserRange);
+        Physics.Raycast(rayOrigin,muzzle.forward, out hit, weaponRange + laserRange);
         // If Raycast hits wall
 
         Vector3 euler = Camera.main.transform.eulerAngles;
