@@ -70,12 +70,7 @@ public class SniperWeapon : MonoBehaviour
         // If Raycast hits wall
 
         Vector3 euler = Camera.main.transform.eulerAngles;
-        transform.localRotation = Quaternion.Euler(euler.x, 0, -130);
-        //if (Input.GetAxis("Mouse X") != 0)
-        //{
-        //    transform.localRotation = Quaternion.Euler(0, euler.y, 0);
-        //}
-        
+        transform.localRotation = Quaternion.Euler(euler.x, 0, 0);
         if (hit.collider)
         {// Rotate gun to hit point - Quaternion.LookRotation(direction)
             //Vector3 relativePos = hit.point - transform.position;
