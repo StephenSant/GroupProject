@@ -737,7 +737,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1650968725215892}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -15.723863, y: 2.95, z: -18.733643}
+  m_LocalPosition: {x: 0, y: 2.95, z: 0}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children:
   - {fileID: 4502848920790272}
@@ -2517,7 +2517,6 @@ MonoBehaviour:
   meshResolution: 3
   edgeResolveIterations: 4
   edgeDstThreshold: 0.5
-  viewMeshFilter: {fileID: 33240759290154402}
 --- !u!114 &114655228926019370
 MonoBehaviour:
   m_ObjectHideFlags: 1
