@@ -32,21 +32,21 @@ public class BossFoV_SearchLight : MonoBehaviour
 
     // (advanced)
     // Used to visualize the Field of View arc.
-    public MeshFilter viewMeshFilter;
-    Mesh viewMesh;
+    //public MeshFilter viewMeshFilter;
+    //Mesh viewMesh;
     #endregion Variables
 
     void Start()
     {
         // Get Light component from child SpotLight and assign values.
         fovLight = GetComponentInChildren<Light>();
-        //fovLight.spotAngle = viewAngle;
-        //fovLight.range = viewRadius * 1.5f;
+        fovLight.spotAngle = viewAngle;
+        fovLight.range = viewRadius * 1.5f;
 
         // Where the MeshFilter is initialized.
-        viewMesh = new Mesh();
-        viewMesh.name = "View Mesh";
-        viewMeshFilter.mesh = viewMesh;
+        //viewMesh = new Mesh();
+        //viewMesh.name = "View Mesh";
+        //viewMeshFilter.mesh = viewMesh;
 
         // Start running the Coroutine that calls upon 'FindTargetsWithDelay' Method, with a call rate of 0.2f (five times a second).
         StartCoroutine("FindTargetsWithDelay", .2f);
@@ -183,10 +183,10 @@ public class BossFoV_SearchLight : MonoBehaviour
             }
         }
 
-        viewMesh.Clear();                   // Reset everything in the viewMesh to start with.
-        viewMesh.vertices = vertices;       // Use vertice array-loop... thingy to RETURN vertex positions to draw the viewMesh with.
-        viewMesh.triangles = triangles;     // Use array for all the triangles in the mesh.
-        viewMesh.RecalculateNormals();      // Recalculates the mesh normals from the triangles and vertices.
+        //viewMesh.Clear();                   // Reset everything in the viewMesh to start with.
+        //viewMesh.vertices = vertices;       // Use vertice array-loop... thingy to RETURN vertex positions to draw the viewMesh with.
+        //viewMesh.triangles = triangles;     // Use array for all the triangles in the mesh.
+        //viewMesh.RecalculateNormals();      // Recalculates the mesh normals from the triangles and vertices.
     }
     #endregion
 
