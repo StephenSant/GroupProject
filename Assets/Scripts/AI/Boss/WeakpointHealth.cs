@@ -29,7 +29,7 @@ public class WeakpointHealth : MonoBehaviour
     public void TakeDamage(float damage)
     {
         curHealth -= damage;
-        bossHealth.curHealth -= maxHealth * 8;
+        bossHealth.curHealth -= 1000;
         if (curHealth <= 0)
         {
             Destroy();

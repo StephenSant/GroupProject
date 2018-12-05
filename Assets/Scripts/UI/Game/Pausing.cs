@@ -32,8 +32,17 @@ public class Pausing : MonoBehaviour
         }
     }
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            TogglePause();
+        }
+    }
+
     void OnGUI()
     {
+
         //screen scaling
         Vector2 scr = Vector2.zero;
         if (scr.x != Screen.width / 16 || scr.y != Screen.height / 9)
@@ -46,7 +55,7 @@ public class Pausing : MonoBehaviour
             //background
             GUI.Box(new Rect(scr.x * 0, scr.y * 0, scr.x* 16.2f, scr.y*9.1f),"");
             GUI.Box(new Rect(scr.x * 5f, scr.y * 1f, scr.x * 6f, scr.y * 2),"Paused",pauseTextStyle);
-            if(GUI.Button(new Rect(scr.x *6.5f, scr.y *4f, scr.x*3f, scr.y*1f), "Resume",buttonStyle))
+            if(GUI.Button(new Rect(scr.x *6.5f, scr.y *5f, scr.x*3f, scr.y*1f), "Resume",buttonStyle))
             {
                 Time.timeScale = 1;
                 Cursor.lockState = CursorLockMode.Locked;
