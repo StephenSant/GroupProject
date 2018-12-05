@@ -1065,7 +1065,7 @@ Prefab:
         type: 2}
       propertyPath: waypointParent
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 2000015230}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3bf969863ce4d454fb00ed2476ed4236, type: 2}
   m_IsPrefabAsset: 0
@@ -11486,6 +11486,11 @@ Prefab:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114737297635577084, guid: b2f9d55c7b177d043ae4b9de78b6b0ad,
+        type: 2}
+      propertyPath: waypointParent
+      value: 
+      objectReference: {fileID: 1499627898}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b2f9d55c7b177d043ae4b9de78b6b0ad, type: 2}
   m_IsPrefabAsset: 0
@@ -12535,7 +12540,7 @@ GameObject:
   m_Layer: 0
   m_Name: Waypoint (4)
   m_TagString: Untagged
-  m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -20985,6 +20990,11 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 6605.897, y: 162.42009, z: 2252.0945}
   m_Center: {x: 769.9648, y: -161.83582, z: -1029.13}
+--- !u!4 &2000015230 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4320115287968336, guid: 5c724b550e1538b46a8ab49fa4e01ece,
+    type: 2}
+  m_PrefabInternal: {fileID: 220051220}
 --- !u!1 &2010091358 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 100000, guid: bedfba7ff5e0fef4c8701e947b51f6ca,
@@ -21765,15 +21775,15 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4320115287968336, guid: 5c724b550e1538b46a8ab49fa4e01ece, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 245.13441
+      value: 322.1304
       objectReference: {fileID: 0}
     - target: {fileID: 4320115287968336, guid: 5c724b550e1538b46a8ab49fa4e01ece, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 1.3231773
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4320115287968336, guid: 5c724b550e1538b46a8ab49fa4e01ece, type: 2}
       propertyPath: m_LocalPosition.z
-      value: 283.927
+      value: 227.274
       objectReference: {fileID: 0}
     - target: {fileID: 4320115287968336, guid: 5c724b550e1538b46a8ab49fa4e01ece, type: 2}
       propertyPath: m_LocalRotation.x
