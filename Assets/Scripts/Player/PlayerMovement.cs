@@ -66,25 +66,25 @@ public class PlayerMovement : MonoBehaviour
             moveSpeed = MoveSpeed.walk;
         }
 
-        //if (isGrounded)
-        //{
-            switch (moveSpeed)
-            {
-                case MoveSpeed.run:
-                    moveDir = new Vector3(Input.GetAxis("Horizontal") * Time.deltaTime * runSpeed, rb.velocity.y, Input.GetAxis("Vertical") * Time.deltaTime * runSpeed);
-                    transform.localScale = new Vector3(1, 1, 1);
-                    break;
-                case MoveSpeed.sneak:
-                    moveDir = new Vector3(Input.GetAxis("Horizontal") * Time.deltaTime * sneakSpeed, rb.velocity.y, Input.GetAxis("Vertical") * Time.deltaTime * sneakSpeed);
-                    transform.localScale = new Vector3(1, .5f, 1);
-                    break;
-                default:
-                    moveDir = new Vector3(Input.GetAxis("Horizontal") * Time.deltaTime * walkSpeed, rb.velocity.y, Input.GetAxis("Vertical") * Time.deltaTime * walkSpeed);
-                    transform.localScale = new Vector3(1, 1, 1);
-                    break;
 
-            }
-        //}
+
+        switch (moveSpeed)
+        {
+            case MoveSpeed.run:
+                moveDir = new Vector3(Input.GetAxis("Horizontal") * Time.deltaTime * runSpeed, rb.velocity.y, Input.GetAxis("Vertical") * Time.deltaTime * runSpeed);
+                transform.localScale = new Vector3(1, 1, 1);
+                break;
+            case MoveSpeed.sneak:
+                moveDir = new Vector3(Input.GetAxis("Horizontal") * Time.deltaTime * sneakSpeed, rb.velocity.y, Input.GetAxis("Vertical") * Time.deltaTime * sneakSpeed);
+                transform.localScale = new Vector3(1, .5f, 1);
+                break;
+            default:
+                moveDir = new Vector3(Input.GetAxis("Horizontal") * Time.deltaTime * walkSpeed, rb.velocity.y, Input.GetAxis("Vertical") * Time.deltaTime * walkSpeed);
+                transform.localScale = new Vector3(1, 1, 1);
+                break;
+
+        }
+
     }
 
     public enum MoveSpeed
