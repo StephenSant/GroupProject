@@ -37,7 +37,7 @@ public class OptionsHandler : MonoBehaviour
     public Slider volSlider;
     public Dropdown resDropdown;
     public Toggle windowedToggle;
-    public Text forwardText, backwardText, leftText, rightText, jumpText, crouchText, interactText, inventoryText,  runText;
+    public Text forwardText, backwardText, leftText, rightText, crouchText, runText;
     #endregion
     #region Game Saves
     [Header("Game Saves")]
@@ -61,10 +61,7 @@ public class OptionsHandler : MonoBehaviour
         backwardButton = "backward";
         leftButton = "left";
         rightButton = "right";
-        jumpButton = "jump";
         crouchButton = "crouch";
-        interactButton = "interact";
-        inventoryButton = "inventory";
         runButton="run";
 
         #region Set keys to defaults
@@ -84,10 +81,6 @@ public class OptionsHandler : MonoBehaviour
         {
             right = KeyCode.D;
         }
-        if (jump == KeyCode.None)
-        {
-            jump = KeyCode.Space;
-        }
         if (crouch == KeyCode.None)
         {
             crouch = KeyCode.LeftControl;
@@ -95,14 +88,6 @@ public class OptionsHandler : MonoBehaviour
         if (run == KeyCode.None)
         {
             run = KeyCode.LeftShift;
-        }
-        if (interact == KeyCode.None)
-        {
-            interact = KeyCode.E;
-        }
-        if (inventory == KeyCode.None)
-        {
-            inventory = KeyCode.Tab;
         }
         #endregion
     }
@@ -125,11 +110,8 @@ public class OptionsHandler : MonoBehaviour
         backwardText.text = backward.ToString();
         leftText.text = left.ToString();
         rightText.text = right.ToString();
-        jumpText.text = jump.ToString();
         crouchText.text = crouch.ToString();
         runText.text = run.ToString();
-        inventoryText.text = inventory.ToString();
-        interactText.text = interact.ToString();
         #endregion
         switch (assignKey)
         {
@@ -145,20 +127,11 @@ public class OptionsHandler : MonoBehaviour
             case "right":
                 right = newKey;
                 break;
-            case "jump":
-                jump = newKey;
-                break;
             case "crouch":
                 crouch = newKey;
                 break;
             case "run":
                 run = newKey;
-                break;
-            case "inventory":
-                inventory = newKey;
-                break;
-            case "interact":
-                interact = newKey;
                 break;
         }
     }
@@ -195,11 +168,7 @@ public class OptionsHandler : MonoBehaviour
             assignKey = "right";
             newKey = KeyCode.None;
         }
-        else if (button == jumpButton)
-        {
-            assignKey = "jump";
-            newKey = KeyCode.None;
-        }
+        
         else if (button == crouchButton)
         {
             assignKey = "crouch";
@@ -210,16 +179,7 @@ public class OptionsHandler : MonoBehaviour
             assignKey = "run";
             newKey = KeyCode.None;
         }
-        else if (button == interactButton)
-        {
-            assignKey = "interact";
-            newKey = KeyCode.None;
-        }
-        else if (button == inventoryButton)
-        {
-            assignKey = "inventory";
-            newKey = KeyCode.None;
-        }
+        
     }
 
     public void SavePrefs()
@@ -230,9 +190,7 @@ public class OptionsHandler : MonoBehaviour
         optionsData.left = left;
         optionsData.run = run;
         optionsData.crouch = crouch;
-        optionsData.inventory = inventory;
-        optionsData.interact = interact;
-        optionsData.jump = jump;
+
 
 
         optionsData.volume = volume;

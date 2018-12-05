@@ -11,6 +11,10 @@ public class LaserCannon : MonoBehaviour
     public float delayBetweenShots = 0.2f;
     public float shotDuration = 0.25f;
     public float weaponRange = 75f;
+
+    [Header("Rotation")]
+    public float minAngle = -45f;
+    public float maxAngle = 45f;
     //public AudioSource soundSource;
     //public AudioClip[] soundclips;
     //public LayerMask targetMask;
@@ -23,12 +27,43 @@ public class LaserCannon : MonoBehaviour
         //soundSource = GetComponentInChildren<AudioSource>(true);
 
     }
+    public static float ClampAngle(float angle, float min, float max)
+    {
+        if (angle < -360F)
+            angle += 360F;
+        if (angle > 360F)
+            angle -= 360F;
+        return Mathf.Clamp(angle, min, max);
+    }
 
+    public float ToNegative(float angle)
+    {
+        return (angle > 180) ? angle - 360 : angle;
+    }
     // Update is called once per frame
     void Update()
     {
         Vector3 targetPosition = GetComponentInParent<BossAI>().targetPos;
-        transform.LookAt(new Vector3(targetPosition.x, Mathf.Clamp(targetPosition.y,transform.position.y - 10, transform.position.y + 10),targetPosition.z));
+       
+             /*\
+        |============|
+        |Thanks Manny|
+        |============|
+             \*/
+        Vector3 forward = targetPosition - transform.position;
+        transform.rotation = Quaternion.LookRotation(forward.normalized);
+
+        Vector3 localEuler = transform.localEulerAngles;
+        // Convert to negative if positive
+        localEuler.x = ToNegative(localEuler.x);
+        localEuler.y = ToNegative(localEuler.y);
+        // Filter with min and max
+        localEuler.x = ClampAngle(localEuler.x, minAngle, maxAngle);
+        localEuler.y = ClampAngle(localEuler.y, minAngle, maxAngle);
+        transform.localEulerAngles = localEuler;
+
+
+
         Vector3 origin = muzzle.transform.position;
         RaycastHit hit;
         Physics.Raycast(muzzle.position, transform.TransformDirection(Vector3.forward), out hit, weaponRange);

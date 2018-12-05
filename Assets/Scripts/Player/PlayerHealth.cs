@@ -29,7 +29,7 @@ public class PlayerHealth : MonoBehaviour
         }
         if (curHealth <= 0 && !isDead)
         {
-            isDead = true;
+            
             Dead();
         }
         if (curHealth != maxHealth && !isRegen)
@@ -58,7 +58,16 @@ public class PlayerHealth : MonoBehaviour
     }
     public void Dead()
     {
-        
+        isDead = true;
         gameObject.SetActive(false);
+    }
+
+    private void OnGUI()
+    {
+        if (isDead)
+        {
+            GUI.Box(new Rect(Screen.width * .4f, Screen.height * .5f, Screen.width * .2f, Screen.height * .1f),"Dead");
+            Debug.Log("YEET");
+        }
     }
 }

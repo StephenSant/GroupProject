@@ -15,18 +15,16 @@ public class PlayerMovement : MonoBehaviour
     public float sneakSpeed;
     public MoveSpeed moveSpeed;
 
-    private Animator animationReference;
     Vector3 moveDir;
     Vector3 spawnPoint;
-
 
     // Use this for initialization
     void Start()
     {
         rb = GetComponent<Rigidbody>();
         spawnPoint = transform.position;
-        animationReference = GetComponent<Animator>();
     }
+
     // Update is called once per frame
     void Update()
     {
@@ -42,9 +40,6 @@ public class PlayerMovement : MonoBehaviour
         rb.velocity = force;
         Quaternion playerRotation = Quaternion.AngleAxis(camEuler.y, Vector3.up);
         transform.rotation = playerRotation;
-
-   
-
 
         //transform.rotation = playerRotation;
         RaycastHit hit;
@@ -64,21 +59,11 @@ public class PlayerMovement : MonoBehaviour
         else if (Input.GetKey(KeyCode.LeftControl))
         {
             moveSpeed = MoveSpeed.sneak;
-            animationReference.SetBool("CanCrouch", true);
 
         }
         else
         {
-            animationReference.SetBool("CanCrouch", false);
             moveSpeed = MoveSpeed.walk;
-        }
-        if(Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") !=0 )
-        {
-            animationReference.SetBool("CanRun", true);
-        }
-        else
-        {
-            animationReference.SetBool("CanRun", false);
         }
 
 
@@ -91,7 +76,7 @@ public class PlayerMovement : MonoBehaviour
                 break;
             case MoveSpeed.sneak:
                 moveDir = new Vector3(Input.GetAxis("Horizontal") * Time.deltaTime * sneakSpeed, rb.velocity.y, Input.GetAxis("Vertical") * Time.deltaTime * sneakSpeed);
-                //transform.localScale = new Vector3(1, .5f, 1);
+                transform.localScale = new Vector3(1, .5f, 1);
                 break;
             default:
                 moveDir = new Vector3(Input.GetAxis("Horizontal") * Time.deltaTime * walkSpeed, rb.velocity.y, Input.GetAxis("Vertical") * Time.deltaTime * walkSpeed);
