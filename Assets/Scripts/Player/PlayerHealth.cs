@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class PlayerHealth : MonoBehaviour
 {
@@ -59,15 +60,7 @@ public class PlayerHealth : MonoBehaviour
     public void Dead()
     {
         isDead = true;
-        gameObject.SetActive(false);
+        SceneManager.LoadScene(0);
     }
 
-    private void OnGUI()
-    {
-        if (isDead)
-        {
-            GUI.Box(new Rect(Screen.width * .4f, Screen.height * .5f, Screen.width * .2f, Screen.height * .1f),"Dead");
-            Debug.Log("YEET");
-        }
-    }
 }
